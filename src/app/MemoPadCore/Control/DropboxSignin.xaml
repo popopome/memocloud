@@ -1,0 +1,55 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="MemoPadCore.Control.DropboxSignin"
+    mc:Ignorable="d"
+    d:DesignHeight="480" d:DesignWidth="480" Width="Auto" Height="800">
+    
+	<UserControl.Resources>
+		<System:Double x:Key="FieldFontSize">21.333</System:Double>
+	</UserControl.Resources>
+	<UserControl.FontFamily>
+		<StaticResource ResourceKey="PhoneFontFamilyNormal"/>
+	</UserControl.FontFamily>
+	<UserControl.FontSize>
+		<StaticResource ResourceKey="PhoneFontSizeNormal"/>
+	</UserControl.FontSize>
+	<UserControl.Foreground>
+		<StaticResource ResourceKey="PhoneForegroundBrush"/>
+	</UserControl.Foreground>
+    
+    <Grid x:Name="LayoutRoot" Background="#66000000">
+    	<VisualStateManager.VisualStateGroups>
+    		<VisualStateGroup x:Name="VisualStateGroup">
+    			<VisualState x:Name="Normal"/>
+    			<VisualState x:Name="Signing">
+    				<Storyboard>
+    					<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="_curtain">
+    						<DiscreteObjectKeyFrame KeyTime="0">
+    							<DiscreteObjectKeyFrame.Value>
+    								<Visibility>Visible</Visibility>
+    							</DiscreteObjectKeyFrame.Value>
+    						</DiscreteObjectKeyFrame>
+    					</ObjectAnimationUsingKeyFrames>
+    				</Storyboard>
+    			</VisualState>
+    		</VisualStateGroup>
+    	</VisualStateManager.VisualStateGroups>
+    	<Grid x:Name="grid" Margin="30,0,30,350" RenderTransformOrigin="0.5,0.5">
+    		<Grid.RenderTransform>
+    			<CompositeTransform/>
+    		</Grid.RenderTransform>
+    		<Image HorizontalAlignment="Center" Height="450" VerticalAlignment="Top" Width="420" Source="/Images/dropbox/dropbox-signin.png"/>
+    		<TextBox x:Name="_email" Height="64" Margin="118,157,22,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="0" Background="{x:Null}" Foreground="#FF755A5A" InputScope="EmailUserName" FontSize="{StaticResource FieldFontSize}"/>
+    		<PasswordBox x:Name="_password" Margin="118,205,22,180" Background="{x:Null}" FontSize="{StaticResource FieldFontSize}" BorderThickness="0"/>
+    		<TextBox x:Name="_folder" Margin="118,0,22,132" TextWrapping="Wrap" BorderThickness="0" Background="{x:Null}" FontSize="{StaticResource FieldFontSize}" Height="64" VerticalAlignment="Bottom"/>
+    		<Image x:Name="_syncbutton" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,22,87" Source="/MemoPadCore;component/Images/dropbox/signin-sync-button.png" Width="102" Height="45" ManipulationCompleted="OnSigninClicked"/>
+    		<Image x:Name="_createaccountbtn" Height="20" Margin="136,0,178,58" Source="/MemoPadCore;component/Images/dropbox/sigin-create-account.png" Stretch="Fill" VerticalAlignment="Bottom" ManipulationCompleted="OnCreateAccountClicked" Width="106"/>
+    	</Grid>
+    	<Grid x:Name="_curtain" Background="#CC000000" Visibility="Collapsed">
+    		<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Signing..." VerticalAlignment="Center"/>
+    	</Grid>
+    </Grid>
+</UserControl>

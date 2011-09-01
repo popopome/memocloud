@@ -1,0 +1,132 @@
+'''
+Created on Sep 22, 2010
+
+@author: jhlee
+'''
+## {{{ http://code.activestate.com/recipes/576788/ (r1)
+#!/usr/bin/env python
+import math
+
+""" Floyd-Steinberg Dithering algorithm, see:
+    http://en.wikipedia.org/wiki/Floyd-Steinberg
+"""
+
+import sys
+import os
+
+from math import sqrt
+from PIL import Image, ImageDraw
+
+
+fs_coeffs = [7.0,5.0,3.0,1.0]
+
+class Dither:
+    """
+    Dithering for RGB888 --> RGB565
+    """
+
+    def __init__(self,pixels,xl,yl):
+
+        self.pixels = pixels
+        self.xl = xl
+        self.yl = yl
+
+        self.fs_dither()
+
+
+    def _find_closest_palette_color(self, oldpixel): 
+        
+        r = oldpixel[0]
+        g = oldpixel[1]
+        b = oldpixel[2]
+        #assert(oldpixel[3] == 255)
+        
+        r = int(math.floor(r+0.5)) & 0x00F8
+        g = int(math.floor(g+0.5)) & 0x00FC
+        b = int(math.floor(b+0.5)) & 0x00F8
+        
+        #return (r,g,b,oldpixel[-1])
+        return (r,g,b)
+
+    def compute_error_amount(self, oldpixel, newpixel):
+        v = [0,0,0]
+        v[0] = -newpixel[0] + oldpixel[0]
+        v[1] = -newpixel[1] + oldpixel[1]
+        v[2] = -newpixel[2] + oldpixel[2]
+        return v
+        
+        
+    def index_from_xy(self, x, y):
+        return y * self.xl + x
+    
+    def add_error(self, x, y, factor, error_pixel):
+        idx = self.index_from_xy(x, y)
+        p = self.pixels[idx]
+        r = p[0] + factor * error_pixel[0]
+        g = p[1] + factor * error_pixel[1]
+        b = p[2] + factor * error_pixel[2]
+        
+        if(r > 255): r = 255
+        if(g > 255): g = 255
+        if(b > 255): b = 255
+        
+        #self.pixels[idx] = (r,g,b,p[3])
+        self.pixels[idx] = (r,g,b)
+        
+        p2 = self.pixels[idx]
+        assert(p2[0] == r)
+        assert(p2[1] == g)
+        assert(p2[2] == b)
+        
+    def fs_dither(self):
+
+        A,B,G,S = map(lambda x : float(x)/16.0, fs_coeffs)
+
+            
+        for y in xrange(self.yl):
+            print '%d line processing...' % y
+            for x in xrange(self.xl):
+                idx = self.index_from_xy(x,y)
+                
+                oldpixel = self.pixels[idx]
+                newpixel = self._find_closest_palette_color(oldpixel)
+                self.pixels[idx] = newpixel
+                
+                quant_error = self.compute_error_amount(oldpixel, newpixel)
+                if (x < self.xl - 1):
+                    self.add_error(x+1,y,A,quant_error)
+                if (x > 0) and (y < self.yl - 1):
+                    self.add_error(x-1,y+1,B,quant_error)
+                if (y < self.yl - 1):
+                    self.add_error(x,y+1,G,quant_error)
+                if (x < self.xl - 1) and (y < self.yl - 1):
+                    self.add_error(x+1,y+1,S,quant_error)
+
+
+def start_dithering(inputPath, outputPath):
+    srcImage = Image.open(inputPath)
+    (w,h) = srcImage.size
+    print 'BitmapResolution: %dx%d' % (w,h)
+    pixels = list(srcImage.getdata())
+    
+    dither = Dither(pixels, w, h)
+    srcImage.putdata(dither.pixels)
+    srcImage.save(outputPath)
+    
+    print 'Dithering done...'
+    
+if __name__=='__main__':
+
+    if len(sys.argv) != 3:
+        print "Usage: dither.py [input-file] [output-file]"
+    else:
+        inputPath = os.path.abspath(sys.argv[1])
+        outPath = os.path.abspath(sys.argv[2])
+        
+        print 'Working...'
+        print 'Source:%s' % inputPath
+        print 'Dest:%s' % outPath
+       
+        start_dithering(inputPath, outPath)
+        
+        

@@ -1,0 +1,16 @@
+# 
+# HG
+#
+.hg/*
+
+
+#
+# COMPILED OUTPUT
+#
+bin/
+Bin/
+obj/
+Debug/
+Release/
+*.user
+*.suo

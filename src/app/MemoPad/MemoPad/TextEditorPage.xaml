@@ -1,0 +1,53 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="MemoPad.TextEditorPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="False">
+	<phone:PhoneApplicationPage.Resources>
+		<SolidColorBrush x:Key="TextEditorBackColor" Color="White"/>
+		<SolidColorBrush x:Key="TextContentColor" Color="#FF333333"/>
+	</phone:PhoneApplicationPage.Resources>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="White">
+    	<Grid.ColumnDefinitions>
+    		<ColumnDefinition Width="64"/>
+    		<ColumnDefinition Width="*"/>
+    		<ColumnDefinition Width="64"/>
+    	</Grid.ColumnDefinitions>
+    	<TextBox x:Name="_text" TextWrapping="Wrap" Grid.Column="1" BorderBrush="{x:Null}" VerticalScrollBarVisibility="Visible" SelectionForeground="White" AcceptsReturn="True" InputScope="Text" Background="White" Padding="0" BorderThickness="0" Margin="0,64,0,0" Foreground="#FF525252"/>
+    	<Rectangle x:Name="_left" Fill="{StaticResource TextEditorBackColor}" StrokeThickness="0"/>
+    	<Rectangle x:Name="_right" Fill="{StaticResource TextEditorBackColor}" StrokeThickness="0" Grid.Column="2"/>
+    	<Popup x:Name="_popup" VerticalAlignment="Top" Height="68" Width="352" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left">
+    		<Popup.RenderTransform>
+    			<CompositeTransform TranslateX="64"/>
+    		</Popup.RenderTransform>
+    		<StackPanel Width="352" Background="White">
+    			<TextBox x:Name="_title" TextWrapping="Wrap" Text="TITLE" d:LayoutOverrides="Width" BorderThickness="0" TextAlignment="Center" InputScope="Text" FontFamily="Segoe WP Semibold" FontSize="32" MaxWidth="352" GotFocus="OnTitleGotFocus" MaxHeight="75" Foreground="{StaticResource TextContentColor}"/>
+    			<Image Source="Images/text-editor/separator.png"/>
+    		</StackPanel>
+    	</Popup>
+    </Grid>
+
+    <!--Sample code showing usage of ApplicationBar-->
+    <!--<phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
+                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>-->
+
+</phone:PhoneApplicationPage>

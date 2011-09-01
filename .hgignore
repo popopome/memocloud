@@ -1,0 +1,5 @@
+relre:.*\/Debug\/.*
+relre:.*\/Bin\/.*
+relre:.*\/obj\/.*
+glob:docs/graphics/output/dithering.py~
+glob:src/thirdparty/dkarzon-DropNet-83eb6e2/dkarzon-DropNet-83eb6e2/DropNet.WindowsPhone/DropNet.WindowsPhone.csproj.user
