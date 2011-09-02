@@ -218,10 +218,22 @@ namespace MemoPad
                             MessageBoxButton.OK);
           }
           else
+          {
             MessageBox.Show("Succeeded");
+            Refresh();
+          }
 
           GoToVisualState(VS_NORMAL);
         });
+    }
+
+    /// <summary>
+    /// Refresh
+    /// </summary>
+    void Refresh()
+    {
+      _vm.RefreshWorkspace();
+      _memolist.Build(_vm.Docs);
     }
 
     /// <summary>

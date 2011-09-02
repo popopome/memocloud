@@ -19,8 +19,6 @@ using TapfishCore.Resources;
 namespace MemoPadTest.Tests
 {
   [TestClass]
-  [Tag("a")]
-
   public class Test_DropboxSync : SilverlightTest
   {
     [Ignore]

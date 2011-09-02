@@ -25,5 +25,12 @@ namespace MemoPadTest.Tests
       var s2 = PathUtil.PathOnly("/abcd/bbb");
       Assert.AreEqual("/abcd/", s2);
     }
+
+    [TestMethod]
+    public void Extension()
+    {
+      var s = PathUtil.Extension("a.txt");
+      Assert.AreEqual(".txt", s);
+    }
   }
 }

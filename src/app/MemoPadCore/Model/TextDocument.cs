@@ -34,6 +34,15 @@ namespace MemoPadCore.Model
     {
       FullPath = PathUtil.InsertFirstBackslash(fullpath);
       Title = PathUtil.NameOnlyNoExt(fullpath);
+      Text = "";
+    }
+
+    /// <summary>
+    /// Create new text document
+    /// </summary>
+    public void New()
+    {
+      WorkspaceFileOp.NewFile(FullPath);
     }
 
     /// <summary>
@@ -58,7 +67,7 @@ namespace MemoPadCore.Model
     /// </summary>
     public void Save()
     {
-      var dir = PathUtil.ExtractDirectory(FullPath);
+      var dir = PathUtil.PathOnly(FullPath);
       if (StorageIo.DirExists(dir) == false)
         StorageIo.CreateDir(dir);
 
@@ -71,7 +80,7 @@ namespace MemoPadCore.Model
     /// </summary>
     public void Delete()
     {
-      StorageIo.Delete(FullPath);
+      WorkspaceFileOp.DeleteVirtual(FullPath);
     }
 
     /// <summary>
@@ -80,12 +89,20 @@ namespace MemoPadCore.Model
     /// <param name="newtitle"></param>
     public void ChangeTitle(string newtitle)
     {
+      if (newtitle == Title)
+        return;
+
       Title = newtitle;
 
+      var oldpath = FullPath;
+
       var basepath = PathUtil.PathOnly(FullPath);
-      FullPath =
-        string.Concat(PathUtil.MakePath(basepath, Title),
-                      AppSetting.TEXT_DOCUMENT_EXT);
+      var newpath =
+          string.Concat(PathUtil.MakePath(basepath, Title),
+                        AppSetting.TEXT_DOCUMENT_EXT);
+
+      WorkspaceFileOp.Rename(newpath, oldpath);
+      FullPath = newpath;
     }
   }
 }

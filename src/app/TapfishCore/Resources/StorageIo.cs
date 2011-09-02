@@ -19,6 +19,17 @@ namespace TapfishCore.Resources
 {
   public class StorageIo
   {
+
+    public static void NewFile(string path)
+    {
+      var stg = IsolatedStorageFile.GetUserStoreForApplication();
+      if (stg.FileExists(path))
+        stg.DeleteFile(path);
+
+      var stm = stg.CreateFile(path);
+      stm.Close();
+    }
+
     public static bool Exists(string path)
     {
       var stg = IsolatedStorageFile.GetUserStoreForApplication();
@@ -271,7 +282,7 @@ namespace TapfishCore.Resources
 
     public static void WriteLastModifiedTime(string path)
     {
-      WriteLastModifiedTime(path, DateTime.Now);
+      WriteLastModifiedTime(path, DateTime.Now.ToUniversalTime());
     }
 
     public static void WriteLastModifiedTime(string path,
@@ -299,7 +310,7 @@ namespace TapfishCore.Resources
     public static DateTime ReadLastModifiedTime(string path)
     {
       var fullpath = GetLastModifiedFilePath(path);
-      if (StorageIo.Exists(path))
+      if (false == StorageIo.Exists(path))
         return DateTime.Now;
 
       var stg = IsolatedStorageFile.GetUserStoreForApplication();

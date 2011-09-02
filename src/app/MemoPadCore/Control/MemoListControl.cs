@@ -74,13 +74,12 @@ namespace MemoPadCore.Control
     static void OnXChanged(DependencyObject sender,
                            DependencyPropertyChangedEventArgs args)
     {
-      (sender as MemoListControl).OnXChanged(args);
+      (sender as MemoListControl).OnXChanged((double)args.NewValue);
     }
 
-    void OnXChanged(DependencyPropertyChangedEventArgs args)
+    void OnXChanged(double x)
     {
       /*_trans.TranslateX = (double)args.NewValue;*/
-      double x = (double)args.NewValue;
       int cnt = _list.Count;
       for (int i = 0; i < cnt; ++i)
       {
@@ -111,6 +110,8 @@ namespace MemoPadCore.Control
     /// <param name="docs"></param>
     public void Build(List<TextDocument> docs)
     {
+      RemoveAllChildren();
+
       _list = new List<MemoSummaryControl>();
 
       double x = 0;
@@ -124,7 +125,21 @@ namespace MemoPadCore.Control
         });
 
       UpdateScrollRange();
+
       X = _beginx;
+      OnXChanged(X);
+    }
+
+    /// <summary>
+    /// Remove all children
+    /// </summary>
+    void RemoveAllChildren()
+    {
+      int cnt = this.Children.Count;
+      for (int i = cnt - 1; i >= 0; --i)
+      {
+        this.Children.RemoveAt(i);
+      }
     }
 
     /// <summary>

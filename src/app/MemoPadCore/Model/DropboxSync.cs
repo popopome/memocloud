@@ -25,6 +25,11 @@ namespace MemoPadCore.Model
   /// <summary>
   /// This class has a reponsibility to sync remote DROPBOX folder
   /// and local WORKSPACE.
+  ///
+  /// The sequence of async operation is very complicated.
+  /// Rx may becom one of great solution for resolving
+  /// this complexity.... but Rx was not used at here.
+  ///
   /// </summary>
   public class DropboxSync
   {
@@ -36,8 +41,7 @@ namespace MemoPadCore.Model
     int _totaluploadings;
     int _totaldownloadings;
 
-    List<string> _uploadingfiles;
-    List<MetaData> _downloadingfiles;
+    SyncUpDnList _synclist;
 
     public event EventHandler<DropboxSyncEventArgs> SyncStarted;
     public event EventHandler<DropboxSyncEventArgs> SyncStepped;
@@ -212,7 +216,7 @@ namespace MemoPadCore.Model
     /// </summary>
     void UploadSingleFile()
     {
-      if (_uploadingfiles.Count == 0)
+      if (_synclist.IsUploadingEmpty)
       {
         FireSyncSteppedEvent("Uploading...");
 
@@ -221,9 +225,35 @@ namespace MemoPadCore.Model
         return;
       }
 
-      string name = _uploadingfiles[0];
-      string path = _ws.GetFullPath(name);
-      _uploadingfiles.RemoveAt(0);
+      LocalFileMeta file = _synclist.PopFrontUploading();
+      string name = file.Name;
+      string path = file.Path;
+
+      //
+      // If this file is deleted marked,
+      // let's delete file from dropbox.
+      //
+      if (file.IsDeleted)
+      {
+        var normalname = WorkspaceFileOp.StripShadowDeleteMark(name);
+        var remotepath = PathUtil.MakePath(_ws.DropBoxPath, normalname);
+        _client.DeleteAsync(
+            remotepath,
+            (resp) =>
+            {
+              Log("Remote deletion succeeded:{0}", remotepath);
+              ThreadUtil.Execute(UploadSingleFile);
+            },
+            (err) =>
+            {
+              Log("Remote deletion failed:{0}:{1}",
+                  remotepath,
+                  ErrorMessage(err));
+              Log("Remote deletion succeeded:{0}", remotepath);
+              ThreadUtil.Execute(UploadSingleFile);
+            });
+        return;
+      }
 
       Log("Let's upload single file:{0}==>remote:{1}",
           path,
@@ -306,19 +336,19 @@ namespace MemoPadCore.Model
     void TouchLocalFilesModifiedTime(List<MetaData> remotefiles)
     {
       var found =
-        from local in _ws.GetMemoFiles()
+        from local in _ws.GetMemoFiles(WorkspaceFileAccessMode.All)
         from remote in remotefiles
         where remote.Name == local
-        select new Pair
+        select new
         {
-          LocalFilePath = local,
-          RemoteFileMeta = remote
+          LocalFullPath = _ws.GetFullPath(local),
+          RemoteModifiedDate = remote.UTCDateModified
         };
 
       foreach (var v in found)
       {
-        var fullpath = PathUtil.MakePath(_ws.GetPath(), v.LocalFilePath);
-        StorageIo.WriteLastModifiedTime(fullpath, v.RemoteFileMeta.ModifiedDate);
+        StorageIo.WriteLastModifiedTime(v.LocalFullPath,
+                                        v.RemoteModifiedDate);
       }
     }
 
@@ -334,13 +364,17 @@ namespace MemoPadCore.Model
         (meta) =>
         {
           Log("Success to get folder metadata. Let's continue sync...");
-          var localfiles = _ws.GetMemoFiles();
-          DetermineUploadingDownloadingFiles(
-            localfiles,
-            meta.Contents);
 
-          _totaldownloadings = _downloadingfiles.Count;
-          _totaluploadings = _uploadingfiles.Count;
+          var localmetalist = LocalMetaDataList(_ws);
+          var remotemetalist =
+            (from m in meta.Contents
+             select DropboxFileMeta.Create(m)).ToList();
+
+          _synclist =
+            SyncPolicy.MakeUpDnFileList(localmetalist, remotemetalist);
+
+          _totaldownloadings = _synclist.DownloadingList.Count;
+          _totaluploadings = _synclist.UploadingList.Count;
 
           FireSyncStartedEvent();
 
@@ -361,6 +395,28 @@ namespace MemoPadCore.Model
           FireFinishedEvent(DropboxSyncResult.UnableToSyncMetaData,
             ErrorMessage(err));
         });
+    }
+
+    /// <summary>
+    /// Get local meta data list
+    /// </summary>
+    /// <returns></returns>
+    List<LocalFileMeta> LocalMetaDataList(Workspace workspace)
+    {
+      var localfiles = workspace.GetMemoFiles(WorkspaceFileAccessMode.All);
+      var localmetadatas =
+        (
+          from fn in localfiles
+          let path = workspace.GetFullPath(fn)
+          select new LocalFileMeta
+          {
+            Name = WorkspaceFileOp.StripShadowDeleteMark(fn),
+            Path = path,
+            ModifiedUtc = StorageIo.ReadLastModifiedTime(path),
+            IsDeleted = WorkspaceFileOp.IsDeleteShadowFile(fn)
+          }
+          ).ToList();
+      return localmetadatas;
     }
 
     /// <summary>
@@ -387,7 +443,7 @@ namespace MemoPadCore.Model
     /// </summary>
     void DownloadSingleFile()
     {
-      if (_downloadingfiles.Count == 0)
+      if (_synclist.IsDownloadingEmpty)
       {
         Log("Download done");
         /*ThreadUtil.Execute(UploadSingleFile);*/
@@ -395,10 +451,8 @@ namespace MemoPadCore.Model
         return;
       }
 
-      var dn = _downloadingfiles[0];
-      _downloadingfiles.RemoveAt(0);
-
-      if (dn.Is_Deleted)
+      var dn = _synclist.PopFrontDownloading();
+      if (dn.IsDeleted)
       {
         Log("Remote file is already deleted:{0}",
           dn.Name);
@@ -417,7 +471,7 @@ namespace MemoPadCore.Model
 
           StorageIo.WriteBinaryFile(localpath, resp.RawBytes);
           StorageIo.WriteLastModifiedTime(localpath,
-                                          dn.ModifiedDate);
+                                          dn.LastModifiedUtc);
 
           FireSyncSteppedEvent("Downloading...");
 
@@ -447,70 +501,9 @@ namespace MemoPadCore.Model
           Message = msg,
           TotalDownloadingFiles = _totaldownloadings,
           TotalUploadingFiles = _totaluploadings,
-          NumDownloadedFiles = _totaldownloadings - _downloadingfiles.Count,
-          NumUploadedFiles = _totaluploadings - _uploadingfiles.Count
+          NumDownloadedFiles = _totaldownloadings - _synclist.DownloadCount,
+          NumUploadedFiles = _totaluploadings - _synclist.UploadCount
         });
-    }
-
-    struct Pair
-    {
-      public string LocalFilePath { get; set; }
-      public MetaData RemoteFileMeta { get; set; }
-    }
-
-    internal void DetermineUploadingDownloadingFiles(
-                  string[] localfiles,
-                  List<MetaData> remotefiles)
-    {
-      var localonlyfiles =
-        (from local in localfiles
-         where remotefiles.FirstOrDefault((x) => x.Name == local) == null
-         select local).ToList();
-
-      var remoteonlyfiles =
-        (from remote in remotefiles
-         where
-           remote.Is_Dir == false
-           && remote.Is_Deleted == false
-           && remote.Extension.ToLower() == ".txt"
-           && localfiles.FirstOrDefault(x => x == remote.Name) == null
-         select remote).ToList();
-
-      var founds =
-        (from local in localfiles
-         from remote in remotefiles
-         where
-           remote.Is_Dir == false &&
-           local == remote.Name
-         select new Pair
-         {
-           LocalFilePath = local,
-           RemoteFileMeta = remote
-         }).ToList();
-
-      var moreuploadingfiles =
-        (from v in founds
-         let fulllocalpath = PathUtil.MakePath(_ws.GetPath(), v.LocalFilePath)
-         where
-           DiffInSeconds(StorageIo.ReadLastModifiedTime(fulllocalpath), v.RemoteFileMeta.ModifiedDate) > 15
-         select v.LocalFilePath);
-      localonlyfiles.AddRange(moreuploadingfiles);
-
-      var moredownloadingfiles =
-        (from v in founds
-         let fulllocalpath = PathUtil.MakePath(_ws.GetPath(), v.LocalFilePath)
-         where
-           DiffInSeconds(StorageIo.ReadLastModifiedTime(fulllocalpath), v.RemoteFileMeta.ModifiedDate) < -15
-         select v.RemoteFileMeta);
-      remoteonlyfiles.AddRange(moredownloadingfiles);
-
-      _uploadingfiles = localonlyfiles;
-      _downloadingfiles = remoteonlyfiles;
-    }
-
-    int DiffInSeconds(DateTime d1, DateTime d2)
-    {
-      return (int)(d1.Subtract(d2).TotalSeconds);
     }
 
     /// <summary>
@@ -537,6 +530,7 @@ namespace MemoPadCore.Model
     UnableToGetFolderMetaData,
     UnableToSyncMetaData,
     UnableToReadFile,
+    UnableToDeleteRemoteFile,
     UnknownError,
     Success
   }

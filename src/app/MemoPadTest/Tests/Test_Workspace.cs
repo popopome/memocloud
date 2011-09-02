@@ -64,7 +64,7 @@ namespace MemoPadTest.Tests
                                "g");
     }
 
-    private static void Assert_ChangeDropBoxPath(
+    static void Assert_ChangeDropBoxPath(
                           string localpath,
                           string dropboxpath,
                           string newname)
@@ -82,5 +82,15 @@ namespace MemoPadTest.Tests
       StorageIo.DeleteDir(localpath);
       StorageIo.DeleteDir(w.GetPath());
     }
+
+    /*[TestMethod]
+    public void DeleteTextDocument()
+    {
+      var ws = new Workspace();
+      ws.Open("/workspaces/test-doc");
+
+      var doc = ws.NewTextDocument();
+      doc.ChangeTitle();
+    }*/
   }
 }

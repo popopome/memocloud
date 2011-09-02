@@ -42,9 +42,17 @@ namespace MemoPad
     public void OpenWorkspace(Workspace ws)
     {
       Workspace = ws;
+      BuildDocumentList();
+    }
+
+    /// <summary>
+    /// Build document list
+    /// </summary>
+    void BuildDocumentList()
+    {
       Docs = new List<TextDocument>();
 
-      foreach (var fn in Workspace.GetMemoFiles())
+      foreach (var fn in Workspace.GetMemoFiles(WorkspaceFileAccessMode.Visible))
       {
         var fullpath = Workspace.GetFullPath(fn);
         var doc = new TextDocument(fullpath)
@@ -54,6 +62,14 @@ namespace MemoPad
 
         Docs.Add(doc);
       }
+    }
+
+    /// <summary>
+    /// Refresh workspace
+    /// </summary>
+    public void RefreshWorkspace()
+    {
+      BuildDocumentList();
     }
 
     /// <summary>

@@ -16,15 +16,6 @@ namespace TapfishCore.Platform
 {
   public class PathUtil
   {
-    public static string ExtractDirectory(string fullpath)
-    {
-      int index = fullpath.LastIndexOfAny(new char[] { '\\', '/' });
-      if (-1 == index)
-        return "\\";
-
-      return fullpath.Substring(0, index);
-    }
-
     public static string AddBackslash(string path)
     {
       char ch = path.Last();
@@ -146,6 +137,16 @@ namespace TapfishCore.Platform
       }
 
       return s;
+    }
+
+    public static string Extension(string s)
+    {
+      var n = NameOnly(s);
+      int index = n.LastIndexOf('.');
+      if (-1 == index)
+        return "";
+
+      return n.Substring(index);
     }
   }
 }

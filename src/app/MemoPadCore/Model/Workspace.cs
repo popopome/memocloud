@@ -143,15 +143,21 @@ namespace MemoPadCore.Model
     /// Get memo files from given workspace
     /// </summary>
     /// <returns>Array of filenames</returns>
-    public string[] GetMemoFiles()
+    public string[] GetMemoFiles(WorkspaceFileAccessMode access)
     {
       var files = StorageIo.Files(_path, "*.txt");
       var sortedfiles = SortByModifiedTime(files);
 
+      if (access == WorkspaceFileAccessMode.All)
+        return
+          (from fn in sortedfiles
+           where WorkspaceFileOp.IsMemoFile(fn)
+           select fn).ToArray();
+
       return
-        (from fn in sortedfiles
-         where fn.ToLower().EndsWith(".txt")
-         select fn).ToArray();
+          (from fn in sortedfiles
+           where WorkspaceFileOp.IsVisibleMemoFile(fn)
+           select fn).ToArray();
     }
 
     /// <summary>
@@ -232,9 +238,9 @@ namespace MemoPadCore.Model
       {
         WorkspaceName = Name
       };
+      doc.New();
 
       return doc;
     }
-
   }
 }
