@@ -310,7 +310,7 @@ namespace TapfishCore.Resources
     public static DateTime ReadLastModifiedTime(string path)
     {
       var fullpath = GetLastModifiedFilePath(path);
-      if (false == StorageIo.Exists(path))
+      if (false == StorageIo.Exists(fullpath))
         return DateTime.Now;
 
       var stg = IsolatedStorageFile.GetUserStoreForApplication();

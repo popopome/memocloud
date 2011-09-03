@@ -73,25 +73,6 @@ namespace MemoPad
     }
 
     /// <summary>
-    /// Sort by modified time
-    /// </summary>
-    /// <param name="files"></param>
-    string[] SortByModifiedTime(string[] files)
-    {
-      //
-      // WP7.5 is possible.
-      //
-      /*var stg = IsolatedStorageFile.GetUserStoreForApplication();
-
-      var details = new List<KeyValuePair<string, DateTime>>();
-      foreach (var fn in files)
-      {
-      }*/
-
-      return files;
-    }
-
-    /// <summary>
     /// Add new document to front
     /// </summary>
     public TextDocument AddNewDocumentToFront()

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Windows;
@@ -160,23 +161,38 @@ namespace MemoPadCore.Model
            select fn).ToArray();
     }
 
+    struct FileMeta
+    {
+      public string FullPath;
+      public string Name;
+      public DateTime ModifiedTime;
+    };
+
     /// <summary>
     /// Sort by modified time
     /// </summary>
     /// <param name="files"></param>
     string[] SortByModifiedTime(string[] files)
     {
-      //
-      // WP7.5 is possible.
-      //
-      /*var stg = IsolatedStorageFile.GetUserStoreForApplication();
+      var paths =
+        (from fn in files
+         let fullpath = this.GetFullPath(fn)
+         select new FileMeta
+         {
+           FullPath = fullpath,
+           Name = fn,
+           ModifiedTime = StorageIo.ReadLastModifiedTime(fullpath)
+         }).ToList();
 
-      var details = new List<KeyValuePair<string, DateTime>>();
-      foreach (var fn in files)
-      {
-      }*/
+      paths.Sort(new Comparison<FileMeta>(
+        (p1, p2) =>
+        {
+          return p2.ModifiedTime.CompareTo(p1.ModifiedTime);
+        }));
 
-      return files;
+      return
+        (from p in paths
+         select p.Name).ToArray();
     }
 
     /// <summary>
