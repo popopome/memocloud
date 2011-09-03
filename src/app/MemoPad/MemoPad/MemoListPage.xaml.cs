@@ -243,11 +243,14 @@ namespace MemoPad
     /// <param name="e">Event parameter</param>
     void OnDropboxSigninSucceeded(object sender, DropboxSigninEventArgs e)
     {
-      _vm.Workspace.DropBoxToken = e.UserToken;
-      _vm.Workspace.DropBoxSecret = e.UserSecret;
+      var ws = _vm.Workspace;
+      ws.DropBoxToken = e.UserToken;
+      ws.DropBoxSecret = e.UserSecret;
 
-      _vm.Workspace.ChangeDropboxPath(e.RemoteFolderName);
-      _vm.Workspace.SaveConfigData();
+      ws.ChangeDropboxPath(e.RemoteFolderName);
+      ws.SaveConfigData();
+
+      _dropboxsignin.Hide();
 
       Sync();
     }
