@@ -1,0 +1,114 @@
+<mockup version="1.0" skin="sketch" measuredW="996" measuredH="820" mockupW="936" mockupH="800">
+  <controls>
+    <control controlID="1" controlTypeID="__group__" x="60" y="20" w="936" h="800" measuredW="936" measuredH="800" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <controlName>memolist</controlName>
+      </controlProperties>
+      <groupChildrenDescriptors>
+        <control controlID="8" controlTypeID="__group__" x="0" y="0" w="936" h="800" measuredW="936" measuredH="800" zOrder="0" locked="false" isInGroup="1">
+          <groupChildrenDescriptors>
+            <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="199" y="0" w="480" h="800" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="8"/>
+            <control controlID="11" controlTypeID="__group__" x="0" y="195" w="253" h="337" measuredW="253" measuredH="337" zOrder="1" locked="false" isInGroup="8">
+              <groupChildrenDescriptors>
+                <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="0" w="253" h="337" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="11"/>
+                <control controlID="1" controlTypeID="__group__" x="15" y="24" w="209" h="40" measuredW="209" measuredH="40" zOrder="1" locked="false" isInGroup="11">
+                  <controlProperties>
+                    <controlName>SB%20Title%20Heading</controlName>
+                  </controlProperties>
+                  <groupChildrenDescriptors>
+                    <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="0" w="209" h="40" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="1">
+                      <controlProperties>
+                        <borderColor>3355443</borderColor>
+                        <color>3355443</color>
+                      </controlProperties>
+                    </control>
+                  </groupChildrenDescriptors>
+                </control>
+                <control controlID="2" controlTypeID="__group__" x="15" y="102" w="209" h="145" measuredW="209" measuredH="145" zOrder="2" locked="false" isInGroup="11">
+                  <controlProperties>
+                    <controlName>SB%20Paragraph</controlName>
+                  </controlProperties>
+                  <groupChildrenDescriptors>
+                    <control controlID="0" controlTypeID="com.balsamiq.mockups::HRule" x="0" y="0" w="205" h="-1" measuredW="100" measuredH="5" zOrder="0" locked="false" isInGroup="2"/>
+                    <control controlID="1" controlTypeID="com.balsamiq.mockups::HRule" x="0" y="28" w="174" h="-1" measuredW="100" measuredH="5" zOrder="1" locked="false" isInGroup="2"/>
+                    <control controlID="2" controlTypeID="com.balsamiq.mockups::HRule" x="0" y="56" w="154" h="-1" measuredW="100" measuredH="5" zOrder="2" locked="false" isInGroup="2"/>
+                    <control controlID="3" controlTypeID="com.balsamiq.mockups::HRule" x="0" y="84" w="191" h="-1" measuredW="100" measuredH="5" zOrder="3" locked="false" isInGroup="2"/>
+                    <control controlID="4" controlTypeID="com.balsamiq.mockups::HRule" x="0" y="112" w="209" h="-1" measuredW="100" measuredH="5" zOrder="4" locked="false" isInGroup="2"/>
+                    <control controlID="5" controlTypeID="com.balsamiq.mockups::HRule" x="0" y="140" w="191" h="-1" measuredW="100" measuredH="5" zOrder="5" locked="false" isInGroup="2"/>
+                  </groupChildrenDescriptors>
+                </control>
+              </groupChildrenDescriptors>
+            </control>
+            <control controlID="12" controlTypeID="__group__" x="325" y="194" w="253" h="337" measuredW="253" measuredH="337" zOrder="2" locked="false" isInGroup="8">
+              <groupChildrenDescriptors>
+                <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="0" w="253" h="337" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="12"/>
+                <control controlID="1" controlTypeID="__group__" x="15" y="24" w="209" h="40" measuredW="209" measuredH="40" zOrder="1" locked="false" isInGroup="12">
+                  <controlProperties>
+                    <controlName>SB%20Title%20Heading</controlName>
+                  </controlProperties>
+                  <groupChildrenDescriptors>
+                    <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="0" w="209" h="40" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="1">
+                      <controlProperties>
+                        <borderColor>3355443</borderColor>
+                        <color>3355443</color>
+                      </controlProperties>
+                    </control>
+                  </groupChildrenDescriptors>
+                </control>
+                <control controlID="2" controlTypeID="__group__" x="15" y="102" w="209" h="145" measuredW="209" measuredH="145" zOrder="2" locked="false" isInGroup="12">
+                  <controlProperties>
+                    <controlName>SB%20Paragraph</controlName>
+                  </controlProperties>
+                  <groupChildrenDescriptors>
+                    <control controlID="0" controlTypeID="com.balsamiq.mockups::HRule" x="0" y="0" w="205" h="-1" measuredW="100" measuredH="5" zOrder="0" locked="false" isInGroup="2"/>
+                    <control controlID="1" controlTypeID="com.balsamiq.mockups::HRule" x="0" y="28" w="174" h="-1" measuredW="100" measuredH="5" zOrder="1" locked="false" isInGroup="2"/>
+                    <control controlID="2" controlTypeID="com.balsamiq.mockups::HRule" x="0" y="56" w="154" h="-1" measuredW="100" measuredH="5" zOrder="2" locked="false" isInGroup="2"/>
+                    <control controlID="3" controlTypeID="com.balsamiq.mockups::HRule" x="0" y="84" w="191" h="-1" measuredW="100" measuredH="5" zOrder="3" locked="false" isInGroup="2"/>
+                    <control controlID="4" controlTypeID="com.balsamiq.mockups::HRule" x="0" y="112" w="209" h="-1" measuredW="100" measuredH="5" zOrder="4" locked="false" isInGroup="2"/>
+                    <control controlID="5" controlTypeID="com.balsamiq.mockups::HRule" x="0" y="140" w="191" h="-1" measuredW="100" measuredH="5" zOrder="5" locked="false" isInGroup="2"/>
+                  </groupChildrenDescriptors>
+                </control>
+              </groupChildrenDescriptors>
+            </control>
+            <control controlID="19" controlTypeID="com.balsamiq.mockups::Button" x="412" y="726" w="-1" h="-1" measuredW="80" measuredH="39" zOrder="3" locked="false" isInGroup="8">
+              <controlProperties>
+                <size>28</size>
+                <text>New</text>
+              </controlProperties>
+            </control>
+            <control controlID="21" controlTypeID="com.balsamiq.mockups::Button" x="354" y="548" w="-1" h="-1" measuredW="108" measuredH="39" zOrder="4" locked="false" isInGroup="8">
+              <controlProperties>
+                <size>28</size>
+                <text>Delete</text>
+              </controlProperties>
+            </control>
+            <control controlID="22" controlTypeID="com.balsamiq.mockups::Button" x="462" y="547" w="-1" h="-1" measuredW="87" measuredH="39" zOrder="5" locked="false" isInGroup="8">
+              <controlProperties>
+                <size>28</size>
+                <text>More</text>
+              </controlProperties>
+            </control>
+            <control controlID="23" controlTypeID="com.balsamiq.mockups::Button" x="220" y="22" w="-1" h="-1" measuredW="88" measuredH="35" zOrder="6" locked="false" isInGroup="8">
+              <controlProperties>
+                <size>24</size>
+                <text>SYNC</text>
+              </controlProperties>
+            </control>
+            <control controlID="24" controlTypeID="com.balsamiq.mockups::Button" x="0" y="0" w="-1" h="-1" measuredW="172" measuredH="28" zOrder="7" locked="false" isInGroup="8">
+              <controlProperties>
+                <href>memo-list-mockup%26bm%3Bmemo-list-mockup.bmml%26bm%3Bmemo-list-mockup.bmml%26bm%3Bmemo-list-mockup.bmml</href>
+                <map>%3Carea%20shape%3D%22rect%22%20coords%3D%220%2C0%2C172%2C28%22%20href%3D%22memo-list-mockup.bmml%22%20alt%3D%22memo-list-mockup%22%20id%3D%2224%22/%3E</map>
+                <text>back%20to%20memo-list%20mockup</text>
+              </controlProperties>
+            </control>
+            <control controlID="25" controlTypeID="com.balsamiq.mockups::StickyNote" x="704" y="15" w="232" h="143" measuredW="109" measuredH="123" zOrder="8" locked="false" isInGroup="8">
+              <controlProperties>
+                <text>Memo%20is%20deleted.%0A--%3E%20and%20animation%20is%20started%0A%20%20%20%20%20%20to%20squeeze%20out%20the%20place%20which%20%0A%20%20%20%20%20%20is%20occupied%20by%20deleted%20memo.</text>
+              </controlProperties>
+            </control>
+          </groupChildrenDescriptors>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+  </controls>
+</mockup>

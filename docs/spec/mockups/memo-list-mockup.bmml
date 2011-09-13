@@ -1,0 +1,117 @@
+<mockup version="1.0" skin="sketch" measuredW="2135" measuredH="876" mockupW="1697" mockupH="861">
+  <controls>
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::Component" x="470" y="76" w="910" h="800" measuredW="910" measuredH="800" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22444%2C787%2C524%2C826%22%20href%3D%22memo-list-new.bmml%22%20alt%3D%22memo-list-new%22%20id%3D%2219%22/%3E%3Carea%20shape%3D%22rect%22%20coords%3D%22386%2C609%2C494%2C648%22%20href%3D%22memo-list-delete-confirm.bmml%22%20alt%3D%22memo-list-delete-confirm%22%20id%3D%2221%22/%3E%3Carea%20shape%3D%22rect%22%20coords%3D%22494%2C608%2C581%2C647%22%20href%3D%22memo-list-more-clicked.bmml%22%20alt%3D%22memo-list-more-clicked%22%20id%3D%2222%22/%3E%3Carea%20shape%3D%22rect%22%20coords%3D%22252%2C83%2C340%2C118%22%20href%3D%22memo-list-mockup-sync-clicked-but-dropbox-signin-required.bmml%22%20alt%3D%22memo-list-mockup-sync-clicked-but-dropbox-signin-required%22%20id%3D%2223%22/%3E%3Carea%20shape%3D%22rect%22%20coords%3D%22373%2C279%2C582%2C319%22%20href%3D%22memo-editor-base.bmml%22%20alt%3D%22memo-editor-base%22%20id%3D%221%22/%3E</map>
+        <override controlID="8" x="0" y="0" w="910" h="800"/>
+        <override controlID="8:3" x="347" y="548" w="97" h="57">
+          <href>memo-list-delete-confirm%26bm%3Bmemo-list-delete-confirm.bmml%26bm%3Bmemo-list-delete-confirm.bmml%26bm%3Bmemo-list-delete-confirm.bmml</href>
+        </override>
+        <override controlID="8:12:2" x="15" y="102" w="209" h="145"/>
+        <override controlID="8:12:1" x="15" y="24" w="209" h="40">
+          <href>memo-editor-base%26bm%3Bmemo-editor-base.bmml%26bm%3Bmemo-editor-base.bmml%26bm%3Bmemo-editor-base.bmml</href>
+        </override>
+        <override controlID="8:13:2:3" x="0" y="84" w="191" h="-1"/>
+        <override controlID="8:11:1" x="15" y="24" w="209" h="40"/>
+        <override controlID="8:13:1:0" x="0" y="0" w="209" h="40"/>
+        <override controlID="8:11:2:0" x="0" y="0" w="205" h="-1"/>
+        <override controlID="8:12:2:1" x="0" y="28" w="174" h="-1"/>
+        <override controlID="8:13:0" x="0" y="0" w="253" h="337"/>
+        <override controlID="8:11:2:3" x="0" y="84" w="191" h="-1"/>
+        <override controlID="8:11:2:1" x="0" y="28" w="174" h="-1"/>
+        <override controlID="8:13:1" x="15" y="24" w="209" h="40"/>
+        <override controlID="8:21">
+          <href>memo-list-delete-confirm%26bm%3Bmemo-list-delete-confirm.bmml%26bm%3Bmemo-list-delete-confirm.bmml%26bm%3Bmemo-list-delete-confirm.bmml</href>
+        </override>
+        <override controlID="8:11:1:0" x="0" y="0" w="209" h="40"/>
+        <override controlID="8:12:2:3" x="0" y="84" w="191" h="-1"/>
+        <override controlID="8:13:2:1" x="0" y="28" w="174" h="-1"/>
+        <override controlID="8:11:2" x="15" y="102" w="209" h="145"/>
+        <override controlID="8:11:2:4" x="0" y="112" w="209" h="-1"/>
+        <override controlID="8:4" x="214" y="22" w="97" h="57">
+          <href>memo-list-mockup-sync-clicked-but-dropbox-signin-required%26bm%3Bmemo-list-mockup-sync-clicked-but-dropbox-signin-required.bmml%26bm%3Bmemo-list-mockup-sync-clicked-but-dropbox-signin-required.bmml%26bm%3Bmemo-list-mockup-sync-clicked-but-dropbox-signin-required.bmml</href>
+        </override>
+        <override controlID="8:13:2:4" x="0" y="112" w="209" h="-1"/>
+        <override controlID="8:12:2:2" x="0" y="56" w="154" h="-1"/>
+        <override controlID="8:12:1:0" x="0" y="0" w="209" h="40"/>
+        <override controlID="8:13" x="657" y="194" w="253" h="337"/>
+        <override controlID="8:11" x="0" y="195" w="253" h="337"/>
+        <override controlID="8:11:0" x="0" y="0" w="253" h="337"/>
+        <override controlID="8:23">
+          <href>memo-list-mockup-sync-clicked-but-dropbox-signin-required%26bm%3Bmemo-list-mockup-sync-clicked-but-dropbox-signin-required.bmml%26bm%3Bmemo-list-mockup-sync-clicked-but-dropbox-signin-required.bmml%26bm%3Bmemo-list-mockup-sync-clicked-but-dropbox-signin-required.bmml</href>
+        </override>
+        <override controlID="8:13:2:5" x="0" y="140" w="191" h="-1"/>
+        <override controlID="8:12" x="326" y="194" w="253" h="337"/>
+        <override controlID="8:12:2:5" x="0" y="140" w="191" h="-1"/>
+        <override controlID="8:13:2:0" x="0" y="0" w="205" h="-1"/>
+        <override controlID="8:2" x="567" y="22" w="97" h="57"/>
+        <override controlID="8:0" x="199" y="0" w="480" h="800"/>
+        <override controlID="8:5" x="459" y="547" w="97" h="57"/>
+        <override controlID="8:22">
+          <href>memo-list-more-clicked%26bm%3Bmemo-list-more-clicked.bmml%26bm%3Bmemo-list-more-clicked.bmml%26bm%3Bmemo-list-more-clicked.bmml</href>
+        </override>
+        <override controlID="8:12:0" x="0" y="0" w="253" h="337"/>
+        <override controlID="8:13:2" x="15" y="102" w="209" h="145"/>
+        <override controlID="8:19">
+          <href>memo-list-new%26bm%3Bmemo-list-new.bmml%26bm%3Bmemo-list-new.bmml%26bm%3Bmemo-list-new.bmml</href>
+        </override>
+        <override controlID="8:11:2:5" x="0" y="140" w="191" h="-1"/>
+        <override controlID="8:11:2:2" x="0" y="56" w="154" h="-1"/>
+        <override controlID="8:12:2:0" x="0" y="0" w="205" h="-1"/>
+        <override controlID="8:13:2:2" x="0" y="56" w="154" h="-1"/>
+        <override controlID="8:12:2:4" x="0" y="112" w="209" h="-1"/>
+        <src>./assets/symbols.bmml#memolist</src>
+      </controlProperties>
+    </control>
+    <control controlID="18" controlTypeID="com.balsamiq.mockups::PointyButton" x="438" y="274" w="29" h="-1" measuredW="28" measuredH="27" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>15843890</color>
+        <markup>true</markup>
+        <text>1</text>
+      </controlProperties>
+    </control>
+    <control controlID="19" controlTypeID="com.balsamiq.mockups::DataGrid" x="1471" y="67" w="664" h="219" measuredW="645" measuredH="122" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <size>20</size>
+        <text>No%2C%20Desc%0A1%2C%20%20Latest%20memo%20should%20be%20left-most%20position%0A2%2C%20%uC0AD%uC81CThese%20button%20is%20aligned%20current%20active%20memo%0A3%2C%20%20Create%20new%20memo.%20new%20memo%20should%20be%5Cnplaced%20left-most%20position</text>
+      </controlProperties>
+    </control>
+    <control controlID="20" controlTypeID="com.balsamiq.mockups::PointyButton" x="791" y="617" w="29" h="-1" measuredW="30" measuredH="27" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>15843890</color>
+        <markup>true</markup>
+        <text>2</text>
+      </controlProperties>
+    </control>
+    <control controlID="21" controlTypeID="com.balsamiq.mockups::PointyButton" x="852" y="799" w="29" h="-1" measuredW="29" measuredH="27" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>15843890</color>
+        <markup>true</markup>
+        <text>3</text>
+      </controlProperties>
+    </control>
+    <control controlID="22" controlTypeID="com.balsamiq.mockups::Button" x="695" y="15" w="-1" h="-1" measuredW="271" measuredH="35" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <href>memo-list-sync-already-signed%26bm%3Bmemo-list-sync-already-signed.bmml%26bm%3Bmemo-list-sync-already-signed.bmml%26bm%3Bmemo-list-sync-already-signed.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22257%2C0%2C528%2C35%22%20href%3D%22memo-list-sync-already-signed.bmml%22%20alt%3D%22memo-list-sync-already-signed%22%20id%3D%2222%22/%3E</map>
+        <size>24</size>
+        <text>SYNC%20already%20signed%20in</text>
+      </controlProperties>
+    </control>
+    <control controlID="23" controlTypeID="com.balsamiq.mockups::Arrow" x="519" y="537" w="770" h="10" measuredW="150" measuredH="100" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <curvature>0</curvature>
+        <direction>top</direction>
+        <text>left/right%20flicking</text>
+      </controlProperties>
+    </control>
+    <control controlID="24" controlTypeID="com.balsamiq.mockups::Button" x="467" y="616" w="-1" h="-1" measuredW="57" measuredH="28" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <href>memo-list-scrolling%26bm%3Bmemo-list-scrolling.bmml%26bm%3Bmemo-list-scrolling.bmml%26bm%3Bmemo-list-scrolling.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2229%2C601%2C86%2C629%22%20href%3D%22memo-list-scrolling.bmml%22%20alt%3D%22memo-list-scrolling%22%20id%3D%2224%22/%3E</map>
+        <text>scroll%20</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

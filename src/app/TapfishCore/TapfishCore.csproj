@@ -93,6 +93,7 @@
     <Compile Include="Ui\BackKeyHandlerManager.cs" />
     <Compile Include="Ui\BackKeyHook.cs" />
     <Compile Include="Ui\FrameworkExtension.cs" />
+    <Compile Include="Ui\PopupMenu.cs" />
     <Compile Include="Ui\TapMonitor.cs" />
     <Compile Include="Ui\UiUtils.cs" />
     <Compile Include="Ui\VisualStateMonitor.cs" />

@@ -1,0 +1,134 @@
+<mockup version="1.0" skin="sketch" measuredW="1459" measuredH="870" mockupW="1184" mockupH="800">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::Component" x="275" y="70" w="910" h="800" measuredW="910" measuredH="800" zOrder="0" locked="true" isInGroup="-1">
+      <controlProperties>
+        <override controlID="8" x="0" y="0" w="910" h="800"/>
+        <override controlID="8:12:2" x="15" y="102" w="209" h="145"/>
+        <override controlID="8:12:1" x="15" y="24" w="209" h="40"/>
+        <override controlID="8:13:2:3" x="0" y="84" w="191" h="-1"/>
+        <override controlID="8:11:1" x="15" y="24" w="209" h="40"/>
+        <override controlID="8:13:1:0" x="0" y="0" w="209" h="40"/>
+        <override controlID="8:12:2:4" x="0" y="112" w="209" h="-1"/>
+        <override controlID="8:11:2:0" x="0" y="0" w="205" h="-1"/>
+        <override controlID="8:12:2:1" x="0" y="28" w="174" h="-1"/>
+        <override controlID="8:13:0" x="0" y="0" w="253" h="337"/>
+        <override controlID="8:11:2:3" x="0" y="84" w="191" h="-1"/>
+        <override controlID="8:11:2:1" x="0" y="28" w="174" h="-1"/>
+        <override controlID="8:13:1" x="15" y="24" w="209" h="40"/>
+        <override controlID="8:21" x="354" y="548" w="-1" h="-1"/>
+        <override controlID="8:11:1:0" x="0" y="0" w="209" h="40"/>
+        <override controlID="8:12:2:3" x="0" y="84" w="191" h="-1"/>
+        <override controlID="8:12:1:0" x="0" y="0" w="209" h="40"/>
+        <override controlID="8:11:2" x="15" y="102" w="209" h="145"/>
+        <override controlID="8:11:2:4" x="0" y="112" w="209" h="-1"/>
+        <override controlID="8:13:2:4" x="0" y="112" w="209" h="-1"/>
+        <override controlID="8:12:2:2" x="0" y="56" w="154" h="-1"/>
+        <override controlID="8:13:2:1" x="0" y="28" w="174" h="-1"/>
+        <override controlID="8:13" x="657" y="194" w="253" h="337"/>
+        <override controlID="8:11:0" x="0" y="0" w="253" h="337"/>
+        <override controlID="8:23" x="220" y="22" w="-1" h="-1"/>
+        <override controlID="8:13:2:5" x="0" y="140" w="191" h="-1"/>
+        <override controlID="8:11:2:5" x="0" y="140" w="191" h="-1"/>
+        <override controlID="8:13:2" x="15" y="102" w="209" h="145"/>
+        <override controlID="8:0" x="199" y="0" w="480" h="800"/>
+        <override controlID="8:13:2:0" x="0" y="0" w="205" h="-1"/>
+        <override controlID="8:22" x="462" y="547" w="-1" h="-1"/>
+        <override controlID="8:12:0" x="0" y="0" w="253" h="337"/>
+        <override controlID="8:13:2:2" x="0" y="56" w="154" h="-1"/>
+        <override controlID="8:19" x="412" y="726" w="-1" h="-1"/>
+        <override controlID="8:12" x="326" y="194" w="253" h="337"/>
+        <override controlID="8:11:2:2" x="0" y="56" w="154" h="-1"/>
+        <override controlID="8:12:2:0" x="0" y="0" w="205" h="-1"/>
+        <override controlID="8:11" x="0" y="195" w="253" h="337"/>
+        <override controlID="8:12:2:5" x="0" y="140" w="191" h="-1"/>
+        <src>./assets/symbols.bmml#memolist</src>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Canvas" x="473" y="70" w="480" h="800" measuredW="100" measuredH="70" zOrder="1" locked="true" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>0.5</backgroundAlpha>
+        <color>0</color>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Canvas" x="494" y="117" w="438" h="348" measuredW="100" measuredH="70" zOrder="2" locked="false" isInGroup="-1"/>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="509" y="132" w="-1" h="-1" measuredW="211" measuredH="50" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>40</size>
+        <text>DROPBOX%21</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="509" y="182" w="-1" h="-1" measuredW="142" measuredH="28" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Create%20account</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::Button" x="821" y="401" w="-1" h="-1" measuredW="85" measuredH="30" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <href>memo-list-mockup%26bm%3Bmemo-list-mockup.bmml%26bm%3Bmemo-list-mockup.bmml%26bm%3Bmemo-list-mockup.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22546%2C331%2C631%2C361%22%20href%3D%22memo-list-mockup.bmml%22%20alt%3D%22memo-list-mockup%22%20id%3D%225%22/%3E</map>
+        <size>20</size>
+        <text>Cancel</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::Button" x="720" y="401" w="-1" h="-1" measuredW="86" measuredH="30" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <href>memo-list-dropbox-create-account-succeeded%26bm%3Bmemo-list-dropbox-create-account-succeeded.bmml%26bm%3Bmemo-list-dropbox-create-account-succeeded.bmml%26bm%3Bmemo-list-dropbox-create-account-succeeded.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22445%2C331%2C531%2C361%22%20href%3D%22memo-list-dropbox-create-account-succeeded.bmml%22%20alt%3D%22memo-list-dropbox-create-account-succeeded%22%20id%3D%226%22/%3E</map>
+        <size>20</size>
+        <text>Create</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::TextInput" x="641" y="237" w="243" h="-1" measuredW="79" measuredH="39" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>24</size>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::Label" x="509" y="242" w="-1" h="-1" measuredW="111" measuredH="28" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>User%20name%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::Label" x="509" y="291" w="-1" h="-1" measuredW="97" measuredH="28" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Password%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::TextInput" x="641" y="285" w="243" h="-1" measuredW="322" measuredH="39" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>24</size>
+        <text>****************************</text>
+      </controlProperties>
+    </control>
+    <control controlID="12" controlTypeID="com.balsamiq.mockups::Label" x="509" y="348" w="-1" h="-1" measuredW="181" measuredH="28" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Re-enter%20password%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="13" controlTypeID="com.balsamiq.mockups::TextInput" x="695" y="342" w="189" h="-1" measuredW="322" measuredH="39" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>24</size>
+        <text>****************************</text>
+      </controlProperties>
+    </control>
+    <control controlID="14" controlTypeID="com.balsamiq.mockups::PointyButton" x="481" y="237" w="-1" h="-1" measuredW="28" measuredH="27" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>16776960</color>
+        <markup>true</markup>
+        <text>1</text>
+      </controlProperties>
+    </control>
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::CallOut" x="1207" y="77" w="-1" h="-1" measuredW="37" measuredH="40" zOrder="14" locked="false" isInGroup="-1"/>
+    <control controlID="16" controlTypeID="com.balsamiq.mockups::Paragraph" x="1259" y="77" w="-1" h="-1" measuredW="200" measuredH="140" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <size>16</size>
+        <text>Username%20can%27t%20be%20empty%0APassword%20%26%20Re-enter%20password%20should%0Abe%20same.</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

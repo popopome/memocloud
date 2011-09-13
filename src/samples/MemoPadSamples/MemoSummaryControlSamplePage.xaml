@@ -19,7 +19,12 @@
         <Grid.Background>
             <ImageBrush Stretch="Fill" ImageSource="/Images/memo-list/memo-list-background.jpg"/>
         </Grid.Background>
-        <MemoPadCore_Control:MemoSummaryControl x:Name="_a" HorizontalAlignment="Left" Height="488" VerticalAlignment="Top" Width="360" Margin="66,72,0,0"/>
+        <MemoPadCore_Control:MemoSummaryControl
+            x:Name="_a"
+            HorizontalAlignment="Left"
+            Height="200"
+            VerticalAlignment="Top"
+            Width="200" Margin="66,72,0,0"/>
     </Grid>
 
     <!--Sample code showing usage of ApplicationBar-->

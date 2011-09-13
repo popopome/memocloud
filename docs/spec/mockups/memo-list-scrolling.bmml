@@ -1,0 +1,76 @@
+<mockup version="1.0" skin="sketch" measuredW="1230" measuredH="841" mockupW="1230" mockupH="800">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::Component" x="0" y="41" w="910" h="800" measuredW="910" measuredH="800" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <override controlID="8" x="0" y="0" w="910" h="800"/>
+        <override controlID="8:12:2:0" x="0" y="0" w="205" h="-1"/>
+        <override controlID="8:13" x="657" y="191" w="253" h="337"/>
+        <override controlID="8:13:2:3" x="0" y="84" w="191" h="-1"/>
+        <override controlID="8:12:2:1" x="0" y="28" w="174" h="-1"/>
+        <override controlID="8:11:2" x="15" y="102" w="209" h="145"/>
+        <override controlID="8:11:2:4" x="0" y="112" w="209" h="-1"/>
+        <override controlID="8:12:1" x="15" y="24" w="209" h="40"/>
+        <override controlID="8:22" x="602" y="504" w="5" h="10">
+          <size>32</size>
+          <text/>
+        </override>
+        <override controlID="8:0" x="356" y="0" w="480" h="800"/>
+        <override controlID="8:11:1" x="15" y="24" w="209" h="40"/>
+        <override controlID="8:13:2:4" x="0" y="112" w="209" h="-1"/>
+        <override controlID="8:11" x="0" y="192" w="253" h="337"/>
+        <override controlID="8:21" x="597" y="504" w="5" h="10">
+          <size>32</size>
+          <text/>
+        </override>
+        <override controlID="8:23" x="377" y="22" w="-1" h="-1"/>
+        <override controlID="8:12:2" x="15" y="102" w="209" h="145"/>
+        <override controlID="8:13:1" x="15" y="24" w="209" h="40"/>
+        <override controlID="8:11:2:3" x="0" y="84" w="191" h="-1"/>
+        <override controlID="8:11:2:1" x="0" y="28" w="174" h="-1"/>
+        <override controlID="8:13:0" x="0" y="0" w="253" h="337"/>
+        <override controlID="8:12:2:3" x="0" y="84" w="191" h="-1"/>
+        <override controlID="8:12:2:2" x="0" y="56" w="154" h="-1"/>
+        <override controlID="8:12" x="326" y="191" w="253" h="337"/>
+        <override controlID="8:13:2" x="15" y="102" w="209" h="145"/>
+        <override controlID="8:12:1:0" x="0" y="0" w="209" h="40"/>
+        <override controlID="8:11:0" x="0" y="0" w="253" h="337"/>
+        <override controlID="8:13:1:0" x="0" y="0" w="209" h="40"/>
+        <override controlID="8:13:2:0" x="0" y="0" w="205" h="-1"/>
+        <override controlID="8:13:2:1" x="0" y="28" w="174" h="-1"/>
+        <override controlID="8:19" x="569" y="726" w="-1" h="-1"/>
+        <override controlID="8:12:2:4" x="0" y="112" w="209" h="-1"/>
+        <override controlID="8:11:2:2" x="0" y="56" w="154" h="-1"/>
+        <override controlID="8:13:2:2" x="0" y="56" w="154" h="-1"/>
+        <override controlID="8:11:1:0" x="0" y="0" w="209" h="40"/>
+        <override controlID="8:12:2:5" x="0" y="140" w="191" h="-1"/>
+        <override controlID="8:13:2:5" x="0" y="140" w="191" h="-1"/>
+        <override controlID="8:12:0" x="0" y="0" w="253" h="337"/>
+        <override controlID="8:11:2:0" x="0" y="0" w="205" h="-1"/>
+        <override controlID="8:11:2:5" x="0" y="140" w="191" h="-1"/>
+        <src>./assets/symbols.bmml#memolist</src>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::PointyButton" x="565" y="556" w="-1" h="-1" measuredW="28" measuredH="27" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>16776960</color>
+        <direction>center</direction>
+        <markup>true</markup>
+        <text>1</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::CallOut" x="978" y="46" w="-1" h="-1" measuredW="37" measuredH="40" zOrder="2" locked="false" isInGroup="-1"/>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::Paragraph" x="1030" y="41" w="-1" h="-1" measuredW="200" measuredH="140" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>During%20scroll%2C%0ADo%20not%20show%20any%20command%20buttons%0Awhich%20are%20assigned%20to%20each%20memo.</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Button" x="182" y="41" w="-1" h="-1" measuredW="125" measuredH="28" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <href>memo-list-mockup%26bm%3Bmemo-list-mockup.bmml%26bm%3Bmemo-list-mockup.bmml%26bm%3Bmemo-list-mockup.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22182%2C0%2C307%2C28%22%20href%3D%22memo-list-mockup.bmml%22%20alt%3D%22memo-list-mockup%22%20id%3D%224%22/%3E</map>
+        <text>back%20to%20memo-list</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

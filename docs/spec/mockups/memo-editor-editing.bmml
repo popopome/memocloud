@@ -1,0 +1,57 @@
+<mockup version="1.0" skin="sketch" measuredW="869" measuredH="860" mockupW="793" mockupH="800">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::Component" x="389" y="60" w="480" h="800" measuredW="480" measuredH="800" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>./assets/symbols.bmml#simple%20memo</src>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Component" x="389" y="497" w="480" h="363" measuredW="480" measuredH="363" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <override controlID="2" x="0" y="0" w="52" h="98"/>
+        <override controlID="3" x="44" y="0" w="64" h="98"/>
+        <override controlID="4" x="94" y="0" w="56" h="98"/>
+        <override controlID="5" x="143" y="0" w="52" h="98"/>
+        <override controlID="6" x="187" y="2" w="58" h="98"/>
+        <override controlID="7" x="237" y="0" w="56" h="98"/>
+        <override controlID="8" x="285" y="0" w="62" h="98"/>
+        <override controlID="9" x="332" y="0" w="56" h="98"/>
+        <override controlID="10" x="380" y="0" w="54" h="98"/>
+        <override controlID="11" x="428" y="0" w="52" h="98"/>
+        <override controlID="12" x="0" y="90" w="87" h="98"/>
+        <override controlID="13" x="79" y="90" w="56" h="98"/>
+        <override controlID="14" x="129" y="90" w="52" h="98"/>
+        <override controlID="15" x="175" y="90" w="54" h="98"/>
+        <override controlID="16" x="222" y="90" w="56" h="98"/>
+        <override controlID="17" x="272" y="90" w="52" h="98"/>
+        <override controlID="18" x="316" y="90" w="56" h="98"/>
+        <override controlID="19" x="364" y="90" w="56" h="98"/>
+        <override controlID="20" x="411" y="90" w="69" h="98"/>
+        <override controlID="21" x="0" y="175" w="87" h="98"/>
+        <override controlID="22" x="79" y="175" w="56" h="98"/>
+        <override controlID="23" x="129" y="175" w="52" h="98"/>
+        <override controlID="24" x="175" y="175" w="54" h="98"/>
+        <override controlID="25" x="222" y="175" w="56" h="98"/>
+        <override controlID="26" x="272" y="175" w="52" h="98"/>
+        <override controlID="27" x="316" y="175" w="56" h="98"/>
+        <override controlID="28" x="364" y="175" w="56" h="98"/>
+        <override controlID="29" x="411" y="175" w="69" h="98"/>
+        <override controlID="30" x="0" y="265" w="106" h="98"/>
+        <override controlID="31" x="100" y="265" w="85" h="98"/>
+        <override controlID="32" x="177" y="265" w="170" h="98"/>
+        <override controlID="33" x="341" y="265" w="54" h="98"/>
+        <override controlID="34" x="389" y="265" w="91" h="98"/>
+        <override controlID="35" x="17" y="286" w="73" h="52"/>
+        <override controlID="36" x="106" y="286" w="73" h="52"/>
+        <src>./assets/symbols.bmml#wp7 keypad</src>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::Button" x="76" y="66" w="-1" h="-1" measuredW="225" measuredH="28" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <href>memo-editor-base%26bm%3Bmemo-editor-base.bmml%26bm%3Bmemo-editor-base.bmml%26bm%3Bmemo-editor-base.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%220%2C6%2C225%2C34%22%20href%3D%22memo-editor-base.bmml%22%20alt%3D%22memo-editor-base%22%20id%3D%225%22/%3E</map>
+        <size>18</size>
+        <text>device%20back-key%20pressed</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

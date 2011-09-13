@@ -1,0 +1,93 @@
+<mockup version="1.0" skin="sketch" measuredW="1062" measuredH="837" mockupW="910" mockupH="800">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::Component" x="152" y="37" w="910" h="800" measuredW="910" measuredH="800" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>./assets/symbols.bmml#memolist</src>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Canvas" x="367" y="127" w="438" h="348" measuredW="100" measuredH="70" zOrder="1" locked="false" isInGroup="-1"/>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="382" y="142" w="-1" h="-1" measuredW="211" measuredH="50" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>40</size>
+        <text>DROPBOX%21</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="382" y="192" w="-1" h="-1" measuredW="142" measuredH="28" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Create%20account</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Button" x="694" y="411" w="-1" h="-1" measuredW="85" measuredH="30" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <href>memo-list-mockup%26bm%3Bmemo-list-mockup.bmml%26bm%3Bmemo-list-mockup.bmml%26bm%3Bmemo-list-mockup.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22542%2C374%2C627%2C404%22%20href%3D%22memo-list-mockup.bmml%22%20alt%3D%22memo-list-mockup%22%20id%3D%224%22/%3E</map>
+        <size>20</size>
+        <text>Cancel</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::Button" x="593" y="411" w="-1" h="-1" measuredW="86" measuredH="30" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Create</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::TextInput" x="514" y="247" w="243" h="-1" measuredW="79" measuredH="39" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>24</size>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Label" x="382" y="252" w="-1" h="-1" measuredW="111" measuredH="28" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>User%20name%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::Label" x="382" y="301" w="-1" h="-1" measuredW="97" measuredH="28" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Password%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::TextInput" x="514" y="295" w="243" h="-1" measuredW="322" measuredH="39" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>24</size>
+        <text>****************************</text>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::Label" x="382" y="358" w="-1" h="-1" measuredW="181" measuredH="28" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Re-enter%20password%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::TextInput" x="568" y="352" w="189" h="-1" measuredW="322" measuredH="39" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>24</size>
+        <text>****************************</text>
+      </controlProperties>
+    </control>
+    <control controlID="12" controlTypeID="com.balsamiq.mockups::Canvas" x="351" y="37" w="480" h="800" measuredW="100" measuredH="70" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>0.75</backgroundAlpha>
+        <color>0</color>
+      </controlProperties>
+    </control>
+    <control controlID="13" controlTypeID="com.balsamiq.mockups::Label" x="404" y="232" w="-1" h="-1" measuredW="386" measuredH="41" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>16777215</color>
+        <size>32</size>
+        <text>Success%20to%20create%20account</text>
+      </controlProperties>
+    </control>
+    <control controlID="14" controlTypeID="com.balsamiq.mockups::Button" x="545" y="329" w="-1" h="-1" measuredW="81" measuredH="52" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <href>memo-list-mockup-sync-clicked-but-dropbox-signin-required%26bm%3Bmemo-list-mockup-sync-clicked-but-dropbox-signin-required.bmml%26bm%3Bmemo-list-mockup-sync-clicked-but-dropbox-signin-required.bmml%26bm%3Bmemo-list-mockup-sync-clicked-but-dropbox-signin-required.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22393%2C292%2C474%2C344%22%20href%3D%22memo-list-mockup-sync-clicked-but-dropbox-signin-required.bmml%22%20alt%3D%22memo-list-mockup-sync-clicked-but-dropbox-signin-required%22%20id%3D%2214%22/%3E</map>
+        <size>40</size>
+        <text>OK</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

@@ -22,12 +22,12 @@ namespace MemoPadSamples
       InitializeComponent();
 
       var ws = new Workspace();
-      ws.Open("Writings");
+      ws.Open("/workspaces/memoit");
       var vm = ViewModelLocator.MemoListPageVm;
       vm.OpenWorkspace(ws);
 
-      var doc = vm.Docs[0];
-      doc.ChangeTitle("Hello There");
+      var doc = vm.Docs[1];
+      /*doc.ChangeTitle("Hello There");*/
 
       _a.Open(doc);
       /*_b.Open(vm.Docs[1]);*/

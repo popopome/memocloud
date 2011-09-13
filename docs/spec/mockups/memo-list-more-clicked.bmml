@@ -1,0 +1,29 @@
+<mockup version="1.0" skin="sketch" measuredW="964" measuredH="823" mockupW="964" mockupH="800">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::Component" x="54" y="23" w="910" h="800" measuredW="910" measuredH="800" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>./assets/symbols.bmml#memolist</src>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::List" x="477" y="330" w="245" h="235" measuredW="100" measuredH="174" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <rowHeight>43</rowHeight>
+        <size>28</size>
+        <text>Send%20an%20e-mail%0ACopy%20to%20clipboard%0A-------------%0AFacebook%20share</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Canvas" x="253" y="23" w="484" h="800" measuredW="100" measuredH="70" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>0.25</backgroundAlpha>
+        <color>0</color>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::Button" x="0" y="29" w="-1" h="-1" measuredW="240" measuredH="28" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <href>memo-list-mockup%26bm%3Bmemo-list-mockup.bmml%26bm%3Bmemo-list-mockup.bmml%26bm%3Bmemo-list-mockup.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%220%2C6%2C240%2C34%22%20href%3D%22memo-list-mockup.bmml%22%20alt%3D%22memo-list-mockup%22%20id%3D%228%22/%3E</map>
+        <text>BACK%20KEY%20or%20Touch%20any%20screen%20area</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

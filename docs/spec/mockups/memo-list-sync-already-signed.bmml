@@ -1,0 +1,34 @@
+<mockup version="1.0" skin="sketch" measuredW="1066" measuredH="835" mockupW="960" mockupH="802">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::Component" x="156" y="35" w="910" h="800" measuredW="910" measuredH="800" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>./assets/symbols.bmml#memolist</src>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::List" x="441" y="77" w="339" h="106" measuredW="100" measuredH="126" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <hasHeader>false</hasHeader>
+        <hrefs>memo-list-syncing%26bm%3Bmemo-list-syncing.bmml%26bm%3Bmemo-list-syncing.bmml%26bm%3Bmemo-list-syncing.bmml%2C</hrefs>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22335%2C46%2C674%2C93%22%20href%3D%22memo-list-syncing.bmml%22%20alt%3D%22memo-list-syncing%22%20id%3D%221_0%22/%3E%0A</map>
+        <rowHeight>47</rowHeight>
+        <selectedIndex>-1</selectedIndex>
+        <size>24</size>
+        <text>Sync%20DROPBOX%20folder%20name%0ASignout%20Dropbox</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Canvas" x="353" y="35" w="480" h="800" measuredW="100" measuredH="70" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>0.25</backgroundAlpha>
+        <borderStyle>square</borderStyle>
+        <color>0</color>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::Button" x="106" y="33" w="-1" h="-1" measuredW="60" measuredH="28" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <href>memo-list-mockup%26bm%3Bmemo-list-mockup.bmml%26bm%3Bmemo-list-mockup.bmml%26bm%3Bmemo-list-mockup.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%220%2C0%2C60%2C28%22%20href%3D%22memo-list-mockup.bmml%22%20alt%3D%22memo-list-mockup%22%20id%3D%223%22/%3E</map>
+        <text>BACK</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
