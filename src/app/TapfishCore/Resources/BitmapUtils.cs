@@ -129,5 +129,14 @@ namespace TapfishCore.Resources
       bmp.Render(el, new TranslateTransform());
       return bmp;
     }
+
+    public static BitmapImage CreateBitmapImmediately(string path)
+    {
+      return new BitmapImage
+      {
+        CreateOptions = BitmapCreateOptions.None,
+        UriSource = new Uri(path, UriKind.Relative)
+      };
+    }
   }
 }

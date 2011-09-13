@@ -13,6 +13,15 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="480"
     shell:SystemTray.IsVisible="False">
+	<phone:PhoneApplicationPage.Resources>
+		<Storyboard x:Name="_sbflip">
+			<DoubleAnimation 
+				Duration="0:0:0.5" 
+				To="180" 
+				Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationY)" 
+				Storyboard.TargetName="rectangle" d:IsOptimized="True"/>
+		</Storyboard>
+	</phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot">
@@ -25,6 +34,11 @@
             Height="200"
             VerticalAlignment="Top"
             Width="200" Margin="66,72,0,0"/>
+        <Rectangle x:Name="rectangle" Fill="Blue" Height="184" Margin="0,0,64,72" Stroke="Black" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="176">
+        	<Rectangle.Projection>
+        		<PlaneProjection/>
+        	</Rectangle.Projection>
+        </Rectangle>
     </Grid>
 
     <!--Sample code showing usage of ApplicationBar-->

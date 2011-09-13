@@ -123,13 +123,22 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\text-editor\separator.png" />
-    <Resource Include="Images\memo-list\memo-list-background.jpg" />
+    <Content Include="Images\memo-list\memo-list-background.jpg" />
     <Content Include="Images\dropbox\dropbox-signin.png" />
     <Content Include="Images\dropbox\sigin-create-account.png" />
     <Content Include="Images\dropbox\signin-sync-button.png" />
     <Content Include="Images\memo-list\delete-confirm-button.png" />
     <Content Include="Images\memo-list\delete-memo-button.png" />
+    <Content Include="Images\memo-list\memo-summary-arrow-selected.png" />
+    <Content Include="Images\memo-list\memo-summary-arrow.png" />
     <Content Include="Images\memo-list\memo-summary-back.png" />
+    <Content Include="Images\memo-list\memo-summary-clipboard-selected.png" />
+    <Content Include="Images\memo-list\memo-summary-clipboard.png" />
+    <Content Include="Images\memo-list\memo-summary-flip-back.png" />
+    <Content Include="Images\memo-list\memo-summary-flip-front.png" />
+    <Content Include="Images\memo-list\memo-summary-trash-selected.png" />
+    <Content Include="Images\memo-list\memo-summary-trash.png" />
+    <Content Include="Images\memo-list\more-commands.png" />
     <Content Include="Images\memo-list\new-memo-button.png" />
     <Content Include="Images\memo-list\sync-button.png" />
     <Content Include="Images\text-editor\text-editor-end.png" />
