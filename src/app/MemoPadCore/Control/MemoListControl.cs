@@ -19,8 +19,10 @@ namespace MemoPadCore.Control
   {
     public const int DESIRED_WIDTH = 480;
     public const int DESIRED_HEIGHT = 800;
+    const int MAX_NUM_ROWS_PER_COL = 3;
 
-    const int MEMO_Y_POSITION = 150;
+    const int MEMO_Y_POSITION = 80;
+    const int MEMO_Y_MARGIN = 8;
 
     public event EventHandler<MemoClickedEventArgs> MemoClicked;
 
@@ -115,12 +117,23 @@ namespace MemoPadCore.Control
       _list = new List<MemoSummaryControl>();
 
       double x = 0;
+      double y = MEMO_Y_POSITION;
+      int numrow = 0;
       docs.ForEach(d =>
         {
           var c = CreateAndAddSummaryControl(d);
-          c.SetXY(x, MEMO_Y_POSITION);
+          c.SetXY(x, y);
 
-          x += c.Width;
+          ++numrow;
+          if (MAX_NUM_ROWS_PER_COL == numrow)
+          {
+            x += c.Width;
+            y = MEMO_Y_POSITION;
+            numrow = 0;
+          }
+          else
+            y += c.Height + MEMO_Y_MARGIN;
+
           _list.Add(c);
         });
 

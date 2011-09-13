@@ -110,7 +110,7 @@ namespace MemoPadCore.Control
 
       _summary = new TextBlock
       {
-        HorizontalAlignment = HorizontalAlignment.Center,
+        HorizontalAlignment = HorizontalAlignment.Left,
         VerticalAlignment = VerticalAlignment.Top,
         FontFamily = _summaryfont,
         FontSize = SUMMARY_FONT_SIZE,
