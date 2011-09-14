@@ -132,11 +132,17 @@ namespace TapfishCore.Resources
 
     public static BitmapImage CreateBitmapImmediately(string path)
     {
-      return new BitmapImage
+      var stminfo = Application.GetResourceStream(new Uri(path, UriKind.Relative));
+      if (null == stminfo)
+        return null;
+
+      var bmp = new BitmapImage
       {
-        CreateOptions = BitmapCreateOptions.None,
-        UriSource = new Uri(path, UriKind.Relative)
+        CreateOptions = BitmapCreateOptions.None
       };
+
+      bmp.SetSource(stminfo.Stream);
+      return bmp;
     }
   }
 }

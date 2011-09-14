@@ -18,7 +18,8 @@
     </Capabilities>
     <Tasks>
       <!-- <DefaultTask  Name ="_default" NavigationPage="MemoListControlSamplePage.xaml"/> -->
-      <DefaultTask  Name ="_default" NavigationPage="MemoSummaryControlSamplePage.xaml"/>
+      <!-- <DefaultTask  Name ="_default" NavigationPage="MemoSummaryControlSamplePage.xaml"/> -->
+      <DefaultTask  Name ="_default" NavigationPage="PopupMenuSamplePage.xaml"/>
 
     </Tasks>
     <Tokens>

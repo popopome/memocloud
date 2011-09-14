@@ -10,35 +10,40 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using TapfishCore.Ui;
 
 namespace MemoPadSamples
 {
-    public partial class PopupMenuSamplePage : PhoneApplicationPage
+  public partial class PopupMenuSamplePage : PhoneApplicationPage
+  {
+    PopupMenu _mnu;
+
+    public PopupMenuSamplePage()
     {
-        public PopupMenuSamplePage()
-        {
-            InitializeComponent();
-        }
+      InitializeComponent();
 
-        private void _popup_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            /*var mnu = new PopupMenu(bgimage);
-            mnu.AddBitmap(1, "/Images/menu/dropbox/dropbox-menu-back.png");
-            mnu.AddBitmap(2, "/Images/menu/dropbox/dropbox-menu-item-sync.png");
-            mnu.AddBitmap(3, "/Images/menu/dropbox/dropbox-menu-item-sync-selected.png");
-            mnu.AddBitmap(4, "/Images/menu/dropbox/dropbox-menu-item-signout.png");
-            mnu.AddBitmap(5, "/Images/menu/dropbox/dropbox-menu-item-signout-selected.png");
+      _mnu = new PopupMenu();
+      _mnu.AddBitmap(1, "Images/menu/dropbox/dropbox-menu-back.png");
+      _mnu.AddBitmap(2, "Images/menu/dropbox/dropbox-menu-item-sync.png");
+      _mnu.AddBitmap(3, "Images/menu/dropbox/dropbox-menu-item-sync-selected.png");
+      _mnu.AddBitmap(4, "Images/menu/dropbox/dropbox-menu-item-signout.png");
+      _mnu.AddBitmap(5, "Images/menu/dropbox/dropbox-menu-item-signout-selected.png");
 
-            mnu.ItemClicked +=
-                (x, xe) =>
-                {
-                };
+      _mnu.ItemClicked +=
+          (x, xe) =>
+          {
+          };
 
-            mnu.AddItem(0, 8, 2, 3);
-            mnu.AddItem(1, 8, 4, 5);
+      _mnu.AddMenuItem(0, 0, 8, 2, 3);
+      _mnu.AddMenuItem(1, 0, 8, 4, 5);
 
-            mnu.Show(20, 20);*/
-
-        }
+      this.LayoutRoot.Children.Add(_mnu);
+      _mnu.Hide();
     }
+
+    private void _popup_Click(object sender, System.Windows.RoutedEventArgs e)
+    {
+      _mnu.ShowMenu();
+    }
+  }
 }

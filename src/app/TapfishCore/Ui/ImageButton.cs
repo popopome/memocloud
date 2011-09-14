@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,6 +27,25 @@ namespace TapfishCore.Ui
       this.ManipulationStarted += new EventHandler<ManipulationStartedEventArgs>(OnManipStarted);
       this.ManipulationCompleted += new EventHandler<ManipulationCompletedEventArgs>(OnManipCompleted);
       this.ManipulationDelta += new EventHandler<ManipulationDeltaEventArgs>(OnManipDelta);
+    }
+
+    public void Create(BitmapImage normalbmp,
+                       BitmapImage focusbmp)
+    {
+      Debug.Assert(normalbmp.PixelWidth > 0);
+      Debug.Assert(normalbmp.PixelHeight > 0);
+
+      this.Width = normalbmp.PixelWidth;
+      this.Height = normalbmp.PixelHeight;
+
+      _normalimg = normalbmp;
+      _focusimg = focusbmp;
+
+      _imgbrush = new ImageBrush
+      {
+        ImageSource = _normalimg
+      };
+      this.Background = _imgbrush;
     }
 
     public void Create(double w,
