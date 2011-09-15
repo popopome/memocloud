@@ -98,6 +98,7 @@ namespace MemoPadCore.Control
     /// </summary>
     public MemoListControl()
     {
+      this.Background = new SolidColorBrush(Colors.Transparent);
       _trans = new CompositeTransform();
       this.RenderTransform = _trans;
 
@@ -161,7 +162,7 @@ namespace MemoPadCore.Control
     void UpdateScrollRange()
     {
       _beginx = (DESIRED_WIDTH - MemoSummaryControl.DESIRED_WIDTH) / 2;
-      _endx = _beginx - (_list.Count - 1) * MemoSummaryControl.DESIRED_WIDTH;
+      _endx = _beginx - (Math.Ceiling(_list.Count / MAX_NUM_ROWS_PER_COL) - 1) * MemoSummaryControl.DESIRED_WIDTH;
     }
 
     /// <summary>

@@ -36,10 +36,10 @@ namespace MemoPadCore.Control
     const int SUMMARY_BOTTOM_SHADOW = 14;
     const int SUMMARY_HEIGHT = DESIRED_HEIGHT - TITLE_HEIGHT - TEXT_TOP_MARGIN - SUMMARY_TOP_MARGIN - SUMMARY_BOTTOM_SHADOW;
 
-    const int MORE_COMMANDS_WIDTH = 48;
-    const int MORE_COMMANDS_HEIGHT = 48;
-    const int MORE_COMMANDS_RIGHT_MARGIN = 12;
-    const int MORE_COMMANDS_BOTTOM_MARGIN = 15;
+    const int MORE_COMMANDS_WIDTH = 60;
+    const int MORE_COMMANDS_HEIGHT = 60;
+    const int MORE_COMMANDS_RIGHT_MARGIN = 0;
+    const int MORE_COMMANDS_BOTTOM_MARGIN = 0;
 
     const int BUTTON_IMAGE_WIDTH = 90;
     const int BUTTON_IMAGE_HEIGHT = 90;
@@ -101,12 +101,12 @@ namespace MemoPadCore.Control
                               TEXT_LEFT_MARGIN,
                               TEXT_TOP_MARGIN + TITLE_HEIGHT + SUMMARY_TOP_MARGIN, 0, 0);
 
-      _morecommandbmp = BitmapUtils.CreateBitmapImmediately("/Images/memo-list/more-commands.png");
+      _morecommandbmp = BitmapUtils.CreateBitmapImmediately("Images/memo-list/more-commands.png");
 
-      _flipbackground = BitmapUtils.CreateBitmapImmediately("/Images/memo-list/memo-summary-flip-back.png");
-      _fliptrash = BitmapUtils.CreateBitmapImmediately("/Images/memo-list/memo-summary-trash.png");
-      _flipclipboard = BitmapUtils.CreateBitmapImmediately("/Images/memo-list/memo-summary-clipboard.png");
-      _fliparrow = BitmapUtils.CreateBitmapImmediately("/Images/memo-list/memo-summary-arrow-selected.png");
+      _flipbackground = BitmapUtils.CreateBitmapImmediately("Images/memo-list/memo-summary-flip-back.png");
+      _fliptrash = BitmapUtils.CreateBitmapImmediately("Images/memo-list/memo-summary-trash.png");
+      _flipclipboard = BitmapUtils.CreateBitmapImmediately("Images/memo-list/memo-summary-clipboard.png");
+      _fliparrow = BitmapUtils.CreateBitmapImmediately("Images/memo-list/memo-summary-arrow-selected.png");
 
     }
 
@@ -185,22 +185,24 @@ namespace MemoPadCore.Control
       this.Children.Add(_morecommands);
 
       _cancelbutton = CreateImageButton(
-                           "/Images/memo-list/memo-summary-arrow.png",
-                           "/Images/memo-list/memo-summary-arrow-selected.png",
+                           "Images/memo-list/memo-summary-arrow.png",
+                           "Images/memo-list/memo-summary-arrow-selected.png",
                            100,
                            94);
       _cancelbutton.Clicked += new EventHandler(OnCancelButtonClicked);
       _trashbutton = CreateImageButton(
-                           "/Images/memo-list/memo-summary-trash.png",
-                           "/Images/memo-list/memo-summary-trash-selected.png",
+                           "Images/memo-list/memo-summary-trash.png",
+                           "Images/memo-list/memo-summary-trash-selected.png",
                            12,
                            1);
       _clipboardbutton = CreateImageButton(
-                           "/Images/memo-list/memo-summary-clipboard.png",
-                           "/Images/memo-list/memo-summary-clipboard-selected.png",
+                           "Images/memo-list/memo-summary-clipboard.png",
+                           "Images/memo-list/memo-summary-clipboard-selected.png",
                            100,
                            1);
 
+      this.ManipulationStarted += new EventHandler<ManipulationStartedEventArgs>(OnManipStarted);
+      this.ManipulationDelta += new EventHandler<ManipulationDeltaEventArgs>(OnManipDelta);
       this.ManipulationCompleted += new EventHandler<ManipulationCompletedEventArgs>(OnManipulationCompleted);
     }
 
@@ -249,6 +251,18 @@ namespace MemoPadCore.Control
       _title.Text = doc.Title;
       _titleengraving.Text = _title.Text;
       _summary.Text = doc.Summary;
+    }
+
+    void OnManipStarted(object sender, ManipulationStartedEventArgs e)
+    {
+      if (false == IsFrontVisible())
+        e.Handled = true;
+    }
+
+    void OnManipDelta(object sender, ManipulationDeltaEventArgs e)
+    {
+      if (false == IsFrontVisible())
+        e.Handled = true;
     }
 
     /// <summary>
@@ -324,6 +338,7 @@ namespace MemoPadCore.Control
       ShowBackContent();
 
       _anirotate.To = -180;
+
       _sbrotate.Begin();
 
     }
