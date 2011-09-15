@@ -71,5 +71,15 @@ namespace TapfishCore.Ui
       var x = Canvas.GetLeft(el);
       Canvas.SetLeft(el, x + dx);
     }
+
+    public static void SetTopMost(this UIElement el, Grid parent)
+    {
+      int index = parent.Children.IndexOf(el);
+      if (-1 == index)
+        return;
+
+      parent.Children.RemoveAt(index);
+      parent.Children.Add(el);
+    }
   }
 }

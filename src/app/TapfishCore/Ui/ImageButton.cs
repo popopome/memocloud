@@ -16,8 +16,8 @@ namespace TapfishCore.Ui
 {
   public class ImageButton : Canvas
   {
-    BitmapImage _normalimg;
-    BitmapImage _focusimg;
+    BitmapSource _normalimg;
+    BitmapSource _focusimg;
     ImageBrush _imgbrush;
 
     public event EventHandler Clicked;
@@ -29,8 +29,8 @@ namespace TapfishCore.Ui
       this.ManipulationDelta += new EventHandler<ManipulationDeltaEventArgs>(OnManipDelta);
     }
 
-    public void Create(BitmapImage normalbmp,
-                       BitmapImage focusbmp)
+    public void Create(BitmapSource normalbmp,
+                       BitmapSource focusbmp)
     {
       Debug.Assert(normalbmp.PixelWidth > 0);
       Debug.Assert(normalbmp.PixelHeight > 0);

@@ -141,6 +141,11 @@
     <Content Include="Images\memo-list\more-commands.png" />
     <Content Include="Images\memo-list\new-memo-button.png" />
     <Content Include="Images\memo-list\sync-button.png" />
+    <Content Include="Images\menu\dropbox\dropbox-menu-back.png" />
+    <Content Include="Images\menu\dropbox\dropbox-menu-item-signout-selected.png" />
+    <Content Include="Images\menu\dropbox\dropbox-menu-item-signout.png" />
+    <Content Include="Images\menu\dropbox\dropbox-menu-item-sync-selected.png" />
+    <Content Include="Images\menu\dropbox\dropbox-menu-item-sync.png" />
     <Content Include="Images\text-editor\text-editor-end.png" />
     <Content Include="Images\text-editor\text-editor-home.png" />
     <Content Include="SplashScreenImage.jpg" />

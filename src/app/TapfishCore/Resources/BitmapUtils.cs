@@ -144,5 +144,6 @@ namespace TapfishCore.Resources
       bmp.SetSource(stminfo.Stream);
       return bmp;
     }
+
   }
 }

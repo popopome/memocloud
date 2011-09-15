@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using TapfishCore.Resources;
 using TapfishCore.Ui;
 
 namespace MemoPadSamples
@@ -22,20 +23,23 @@ namespace MemoPadSamples
     {
       InitializeComponent();
 
-      _mnu = new PopupMenu();
-      _mnu.AddBitmap(1, "Images/menu/dropbox/dropbox-menu-back.png");
-      _mnu.AddBitmap(2, "Images/menu/dropbox/dropbox-menu-item-sync.png");
-      _mnu.AddBitmap(3, "Images/menu/dropbox/dropbox-menu-item-sync-selected.png");
-      _mnu.AddBitmap(4, "Images/menu/dropbox/dropbox-menu-item-signout.png");
-      _mnu.AddBitmap(5, "Images/menu/dropbox/dropbox-menu-item-signout-selected.png");
+      BitmapPool.AddBitmap("back", "Images/menu/dropbox/dropbox-menu-back.png");
+      BitmapPool.AddBitmap("sync", "Images/menu/dropbox/dropbox-menu-item-sync.png");
+      BitmapPool.AddBitmap("syncsel", "Images/menu/dropbox/dropbox-menu-item-sync-selected.png");
+      BitmapPool.AddBitmap("signout", "Images/menu/dropbox/dropbox-menu-item-signout.png");
+      BitmapPool.AddBitmap("signoutsel", "Images/menu/dropbox/dropbox-menu-item-signout-selected.png");
 
+      _mnu = new PopupMenu
+      {
+        MenuBackground = BitmapPool.Bmp("back")
+      };
       _mnu.ItemClicked +=
           (x, xe) =>
           {
           };
 
-      _mnu.AddMenuItem(0, 0, 8, 2, 3);
-      _mnu.AddMenuItem(1, 0, 8, 4, 5);
+      _mnu.AddMenuItem(0, 22, 9, BitmapPool.Bmp("sync"), BitmapPool.Bmp("syncsel"));
+      _mnu.AddMenuItem(1, 0, 0, BitmapPool.Bmp("signout"), BitmapPool.Bmp("signoutsel"));
 
       this.LayoutRoot.Children.Add(_mnu);
       _mnu.Hide();
@@ -43,7 +47,7 @@ namespace MemoPadSamples
 
     private void _popup_Click(object sender, System.Windows.RoutedEventArgs e)
     {
-      _mnu.ShowMenu();
+      _mnu.ShowMenu(30, 30);
     }
   }
 }

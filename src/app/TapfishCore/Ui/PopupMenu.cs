@@ -23,6 +23,7 @@ namespace TapfishCore.Ui
 
     Dictionary<int, BitmapImage> _bmppool;
     List<ImageButton> _items;
+    Canvas _menucontent;
 
     #region Orientation DependencyProperty
 
@@ -58,13 +59,66 @@ namespace TapfishCore.Ui
 
     #endregion Orientation DependencyProperty
 
+    #region MenuBackground Dependency property
+
+    /// <summary>
+    /// The <see cref="MenuBackground" /> dependency property's name.
+    /// </summary>
+    public const string MenuBackgroundPropertyName = "MenuBackground";
+
+    /// <summary>
+    /// Gets or sets the value of the <see cref="MenuBackground" />
+    /// property. This is a dependency property.
+    /// </summary>
+    public BitmapSource MenuBackground
+    {
+      get
+      {
+        return (BitmapSource)GetValue(MenuBackgroundProperty);
+      }
+      set
+      {
+        SetValue(MenuBackgroundProperty, value);
+      }
+    }
+
+    /// <summary>
+    /// Identifies the <see cref="MenuBackground" /> dependency property.
+    /// </summary>
+    public static readonly DependencyProperty MenuBackgroundProperty = DependencyProperty.Register(
+        MenuBackgroundPropertyName,
+        typeof(BitmapSource),
+        typeof(PopupMenu),
+        new PropertyMetadata((x, xe) =>
+          {
+            var mnu = (x as PopupMenu);
+            var bmp = (xe.NewValue as BitmapSource);
+            mnu._menucontent.Background = new ImageBrush
+            {
+              ImageSource = bmp
+            };
+            mnu._menucontent.Width = bmp.PixelWidth;
+            mnu._menucontent.Height = bmp.PixelHeight;
+          }));
+
+    #endregion MenuBackground Dependency property
+
     /// <summary>
     /// CTOR
     /// </summary>
     public PopupMenu()
     {
+      this.Width = 800;
+      this.Height = 800;
+      this.Background = new SolidColorBrush(Colors.Transparent);
+
       _bmppool = new Dictionary<int, BitmapImage>();
       _items = new List<ImageButton>();
+
+      _menucontent = new Canvas();
+      this.Children.Add(_menucontent);
+
+      this.ManipulationCompleted += new EventHandler<ManipulationCompletedEventArgs>(OnManipCompleted);
     }
 
     /// <summary>
@@ -83,12 +137,28 @@ namespace TapfishCore.Ui
       _bmppool.Add(bmpid, bmp);
     }
 
+    /// <summary>
+    /// Get bitmap from bitmap pool
+    /// </summary>
+    /// <param name="bmpid">Bitmap id</param>
+    /// <returns>Bitmap image</returns>
     BitmapImage GetBitmap(int bmpid)
     {
       if (_bmppool.ContainsKey(bmpid))
         return _bmppool[bmpid];
 
       return null;
+    }
+
+    public void AddMenuItem(int itemid,
+                            int marginx,
+                            int marginy,
+                            string normalbmpPoolId,
+                            string pressbmpPoolId)
+    {
+      AddMenuItem(itemid, marginx, marginy,
+                  BitmapPool.Bmp(normalbmpPoolId),
+                  BitmapPool.Bmp(pressbmpPoolId));
     }
 
     /// <summary>
@@ -103,22 +173,43 @@ namespace TapfishCore.Ui
                     int itemid,
                     int marginx,
                     int marginy,
-                    int normalbmpid,
-                    int focusbmpid)
+                    BitmapSource normalbmp,
+                    BitmapSource focusbmp)
     {
       var imgbutton = new ImageButton();
 
-      var normalbmp = GetBitmap(normalbmpid);
-      var focusbmp = GetBitmap(focusbmpid);
-      imgbutton.Create(normalbmp,
-                       focusbmp);
+      Debug.Assert(normalbmp != null);
+      Debug.Assert(focusbmp != null);
+
+      imgbutton.Create(normalbmp, focusbmp);
       imgbutton.Tag = itemid;
 
       var pt = ComputeNextItemPoint();
       imgbutton.SetXY(pt.X + marginx, pt.Y + marginy);
+      imgbutton.Clicked += new EventHandler(OnImageButtonClicked);
 
-      this.Children.Add(imgbutton);
+      _menucontent.Children.Add(imgbutton);
       _items.Add(imgbutton);
+    }
+
+    /// <summary>
+    /// Image button is clicked
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    void OnImageButtonClicked(object sender, EventArgs e)
+    {
+      var imgbutton = (sender as ImageButton);
+      int itemid = (int)imgbutton.Tag;
+
+      if (ItemClicked != null)
+        ItemClicked(this,
+                    new PopupMenuEventArgs
+                    {
+                      MenuId = itemid
+                    });
+
+      CloseMenu();
     }
 
     /// <summary>
@@ -146,9 +237,38 @@ namespace TapfishCore.Ui
     /// <summary>
     /// Show menu
     /// </summary>
-    public void ShowMenu()
+    public void ShowMenu(double x, double y)
     {
+      _menucontent.SetXY(x, y);
       this.Show();
+      BackKeyHandler.InstallBackKeyHandler(this.GetHashCode(),
+        () =>
+        {
+          this.CloseMenu();
+          return true;
+        });
+    }
+
+    /// <summary>
+    /// Click other area.
+    /// Close popup menu
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    void OnManipCompleted(
+          object sender,
+          ManipulationCompletedEventArgs e)
+    {
+      CloseMenu();
+    }
+
+    /// <summary>
+    /// Close menu
+    /// </summary>
+    public void CloseMenu()
+    {
+      this.Hide();
+      BackKeyHandler.UninstallBackKeyHandler(this.GetHashCode());
     }
   }
 

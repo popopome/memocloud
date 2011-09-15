@@ -23,11 +23,30 @@ namespace MemoPad
 {
   public partial class MemoListPage : PhoneApplicationPage
   {
+    #region Constants
+
     const string VS_NORMAL = "Normal";
     const string VS_DELETECONFIRM = "DeleteConfirm";
     const string VS_SYNC = "SyncState";
 
+    const int MNU_ID_SYNC = 1;
+    const int MNU_ID_DROPBOX_LOGOUT = 2;
+
+    const string BMP_ID_SYNC_MENU_BACK = "syncmenuback";
+    const string BMP_ID_DROPBOX_SYNC = "sync";
+    const string BMP_ID_DROPBOX_SYNC_SEL = "syncsel";
+    const string BMP_ID_DROPBOX_SIGNOUT = "signout";
+    const string BMP_ID_DROPBOX_SIGNOUT_SEL = "signoutsel";
+
+    #endregion Constants
+
+    #region Fields
+
     MemoListPageViewModel _vm;
+
+    PopupMenu _syncmenu;
+
+    #endregion Fields
 
     /// <summary>
     /// CTOR
@@ -53,6 +72,42 @@ namespace MemoPad
 
       _dropboxsignin.SigninSucceeded += new EventHandler<DropboxSigninEventArgs>(OnDropboxSigninSucceeded);
       _dropboxsignin.SigninFailed += new EventHandler<DropboxSigninEventArgs>(OnDropboxSigninFailed);
+
+      string[] bmpdata = new string[]
+      {
+        BMP_ID_SYNC_MENU_BACK, "Images/menu/dropbox/dropbox-menu-back.png",
+        BMP_ID_DROPBOX_SYNC, "Images/menu/dropbox/dropbox-menu-item-sync.png",
+        BMP_ID_DROPBOX_SYNC_SEL, "Images/menu/dropbox/dropbox-menu-item-sync-selected.png",
+        BMP_ID_DROPBOX_SIGNOUT, "Images/menu/dropbox/dropbox-menu-item-signout.png",
+        BMP_ID_DROPBOX_SIGNOUT_SEL, "Images/menu/dropbox/dropbox-menu-item-signout-selected.png"
+      };
+      for (int i = 0; i < bmpdata.Length; i += 2)
+        BitmapPool.AddBitmap(bmpdata[i], bmpdata[i + 1]);
+
+      InitializeSyncMenu();
+    }
+
+    /// <summary>
+    /// Initialize sync menu
+    /// </summary>
+    void InitializeSyncMenu()
+    {
+      _syncmenu = new PopupMenu
+      {
+        MenuBackground = BitmapPool.Bmp(BMP_ID_SYNC_MENU_BACK)
+      };
+      _syncmenu.ItemClicked += new EventHandler<PopupMenuEventArgs>(OnSyncMenuItemClicked);
+      _syncmenu.AddMenuItem(MNU_ID_SYNC,
+                            22, 9,
+                            BMP_ID_DROPBOX_SYNC,
+                            BMP_ID_DROPBOX_SYNC_SEL);
+      _syncmenu.AddMenuItem(MNU_ID_DROPBOX_LOGOUT,
+                            0, 0,
+                            BMP_ID_DROPBOX_SIGNOUT,
+                            BMP_ID_DROPBOX_SIGNOUT_SEL);
+
+      this.LayoutRoot.Children.Add(_syncmenu);
+      _syncmenu.Hide();
     }
 
     /// <summary>
@@ -183,7 +238,17 @@ namespace MemoPad
         return;
       }
 
-      Sync();
+      var trans = _syncbutton.TransformToVisual(this.LayoutRoot);
+      var pt = trans.Transform(new Point
+      {
+        X = _syncbutton.ActualWidth - 12,
+        Y = 0
+      });
+
+      _syncmenu.SetTopMost(this.LayoutRoot);
+      _syncmenu.ShowMenu(pt.X, pt.Y);
+
+      /*Sync();*/
     }
 
     /// <summary>
@@ -263,6 +328,23 @@ namespace MemoPad
     void OnDropboxSigninFailed(object sender, DropboxSigninEventArgs e)
     {
       MessageBox.Show(e.ErrorMessage);
+    }
+
+    /// <summary>
+    /// Sync menu item is clicked
+    /// </summary>
+    /// <param name="sender">Event sender</param>
+    /// <param name="e">Clicked menu item</param>
+    void OnSyncMenuItemClicked(object sender, PopupMenuEventArgs e)
+    {
+      switch (e.MenuId)
+      {
+        case MNU_ID_SYNC:
+          Sync();
+          break;
+        case MNU_ID_DROPBOX_LOGOUT:
+          break;
+      }
     }
   }
 }

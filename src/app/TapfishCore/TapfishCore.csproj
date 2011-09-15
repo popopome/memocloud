@@ -90,6 +90,7 @@
     <Compile Include="Resources\BitmapUtils.cs" />
     <Compile Include="Platform\ThreadUtil.cs" />
     <Compile Include="Resources\StorageIo.cs" />
+    <Compile Include="Ui\BackKeyHandler.cs" />
     <Compile Include="Ui\BackKeyHandlerManager.cs" />
     <Compile Include="Ui\BackKeyHook.cs" />
     <Compile Include="Ui\FrameworkExtension.cs" />
