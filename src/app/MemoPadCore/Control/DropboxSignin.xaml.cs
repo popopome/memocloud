@@ -25,6 +25,7 @@ namespace MemoPadCore.Control
 
     public event EventHandler<DropboxSigninEventArgs> SigninSucceeded;
     public event EventHandler<DropboxSigninEventArgs> SigninFailed;
+    public event EventHandler Canceled;
 
     /// <summary>
     /// CTOR
@@ -168,6 +169,33 @@ namespace MemoPadCore.Control
               object sender,
               ManipulationCompletedEventArgs e)
     {
+    }
+
+    /// <summary>
+    /// Signin box activated
+    /// </summary>
+    public void Activate()
+    {
+      this.Show();
+
+      BackKeyHandler.UninstallBackKeyHandler(this.GetHashCode());
+      BackKeyHandler.InstallBackKeyHandler(this.GetHashCode(),
+        () =>
+        {
+          if (Canceled != null)
+            this.Canceled(this, null);
+
+          return true;
+        });
+    }
+
+    /// <summary>
+    /// Deactivated signin box
+    /// </summary>
+    public void Deactivate()
+    {
+      this.Hide();
+      BackKeyHandler.UninstallBackKeyHandler(this.GetHashCode());
     }
   }
 

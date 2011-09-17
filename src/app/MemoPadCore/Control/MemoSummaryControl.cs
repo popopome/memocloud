@@ -214,6 +214,7 @@ namespace MemoPadCore.Control
                            "Images/memo-list/memo-summary-clipboard-selected.png",
                            100,
                            1);
+      _clipboardbutton.Clicked += new EventHandler(OnCopyToClipboardClicked);
 
       this.ManipulationStarted += new EventHandler<ManipulationStartedEventArgs>(OnManipStarted);
       this.ManipulationDelta += new EventHandler<ManipulationDeltaEventArgs>(OnManipDelta);
@@ -438,7 +439,20 @@ namespace MemoPadCore.Control
       }
     }
 
+    /// <summary>
+    /// Cancel button clicked
+    /// </summary>
+    /// <param name="sender">Cancel button</param>
+    /// <param name="e">Event sender</param>
     void OnCancelButtonClicked(object sender, EventArgs e)
+    {
+      FlipBackToFront();
+    }
+
+    /// <summary>
+    /// Flip back to front
+    /// </summary>
+    void FlipBackToFront()
     {
       PrepareAnimation();
 
@@ -448,6 +462,12 @@ namespace MemoPadCore.Control
       _sbrotate.Begin();
     }
 
+    /// <summary>
+    /// Storyboard completed
+    /// BACK ---> FRONT
+    /// </summary>
+    /// <param name="sender">Event sender</param>
+    /// <param name="e">Event parameter</param>
     void OnFlipCompleted_BackToFront(object sender, EventArgs e)
     {
       _cancelbutton.Hide();
@@ -459,6 +479,20 @@ namespace MemoPadCore.Control
       _anirotate.Completed -= new EventHandler(OnFlipCompleted_BackToFront);
       _anirotate.To = 0;
       _sbrotate.Begin();
+    }
+
+    /// <summary>
+    /// Copy to clipboard command is clicked
+    /// </summary>
+    /// <param name="sender">Event sender</param>
+    /// <param name="e">Event parameter</param>
+    void OnCopyToClipboardClicked(object sender, EventArgs e)
+    {
+      Doc.Open();
+      System.Windows.Clipboard.SetText(
+        this.Doc.Text);
+
+      FlipBackToFront();
     }
   }
 }

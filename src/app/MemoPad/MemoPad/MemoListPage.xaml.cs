@@ -75,6 +75,7 @@ namespace MemoPad
 
       _dropboxsignin.SigninSucceeded += new EventHandler<DropboxSigninEventArgs>(OnDropboxSigninSucceeded);
       _dropboxsignin.SigninFailed += new EventHandler<DropboxSigninEventArgs>(OnDropboxSigninFailed);
+      _dropboxsignin.Canceled += new EventHandler(OnDropboxSigninCanceled);
 
       string[] bmpdata = new string[]
       {
@@ -240,8 +241,7 @@ namespace MemoPad
         // Let's show dropbox account control.
         //
         _dropboxsignin.SetSyncFolderName(_vm.Workspace.DropBoxPath);
-        _dropboxsignin.Show();
-
+        _dropboxsignin.Activate();
         return;
       }
 
@@ -346,9 +346,19 @@ namespace MemoPad
       ws.ChangeDropboxPath(e.RemoteFolderName);
       ws.SaveConfigData();
 
-      _dropboxsignin.Hide();
+      _dropboxsignin.Deactivate();
 
       Sync();
+    }
+
+    /// <summary>
+    /// Signin canceled
+    /// </summary>
+    /// <param name="sender">Event sender</param>
+    /// <param name="e">Event parameter</param>
+    void OnDropboxSigninCanceled(object sender, EventArgs e)
+    {
+      _dropboxsignin.Deactivate();
     }
 
     /// <summary>
