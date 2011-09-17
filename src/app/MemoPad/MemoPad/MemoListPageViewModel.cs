@@ -93,5 +93,13 @@ namespace MemoPad
       Docs.Remove(doc);
       doc.Delete();
     }
+
+    /// <summary>
+    /// Clear sync
+    /// </summary>
+    public void ClearSync()
+    {
+      Workspace.ClearDropBoxSetting();
+    }
   }
 }

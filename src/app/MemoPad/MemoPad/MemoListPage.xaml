@@ -77,6 +77,13 @@
     							</DiscreteObjectKeyFrame.Value>
     						</DiscreteObjectKeyFrame>
     					</ObjectAnimationUsingKeyFrames>
+    					<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="_syncbox">
+    						<DiscreteObjectKeyFrame KeyTime="0">
+    							<DiscreteObjectKeyFrame.Value>
+    								<Visibility>Visible</Visibility>
+    							</DiscreteObjectKeyFrame.Value>
+    						</DiscreteObjectKeyFrame>
+    					</ObjectAnimationUsingKeyFrames>
     				</Storyboard>
     			</VisualState>
     		</VisualStateGroup>
@@ -101,6 +108,7 @@
     	<Grid x:Name="_syncpanel" Background="#7F000000" Visibility="Collapsed">
     		<TextBlock TextWrapping="Wrap" Text="Sync..." VerticalAlignment="Center" d:LayoutOverrides="Width" HorizontalAlignment="Center"/>
     	</Grid>
+    	<MemoPadCore_Control:SyncBox x:Name="_syncbox" d:LayoutOverrides="Width" Visibility="Collapsed"/>
     </Grid>
 
     <!--Sample code showing usage of ApplicationBar-->

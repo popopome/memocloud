@@ -48,6 +48,8 @@ namespace MemoPad
 
     #endregion Fields
 
+    #region CTOR
+
     /// <summary>
     /// CTOR
     /// </summary>
@@ -85,7 +87,11 @@ namespace MemoPad
         BitmapPool.AddBitmap(bmpdata[i], bmpdata[i + 1]);
 
       InitializeSyncMenu();
+
+      _syncbox.DoneButtonClicked += new EventHandler(OnSyncBoxDoneClicked);
     }
+
+    #endregion CTOR
 
     /// <summary>
     /// Initialize sync menu
@@ -258,9 +264,35 @@ namespace MemoPad
     {
       GoToVisualState(VS_SYNC);
 
+      _syncbox.SetSyncInfo(0, 0);
+      _syncbox.HideSyncBox();
+      _syncbox.UpdateDescription("Prepare synchronization...");
+
       var sync = new DropboxSync(_vm.Workspace);
+      sync.SyncStarted += new EventHandler<DropboxSyncEventArgs>(OnSyncStarted);
+      sync.SyncStepped += new EventHandler<DropboxSyncEventArgs>(OnSyncStepped);
       sync.Finished += new EventHandler<DropboxSyncEventArgs>(OnSyncFinished);
       sync.Start();
+
+      _syncbox.ShowSyncBox();
+    }
+
+    void OnSyncStarted(object sender, DropboxSyncEventArgs e)
+    {
+      _syncbox.SetSyncInfo(e.TotalUploadingFiles,
+                           e.TotalDownloadingFiles);
+    }
+
+    void OnSyncStepped(object sender, DropboxSyncEventArgs e)
+    {
+      ThreadUtil.UiCall(() =>
+        {
+          _syncbox.UpdateDescription(e.Message);
+          _syncbox.UpdateProgress(e.TotalUploadingFiles,
+                                  e.NumUploadedFiles,
+                                  e.TotalDownloadingFiles,
+                                  e.NumDownloadedFiles);
+        });
     }
 
     /// <summary>
@@ -281,14 +313,12 @@ namespace MemoPad
             MessageBox.Show(errmsg,
                             "Sync Failed",
                             MessageBoxButton.OK);
-          }
-          else
-          {
-            MessageBox.Show("Succeeded");
-            Refresh();
+
+            GoToVisualState(VS_NORMAL);
+            return;
           }
 
-          GoToVisualState(VS_NORMAL);
+          _syncbox.SyncFinished();
         });
     }
 
@@ -343,8 +373,20 @@ namespace MemoPad
           Sync();
           break;
         case MNU_ID_DROPBOX_LOGOUT:
+          _vm.ClearSync();
           break;
       }
+    }
+
+    /// <summary>
+    /// Syncbox done button is clicked
+    /// </summary>
+    /// <param name="sender">Event sender</param>
+    /// <param name="e">Event parameter</param>
+    void OnSyncBoxDoneClicked(object sender, EventArgs e)
+    {
+      Refresh();
+      GoToVisualState(VS_NORMAL);
     }
   }
 }

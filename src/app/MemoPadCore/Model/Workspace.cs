@@ -117,6 +117,17 @@ namespace MemoPadCore.Model
     }
 
     /// <summary>
+    /// Clear dropbox setting
+    /// </summary>
+    public void ClearDropBoxSetting()
+    {
+      this.DropBoxToken = "";
+      this.DropBoxSecret = "";
+      this.SyncHashCode = "";
+      SaveConfigData();
+    }
+
+    /// <summary>
     /// Get path
     /// </summary>
     /// <returns></returns>

@@ -507,6 +507,14 @@ namespace MemoPadCore.Model
     }
 
     /// <summary>
+    /// Clear sync configuration
+    /// </summary>
+    public void ClearSyncSetting()
+    {
+
+    }
+
+    /// <summary>
     /// This function leaves log message
     /// </summary>
     /// <param name="fmt">String format</param>

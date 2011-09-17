@@ -94,7 +94,10 @@ namespace MemoPadCore.Control
             var usertoken = userlogin.Token;
             var secret = userlogin.Secret;
 
+            VisualStateManager.GoToState(this, VS_NORMAL, true);
+
             if (SigninSucceeded != null)
+            {
               SigninSucceeded(this,
                               new DropboxSigninEventArgs
                               {
@@ -102,6 +105,9 @@ namespace MemoPadCore.Control
                                 UserSecret = secret,
                                 RemoteFolderName = folder
                               });
+
+              ClearControl();
+            }
           },
           (error) =>
           {
@@ -141,6 +147,16 @@ namespace MemoPadCore.Control
       }
 
       return errormessage;
+    }
+
+    /// <summary>
+    /// Clear control
+    /// </summary>
+    void ClearControl()
+    {
+      _email.Text = "";
+      _password.Password = "";
+      _folder.Text = "";
     }
 
     /// <summary>

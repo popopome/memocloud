@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="MemoPadCore.Control.SyncBox"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="800" d:DesignWidth="480">
+
+    <Grid x:Name="LayoutRoot">
+    	<VisualStateManager.VisualStateGroups>
+    		<VisualStateGroup x:Name="VisualStateGroup">
+    			<VisualStateGroup.Transitions>
+    				<VisualTransition GeneratedDuration="0:0:1" To="Active">
+    					<VisualTransition.GeneratedEasingFunction>
+    						<CubicEase EasingMode="EaseOut"/>
+    					</VisualTransition.GeneratedEasingFunction>
+    				</VisualTransition>
+    			</VisualStateGroup.Transitions>
+    			<VisualState x:Name="Hidden">
+    				<Storyboard>
+    					<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="LayoutRoot" d:IsOptimized="True"/>
+    				</Storyboard>
+    			</VisualState>
+    			<VisualState x:Name="Active"/>
+    		</VisualStateGroup>
+    	</VisualStateManager.VisualStateGroups>
+    	<Grid.Background>
+    		<ImageBrush Stretch="Fill" ImageSource="/MemoPadCore;component/Images/dropbox/syncbox-back.png"/>
+    	</Grid.Background>
+    	<TextBlock x:Name="_uploading" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Uploadings: " VerticalAlignment="Top" Margin="38,242,0,0" Foreground="#FF5D5D5D" FontFamily="Segoe WP Semibold" FontSize="18.667"/>
+    	<TextBlock x:Name="_downloading" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Downloadings:" VerticalAlignment="Top" Margin="38,271,0,0" Foreground="#FF5D5D5D" FontFamily="Segoe WP Semibold" FontSize="18.667"/>
+    	<Image x:Name="_curprogress" HorizontalAlignment="Left" Height="5" VerticalAlignment="Top" Stretch="Fill" Source="/MemoPadCore;component/Images/dropbox/sync-position.png" Margin="0,182,0,0" Width="112" d:LayoutOverrides="HorizontalAlignment"/>
+    	<TextBlock x:Name="_uploadingstatus" TextWrapping="Wrap" VerticalAlignment="Top" Margin="176,242,197,0" Foreground="#FF5D5D5D" FontFamily="Segoe WP Semibold" FontSize="18.667" d:LayoutOverrides="Width"/>
+    	<TextBlock x:Name="_downloadingstatus" TextWrapping="Wrap" Text="Downloadings:" VerticalAlignment="Top" Margin="176,271,177,0" Foreground="#FF5D5D5D" FontFamily="Segoe WP Semibold" FontSize="18.667" d:LayoutOverrides="Width"/>
+    	<TextBlock x:Name="_desc" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="38,199,0,0" Foreground="#FF5D5D5D" FontFamily="Segoe WP SemiLight" FontSize="16" Text="description"/>
+    	<Button x:Name="_donebutton" Content="DONE" HorizontalAlignment="Right" Margin="0,328,8,0" Foreground="#FF484848" BorderBrush="#FF3D3D3D" VerticalAlignment="Top" Visibility="Collapsed"/>
+
+    </Grid>
+</UserControl>

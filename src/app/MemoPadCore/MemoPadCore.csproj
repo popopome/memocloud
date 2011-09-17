@@ -75,6 +75,9 @@
     </Compile>
     <Compile Include="Control\MemoSummaryControl.cs" />
     <Compile Include="Control\MemoListControl.cs" />
+    <Compile Include="Control\SyncBox.xaml.cs">
+      <DependentUpon>SyncBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\DropboxSync.cs" />
     <Compile Include="Model\SyncPolicy.cs" />
     <Compile Include="Model\TextDocument.cs" />
@@ -98,9 +101,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Control\SyncBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\dropbox\dropbox-signin.png" />
+    <Resource Include="Images\dropbox\sync-position.png" />
+    <Resource Include="Images\dropbox\syncbox-back.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\dropbox\sigin-create-account.png" />
