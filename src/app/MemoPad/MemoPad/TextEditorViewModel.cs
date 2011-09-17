@@ -48,6 +48,18 @@ namespace MemoPad
       if (title.IsEmpty())
         title = Doc.Title;
 
+      string oldtitle = Doc.Title;
+      string oldtext = Doc.Text;
+
+      bool ismodified = false;
+      if (oldtitle != Doc.Title)
+        ismodified = true;
+      else if (oldtext != text)
+        ismodified = true;
+
+      if (ismodified == false)
+        return;
+
       Doc.Text = text;
       if (Doc.Title != title)
         Doc.Delete();
