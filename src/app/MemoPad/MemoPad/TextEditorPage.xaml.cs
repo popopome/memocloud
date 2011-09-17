@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -22,6 +24,50 @@ namespace MemoPad
     TextEditorViewModel _vm;
     TapAndHoldRepeater _leftrepeater;
     TapAndHoldRepeater _rightrepeater;
+
+    bool _istextfocused;
+    Point _downpt;
+
+    double _downoffset;
+
+    /// <summary>
+    /// The <see cref="VOffset" /> dependency property's name.
+    /// </summary>
+    public const string VOffsetPropertyName = "VOffset";
+
+    /// <summary>
+    /// Gets or sets the value of the <see cref="VOffset" />
+    /// property. This is a dependency property.
+    /// </summary>
+    public double VOffset
+    {
+      get
+      {
+        return (double)GetValue(VOffsetProperty);
+      }
+      set
+      {
+        SetValue(VOffsetProperty, value);
+      }
+    }
+
+    /// <summary>
+    /// Identifies the <see cref="VOffset" /> dependency property.
+    /// </summary>
+    public static readonly DependencyProperty VOffsetProperty = DependencyProperty.Register(
+        VOffsetPropertyName,
+        typeof(double),
+        typeof(TextEditorPage),
+        new PropertyMetadata((x, xe) =>
+          {
+            double val = (double)xe.NewValue;
+            Debug.WriteLine("vertical->{0}", val);
+
+            var pg = x as TextEditorPage;
+            if (pg._istextfocused)
+              pg._focusthief.Focus();
+
+          }));
 
     /// <summary>
     /// CTOR
@@ -55,8 +101,44 @@ namespace MemoPad
 
       this.LayoutRoot.Children.Remove(_popup);
 
+      _text.GotFocus += (x, xe) => _istextfocused = true;
+      _text.LostFocus += (x, xe) => _istextfocused = false;
+
+      _scrollviewer.ManipulationStarted += new EventHandler<ManipulationStartedEventArgs>(OnTextManipStarted);
+      _scrollviewer.ManipulationDelta += new EventHandler<ManipulationDeltaEventArgs>(OnTextManipDelta);
+
+      var binding = new Binding();
+      binding.Source = _scrollviewer;
+      binding.Path = new PropertyPath("VerticalOffset");
+      this.SetBinding(TextEditorPage.VOffsetProperty,
+                      binding);
+
       this.Loaded += new RoutedEventHandler(OnLoaded);
       this.Unloaded += new RoutedEventHandler(OnUnloaded);
+    }
+
+    void OnTextManipStarted(object sender, ManipulationStartedEventArgs e)
+    {
+      _downoffset = _scrollviewer.VerticalOffset;
+      /*var trans = e.ManipulationContainer.TransformToVisual(this.LayoutRoot);
+      _downpt = trans.Transform(e.ManipulationOrigin);*/
+    }
+
+    void OnTextManipDelta(object sender, ManipulationDeltaEventArgs e)
+    {
+      if (_istextfocused == false)
+        return;
+
+      /*var trans = e.ManipulationContainer.TransformToVisual(this.LayoutRoot);
+      var curpt = trans.Transform(e.ManipulationOrigin);
+
+      var dy = Math.Abs(_downpt.Y - curpt.Y);*/
+
+      var dy = Math.Abs(_downoffset - _scrollviewer.VerticalOffset);
+      if (dy >= 64)
+      {
+        _focusthief.Focus();
+      }
     }
 
     /// <summary>
@@ -66,7 +148,8 @@ namespace MemoPad
     /// <param name="e">Event parameter</param>
     void OnLoaded(object sender, RoutedEventArgs e)
     {
-      _popup.IsOpen = true;
+      _istextfocused = false;
+      /*_popup.IsOpen = true;*/
     }
 
     /// <summary>
@@ -76,7 +159,7 @@ namespace MemoPad
     /// <param name="e">Event parameter</param>
     void OnUnloaded(object sender, RoutedEventArgs e)
     {
-      _popup.IsOpen = false;
+      /*_popup.IsOpen = false;*/
     }
 
     /// <summary>
