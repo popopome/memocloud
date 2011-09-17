@@ -17,6 +17,8 @@ namespace MemoPadCore.Control
 {
   public class MemoListControl : Canvas
   {
+    #region Constants
+
     public const int DESIRED_WIDTH = 480;
     public const int DESIRED_HEIGHT = 800;
     const int MAX_NUM_ROWS_PER_COL = 3;
@@ -24,7 +26,14 @@ namespace MemoPadCore.Control
     const int MEMO_Y_POSITION = 80;
     const int MEMO_Y_MARGIN = 8;
 
+    #endregion Constants
+
+    #region Events
+
     public event EventHandler<MemoClickedEventArgs> MemoClicked;
+    public event EventHandler<MemoClickedEventArgs> MemoDeleteClicked;
+
+    #endregion Events
 
     #region Fields
 
@@ -191,9 +200,43 @@ namespace MemoPadCore.Control
       };
       c.Open(d);
       c.Click += new EventHandler<MemoClickedEventArgs>(OnMemoClicked);
+      c.DeleteClicked += new EventHandler<MemoClickedEventArgs>(OnMemoDeleteClicked);
 
       this.Children.Add(c);
       return c;
+    }
+
+    /// <summary>
+    /// Memo delete clicked
+    /// </summary>
+    /// <param name="sender">Event sender</param>
+    /// <param name="e">Event parameter</param>
+    void OnMemoDeleteClicked(
+              object sender,
+              MemoClickedEventArgs e)
+    {
+      int delindex = this.Children.IndexOf(sender as UIElement);
+      if (-1 == delindex)
+        return;
+
+      var c = _list[delindex];
+      var doc = c.Doc;
+      this.Children.Remove(c);
+      _list.Remove(c);
+
+      ArrangeMemoControls();
+      UpdateScrollRange();
+
+      double tx = Align(X);
+      if (tx > _beginx)
+        tx = _beginx;
+      else if (tx < _endx)
+        tx = _endx;
+
+      BeginAlignAnimationTo(tx);
+
+      if (MemoDeleteClicked != null)
+        MemoDeleteClicked(this, e);
     }
 
     /// <summary>

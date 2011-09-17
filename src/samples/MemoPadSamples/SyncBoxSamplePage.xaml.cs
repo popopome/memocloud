@@ -29,16 +29,16 @@ namespace MemoPadSamples
     {
       _syncbox.ShowSyncBox();
 
-      Observable.Interval(TimeSpan.FromSeconds(1))
+      /*Observable.Interval(TimeSpan.FromSeconds(1))
                 .ObserveOnDispatcher()
                 .Subscribe((val) =>
                 {
-                  _syncbox.IncreaseUploading();
+
                 });
 
       Observable.Interval(TimeSpan.FromMilliseconds(1010))
         .ObserveOnDispatcher()
-        .Subscribe(v => _syncbox.IncreaseDownloading());
+        .Subscribe(v => _syncbox.IncreaseDownloading());*/
     }
   }
 }

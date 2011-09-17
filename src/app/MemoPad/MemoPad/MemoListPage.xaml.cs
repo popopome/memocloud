@@ -71,6 +71,7 @@ namespace MemoPad
       _memolist.Build(_vm.Docs);
       _memolist.MemoClicked +=
         new EventHandler<MemoClickedEventArgs>(OnMemoClicked);
+      _memolist.MemoDeleteClicked += new EventHandler<MemoClickedEventArgs>(OnMemoDeleteClicked);
 
       _dropboxsignin.SigninSucceeded += new EventHandler<DropboxSigninEventArgs>(OnDropboxSigninSucceeded);
       _dropboxsignin.SigninFailed += new EventHandler<DropboxSigninEventArgs>(OnDropboxSigninFailed);
@@ -391,6 +392,23 @@ namespace MemoPad
     void OnSyncBoxDoneClicked(object sender, EventArgs e)
     {
       Refresh();
+      GoToVisualState(VS_NORMAL);
+    }
+
+    /// <summary>
+    /// Memo delete clicked
+    /// </summary>
+    /// <param name="sender">Event sender</param>
+    /// <param name="e">Event parameter</param>
+    void OnMemoDeleteClicked(
+            object sender,
+            MemoClickedEventArgs e)
+    {
+      _vm.DeleteDocument(e.Document);
+      if (_vm.Docs.Count == 0)
+      {
+        NewMemo();
+      }
       GoToVisualState(VS_NORMAL);
     }
   }

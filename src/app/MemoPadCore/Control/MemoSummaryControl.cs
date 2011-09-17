@@ -22,6 +22,8 @@ namespace MemoPadCore.Control
 
   public class MemoSummaryControl : Grid
   {
+    #region Constants
+
     public const int DESIRED_WIDTH = 200;
     public const int DESIRED_HEIGHT = 200;
 
@@ -55,7 +57,14 @@ namespace MemoPadCore.Control
 
     const double SUMMARY_FONT_SIZE = 18;
 
+    #endregion Constants
+
+    #region Events
+
     public event EventHandler<MemoClickedEventArgs> Click;
+    public event EventHandler<MemoClickedEventArgs> DeleteClicked;
+
+    #endregion Events
 
     #region Static components
 
@@ -112,6 +121,8 @@ namespace MemoPadCore.Control
 
     #endregion Static components
 
+    #region Fields
+
     ImageBrush _backgroundbrush;
     TextBlock _title;
     TextBlock _titleengraving;
@@ -127,6 +138,8 @@ namespace MemoPadCore.Control
     ImageButton _cancelbutton;
     ImageButton _trashbutton;
     ImageButton _clipboardbutton;
+
+    #endregion Fields
 
     /// <summary>
     /// CTOR
@@ -195,6 +208,7 @@ namespace MemoPadCore.Control
                            "Images/memo-list/memo-summary-trash-selected.png",
                            12,
                            1);
+      _trashbutton.Clicked += new EventHandler(OnTrashButtonClicked);
       _clipboardbutton = CreateImageButton(
                            "Images/memo-list/memo-summary-clipboard.png",
                            "Images/memo-list/memo-summary-clipboard-selected.png",
@@ -204,6 +218,28 @@ namespace MemoPadCore.Control
       this.ManipulationStarted += new EventHandler<ManipulationStartedEventArgs>(OnManipStarted);
       this.ManipulationDelta += new EventHandler<ManipulationDeltaEventArgs>(OnManipDelta);
       this.ManipulationCompleted += new EventHandler<ManipulationCompletedEventArgs>(OnManipulationCompleted);
+    }
+
+    /// <summary>
+    /// Trash button is clicked
+    /// </summary>
+    /// <param name="sender">Event sender</param>
+    /// <param name="e">Event parameter</param>
+    void OnTrashButtonClicked(object sender, EventArgs e)
+    {
+      var msg = string.Format("Are you sure to delete the memo('{0}')?",
+                              Doc.Title);
+      var result =
+        MessageBox.Show(msg, "Confirmation", MessageBoxButton.OKCancel);
+      if (result == MessageBoxResult.Cancel)
+        return;
+
+      if (DeleteClicked != null)
+        DeleteClicked(this,
+                      new MemoClickedEventArgs
+                      {
+                        Document = this.Doc
+                      });
     }
 
     private ImageButton CreateImageButton(
@@ -319,6 +355,9 @@ namespace MemoPadCore.Control
             object sender,
             ManipulationCompletedEventArgs e)
     {
+      if (UiUtils.IsTapped(e) == false)
+        return;
+
       PrepareAnimation();
 
       _anirotate.To = -90;
@@ -326,6 +365,10 @@ namespace MemoPadCore.Control
       _sbrotate.Completed += new EventHandler(OnFlipCompleted_FrontToBack);
       _sbrotate.Begin();
 
+      //
+      // Should be true
+      // to block being clicked on memo itself.
+      //
       e.Handled = true;
     }
 
