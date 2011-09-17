@@ -92,10 +92,7 @@
             <ImageBrush Stretch="Fill" ImageSource="Images/memo-list/memo-list-background.jpg"/>
         </Grid.Background>
     	<MemoPadCore_Control:MemoListControl x:Name="_memolist"/>
-    	<StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0,0,0,32">
-    		<Image x:Name="_newmemo" HorizontalAlignment="Center" Source="/Images/memo-list/new-memo-button.png" Width="64" Height="64" ManipulationCompleted="OnNewMemoClicked" Margin="0,0,15,0"/>
-    		<Image x:Name="_deletememo" Source="/Images/memo-list/delete-memo-button.png" Width="64" Height="64" ManipulationCompleted="OnDeleteMemoClicked"/>
-    	</StackPanel>
+    	<Image x:Name="_newmemo" HorizontalAlignment="Right" Source="/Images/memo-list/new-memo-button.png" Width="64" Height="64" ManipulationCompleted="OnNewMemoClicked" Margin="5" VerticalAlignment="Bottom"/>
     	<Grid x:Name="_deletepanel" Background="#7F000000" Visibility="Collapsed" ManipulationCompleted="OnDeleteConfirmCanceled" Opacity="0" RenderTransformOrigin="0,1">
     		<Image x:Name="_deleteconfirm" Source="/Images/memo-list/delete-confirm-button.png" Width="100" Height="101" HorizontalAlignment="Right" Margin="0,0,88,83" VerticalAlignment="Bottom" d:LayoutOverrides="Width, Height" ManipulationCompleted="OnDeleteConfirmed" RenderTransformOrigin="0,1">
     			<Image.RenderTransform>
@@ -103,7 +100,7 @@
     			</Image.RenderTransform>
     		</Image>
     	</Grid>
-    	<Image x:Name="_syncbutton" HorizontalAlignment="Left" Height="64" VerticalAlignment="Top" Width="64" Source="/Images/memo-list/sync-button.png" Margin="5,5,0,0" ManipulationCompleted="OnSyncButtonClicked"/>
+    	<Image x:Name="_syncbutton" HorizontalAlignment="Left" Height="64" VerticalAlignment="Bottom" Width="64" Source="/Images/memo-list/sync-button.png" ManipulationCompleted="OnSyncButtonClicked" Margin="5"/>
     	<MemoPadCore_Control:DropboxSignin x:Name="_dropboxsignin" Width="480" Visibility="Collapsed"/>
     	<Grid x:Name="_syncpanel" Background="#7F000000" Visibility="Collapsed">
     		<TextBlock TextWrapping="Wrap" Text="Sync..." VerticalAlignment="Center" d:LayoutOverrides="Width" HorizontalAlignment="Center"/>

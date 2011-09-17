@@ -373,7 +373,12 @@ namespace MemoPad
           Sync();
           break;
         case MNU_ID_DROPBOX_LOGOUT:
-          _vm.ClearSync();
+          var result = MessageBox.Show("Are you sure to sign out DropBox sync?",
+                                       "Confirmation",
+                                       MessageBoxButton.OKCancel);
+          if (result == MessageBoxResult.OK)
+            _vm.ClearSync();
+
           break;
       }
     }

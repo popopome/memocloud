@@ -116,32 +116,43 @@ namespace MemoPadCore.Control
       RemoveAllChildren();
 
       _list = new List<MemoSummaryControl>();
-
-      double x = 0;
-      double y = MEMO_Y_POSITION;
-      int numrow = 0;
       docs.ForEach(d =>
         {
           var c = CreateAndAddSummaryControl(d);
-          c.SetXY(x, y);
-
-          ++numrow;
-          if (MAX_NUM_ROWS_PER_COL == numrow)
-          {
-            x += c.Width;
-            y = MEMO_Y_POSITION;
-            numrow = 0;
-          }
-          else
-            y += c.Height + MEMO_Y_MARGIN;
-
           _list.Add(c);
         });
+
+      ArrangeMemoControls();
 
       UpdateScrollRange();
 
       X = _beginx;
       OnXChanged(X);
+    }
+
+    /// <summary>
+    /// Arrange memo controls
+    /// </summary>
+    void ArrangeMemoControls()
+    {
+      double x = 0;
+      double y = MEMO_Y_POSITION;
+      int numrow = 0;
+      _list.ForEach(c =>
+      {
+        c.SetXY(x, y);
+
+        ++numrow;
+        if (MAX_NUM_ROWS_PER_COL == numrow)
+        {
+          x += c.Width;
+          y = MEMO_Y_POSITION;
+          numrow = 0;
+        }
+        else
+          y += c.Height + MEMO_Y_MARGIN;
+
+      });
     }
 
     /// <summary>
@@ -162,7 +173,7 @@ namespace MemoPadCore.Control
     void UpdateScrollRange()
     {
       _beginx = (DESIRED_WIDTH - MemoSummaryControl.DESIRED_WIDTH) / 2;
-      _endx = _beginx - (Math.Ceiling(_list.Count / MAX_NUM_ROWS_PER_COL) - 1) * MemoSummaryControl.DESIRED_WIDTH;
+      _endx = _beginx - (((_list.Count + MAX_NUM_ROWS_PER_COL - 1) / MAX_NUM_ROWS_PER_COL) - 1) * MemoSummaryControl.DESIRED_WIDTH;
     }
 
     /// <summary>
@@ -349,15 +360,9 @@ namespace MemoPadCore.Control
     {
       /*MoveMemosByRel(MemoSummaryControl.DESIRED_WIDTH);*/
       var c = CreateAndAddSummaryControl(doc);
-      if (_list.Count == 0)
-        c.SetXY(0, MEMO_Y_POSITION);
-      else
-      {
-        var pt = _list.Last().GetXY();
-        c.SetXY(pt.X + MemoSummaryControl.DESIRED_WIDTH, MEMO_Y_POSITION);
-      }
-
       _list.Add(c);
+
+      ArrangeMemoControls();
       UpdateScrollRange();
       if (_list.Count == 1)
         BeginAlignAnimationTo(_beginx);
