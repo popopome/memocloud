@@ -90,7 +90,6 @@ namespace MemoPadCore.Control
 
     void OnXChanged(double x)
     {
-      /*_trans.TranslateX = (double)args.NewValue;*/
       int cnt = _list.Count;
       for (int i = 0; i < cnt; ++i)
       {
@@ -201,6 +200,7 @@ namespace MemoPadCore.Control
       c.Open(d);
       c.Click += new EventHandler<MemoClickedEventArgs>(OnMemoClicked);
       c.DeleteClicked += new EventHandler<MemoClickedEventArgs>(OnMemoDeleteClicked);
+      c.FrontToBackFlipped += new EventHandler<MemoClickedEventArgs>(OnMemoFlipped);
 
       this.Children.Add(c);
       return c;
@@ -237,6 +237,22 @@ namespace MemoPadCore.Control
 
       if (MemoDeleteClicked != null)
         MemoDeleteClicked(this, e);
+    }
+
+    /// <summary>
+    /// Memo is flipped
+    /// </summary>
+    /// <param name="sender">Event sender</param>
+    /// <param name="e">Event parameter</param>
+    void OnMemoFlipped(object sender, MemoClickedEventArgs e)
+    {
+      this._list.ForEach(c =>
+        {
+          if (c == sender)
+            return;
+          if (c.IsFlipped)
+            c.FlipBackToFront();
+        });
     }
 
     /// <summary>

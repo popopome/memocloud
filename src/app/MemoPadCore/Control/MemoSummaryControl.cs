@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MemoPadCore.Model;
 using Microsoft.Phone.Tasks;
+using TapfishCore.Platform;
 using TapfishCore.Resources;
 using TapfishCore.Ui;
 
@@ -65,6 +66,7 @@ namespace MemoPadCore.Control
 
     public event EventHandler<MemoClickedEventArgs> Click;
     public event EventHandler<MemoClickedEventArgs> DeleteClicked;
+    public event EventHandler<MemoClickedEventArgs> FrontToBackFlipped;
 
     #endregion Events
 
@@ -143,6 +145,18 @@ namespace MemoPadCore.Control
     ImageButton _emailbutton;
 
     #endregion Fields
+
+    #region Properties
+
+    public bool IsFlipped
+    {
+      get
+      {
+        return _cancelbutton.IsVisible();
+      }
+    }
+
+    #endregion Properties
 
     /// <summary>
     /// CTOR
@@ -369,12 +383,7 @@ namespace MemoPadCore.Control
       if (UiUtils.IsTapped(e) == false)
         return;
 
-      PrepareAnimation();
-
-      _anirotate.To = -90;
-      _sbrotate.Completed -= new EventHandler(OnFlipCompleted_FrontToBack);
-      _sbrotate.Completed += new EventHandler(OnFlipCompleted_FrontToBack);
-      _sbrotate.Begin();
+      FlipFrontToBack();
 
       //
       // Should be true
@@ -383,6 +392,24 @@ namespace MemoPadCore.Control
       e.Handled = true;
     }
 
+    /// <summary>
+    /// Start flipping from front to back
+    /// </summary>
+    private void FlipFrontToBack()
+    {
+      PrepareAnimation();
+
+      _anirotate.To = -90;
+      _sbrotate.Completed -= new EventHandler(OnFlipCompleted_FrontToBack);
+      _sbrotate.Completed += new EventHandler(OnFlipCompleted_FrontToBack);
+      _sbrotate.Begin();
+    }
+
+    /// <summary>
+    /// Flip completed
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     void OnFlipCompleted_FrontToBack(object sender, EventArgs e)
     {
       _sbrotate.Completed -= new EventHandler(OnFlipCompleted_FrontToBack);
@@ -395,6 +422,16 @@ namespace MemoPadCore.Control
 
       _sbrotate.Begin();
 
+      ThreadUtil.UiCall(() =>
+        {
+          if (FrontToBackFlipped != null)
+            this.FrontToBackFlipped(
+                    this,
+                    new MemoClickedEventArgs
+                    {
+                      Document = this.Doc
+                    });
+        });
     }
 
     void ShowBackContent()
@@ -464,7 +501,7 @@ namespace MemoPadCore.Control
     /// <summary>
     /// Flip back to front
     /// </summary>
-    void FlipBackToFront()
+    public void FlipBackToFront()
     {
       PrepareAnimation();
 
