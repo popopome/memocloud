@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MemoPadCore.Model;
+using Microsoft.Phone.Tasks;
 using TapfishCore.Resources;
 using TapfishCore.Ui;
 
@@ -138,6 +140,7 @@ namespace MemoPadCore.Control
     ImageButton _cancelbutton;
     ImageButton _trashbutton;
     ImageButton _clipboardbutton;
+    ImageButton _emailbutton;
 
     #endregion Fields
 
@@ -216,6 +219,13 @@ namespace MemoPadCore.Control
                            1);
       _clipboardbutton.Clicked += new EventHandler(OnCopyToClipboardClicked);
 
+      _emailbutton = CreateImageButton(
+                          "Images/memo-list/memo-summary-email.png",
+                          "Images/memo-list/memo-summary-email-selected.png",
+                          12,
+                          94);
+      _emailbutton.Clicked += new EventHandler(OnEmailClicked);
+
       this.ManipulationStarted += new EventHandler<ManipulationStartedEventArgs>(OnManipStarted);
       this.ManipulationDelta += new EventHandler<ManipulationDeltaEventArgs>(OnManipDelta);
       this.ManipulationCompleted += new EventHandler<ManipulationCompletedEventArgs>(OnManipulationCompleted);
@@ -251,9 +261,9 @@ namespace MemoPadCore.Control
     {
       var btn = new ImageButton();
       btn.Create(BUTTON_IMAGE_WIDTH,
-                           BUTTON_IMAGE_HEIGHT,
-                           normalimgpath,
-                           focusimgpath);
+                 BUTTON_IMAGE_HEIGHT,
+                 normalimgpath,
+                 focusimgpath);
       btn.SetXYWithMargin(x, y);
       this.Children.Add(btn);
       btn.Hide();
@@ -392,6 +402,7 @@ namespace MemoPadCore.Control
       _cancelbutton.Show();
       _trashbutton.Show();
       _clipboardbutton.Show();
+      _emailbutton.Show();
     }
 
     void HideBackContent()
@@ -399,6 +410,7 @@ namespace MemoPadCore.Control
       _cancelbutton.Hide();
       _trashbutton.Hide();
       _clipboardbutton.Hide();
+      _emailbutton.Hide();
     }
 
     /// <summary>
@@ -493,6 +505,29 @@ namespace MemoPadCore.Control
         this.Doc.Text);
 
       FlipBackToFront();
+    }
+
+    /// <summary>
+    /// Email is clicked
+    /// </summary>
+    /// <param name="sender">Event sender</param>
+    /// <param name="e">Event parameter</param>
+    void OnEmailClicked(object sender, EventArgs e)
+    {
+      try
+      {
+        var task = new EmailComposeTask();
+        this.Doc.Open();
+        task.Body = this.Doc.Text;
+        task.Subject = this.Doc.Title;
+        task.Show();
+
+        FlipBackToFront();
+      }
+      catch (System.Exception err)
+      {
+        Debug.WriteLine("EmailComposeTask failed:" + err);
+      }
     }
   }
 }

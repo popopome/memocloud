@@ -134,6 +134,8 @@
     <Content Include="Images\memo-list\memo-summary-back.png" />
     <Content Include="Images\memo-list\memo-summary-clipboard-selected.png" />
     <Content Include="Images\memo-list\memo-summary-clipboard.png" />
+    <Content Include="Images\memo-list\memo-summary-email-selected.png" />
+    <Content Include="Images\memo-list\memo-summary-email.png" />
     <Content Include="Images\memo-list\memo-summary-flip-back.png" />
     <Content Include="Images\memo-list\memo-summary-flip-front.png" />
     <Content Include="Images\memo-list\memo-summary-trash-selected.png" />
