@@ -20,10 +20,7 @@ namespace MemoPadCore.Control
   {
     #region Constants
 
-    public const int DESIRED_WIDTH = 200;
-    public const int DESIRED_HEIGHT = 200;
-
-    const int TITLE_WIDTH = DESIRED_WIDTH;
+    const int TITLE_WIDTH = MiniMemoControlUtil.DESIRED_WIDTH;
     const int TITLE_HEIGHT = 44;
     const double TITLE_FONT_SIZE = 26;
 
@@ -32,26 +29,12 @@ namespace MemoPadCore.Control
     const int SUMMARY_TOP_MARGIN = 6;
     const int SUMMARY_WIDTH = 128;
     const int SUMMARY_BOTTOM_SHADOW = 14;
-    const int SUMMARY_HEIGHT = DESIRED_HEIGHT - TITLE_HEIGHT - TEXT_TOP_MARGIN - SUMMARY_TOP_MARGIN - SUMMARY_BOTTOM_SHADOW;
-
-    const int BUTTON_IMAGE_WIDTH = 90;
-    const int BUTTON_IMAGE_HEIGHT = 90;
-
-    const int BUTTON_CANCEL_X = 100;
-    const int BUTTON_CANCEL_Y = 91;
+    const int SUMMARY_HEIGHT = MiniMemoControlUtil.DESIRED_HEIGHT - TITLE_HEIGHT - TEXT_TOP_MARGIN - SUMMARY_TOP_MARGIN - SUMMARY_BOTTOM_SHADOW;
 
     const int BUTTON_CLIPBOARD_X = 100;
     const int BUTTON_CLIPBOARD_Y = 1;
 
-    const int BUTTON_TRASH_X = 10;
-    const int BUTTON_TRASH_Y = 1;
-
     const double SUMMARY_FONT_SIZE = 18;
-
-    const int MORE_COMMANDS_WIDTH = 60;
-    const int MORE_COMMANDS_HEIGHT = 60;
-    const int MORE_COMMANDS_RIGHT_MARGIN = 0;
-    const int MORE_COMMANDS_BOTTOM_MARGIN = 0;
 
     #endregion Constants
 
@@ -68,7 +51,6 @@ namespace MemoPadCore.Control
     #region Static Fields
 
     static BitmapImage _background;
-    static BitmapImage _flipbackground;
 
     static FontFamily _titlefont;
     static Thickness _titlemargin;
@@ -80,11 +62,7 @@ namespace MemoPadCore.Control
     static SolidColorBrush _summaryfontcolor;
     static Thickness _summarymargin;
 
-    static BitmapImage _morecommandbmp;
-
-    static BitmapImage _fliptrash;
     static BitmapImage _flipclipboard;
-    static BitmapImage _fliparrow;
 
     #endregion Static Fields
 
@@ -141,12 +119,8 @@ namespace MemoPadCore.Control
                               TEXT_LEFT_MARGIN,
                               TEXT_TOP_MARGIN + TITLE_HEIGHT + SUMMARY_TOP_MARGIN, 0, 0);
 
-      _flipbackground = BitmapUtils.CreateBitmapImmediately("Images/memo-list/memo-summary-flip-back.png");
-      _fliptrash = BitmapUtils.CreateBitmapImmediately("Images/memo-list/memo-summary-trash.png");
       _flipclipboard = BitmapUtils.CreateBitmapImmediately("Images/memo-list/memo-summary-clipboard.png");
-      _fliparrow = BitmapUtils.CreateBitmapImmediately("Images/memo-list/memo-summary-arrow-selected.png");
 
-      _morecommandbmp = BitmapUtils.CreateBitmapImmediately("Images/memo-list/more-commands.png");
     }
 
     #endregion Static initializer
@@ -199,15 +173,7 @@ namespace MemoPadCore.Control
     /// </summary>
     void CreateMoreButton()
     {
-      _morecommands = new Image
-      {
-        Width = MORE_COMMANDS_WIDTH,
-        Height = MORE_COMMANDS_HEIGHT,
-        HorizontalAlignment = HorizontalAlignment.Right,
-        VerticalAlignment = VerticalAlignment.Bottom,
-        Source = _morecommandbmp,
-        Margin = new Thickness(0, 0, MORE_COMMANDS_RIGHT_MARGIN, MORE_COMMANDS_BOTTOM_MARGIN)
-      };
+      _morecommands = MiniMemoControlUtil.CreateMoreCommandsImage();
       _morecommands.ManipulationCompleted += new EventHandler<ManipulationCompletedEventArgs>(OnMoreCommands_ManipCompleted);
       this.Children.Add(_morecommands);
     }
@@ -217,48 +183,29 @@ namespace MemoPadCore.Control
     /// </summary>
     void CreateBackSideButtons()
     {
-      _cancelbutton = CreateImageButton(
-                           "Images/memo-list/memo-summary-arrow.png",
-                           "Images/memo-list/memo-summary-arrow-selected.png",
-                           12,
-                           94);
+      _cancelbutton = MiniMemoControlUtil.CreateCancelImageButton(this);
       _cancelbutton.Clicked += new EventHandler(OnCancelButtonClicked);
-      _trashbutton = CreateImageButton(
-                           "Images/memo-list/memo-summary-trash.png",
-                           "Images/memo-list/memo-summary-trash-selected.png",
-                           12,
-                           1);
+
+      _trashbutton = MiniMemoControlUtil.CreateTrashImageButton(this);
       _trashbutton.Clicked += new EventHandler(OnTrashButtonClicked);
-      _clipboardbutton = CreateImageButton(
+
+      _clipboardbutton =
+        MiniMemoControlUtil.CreateImageButton(
+                           this,
                            "Images/memo-list/memo-summary-clipboard.png",
                            "Images/memo-list/memo-summary-clipboard-selected.png",
                            100,
                            1);
       _clipboardbutton.Clicked += new EventHandler(OnCopyToClipboardClicked);
 
-      _emailbutton = CreateImageButton(
+      _emailbutton =
+        MiniMemoControlUtil.CreateImageButton(
+                           this,
                           "Images/memo-list/memo-summary-email.png",
                           "Images/memo-list/memo-summary-email-selected.png",
                           100,
                           94);
       _emailbutton.Clicked += new EventHandler(OnEmailClicked);
-    }
-
-    private ImageButton CreateImageButton(
-      string normalimgpath,
-      string focusimgpath,
-      double x,
-      double y)
-    {
-      var btn = new ImageButton();
-      btn.Create(BUTTON_IMAGE_WIDTH,
-                 BUTTON_IMAGE_HEIGHT,
-                 normalimgpath,
-                 focusimgpath);
-      btn.SetXYWithMargin(x, y);
-      this.Children.Add(btn);
-      btn.Hide();
-      return btn;
     }
 
     TextBlock CreateTitleBlock()
@@ -336,7 +283,7 @@ namespace MemoPadCore.Control
     /// </summary>
     public void ShowBackSide()
     {
-      _backgroundbrush.ImageSource = _flipbackground;
+      _backgroundbrush.ImageSource = MiniMemoControlUtil.FlipBackground;
       _cancelbutton.Show();
       _trashbutton.Show();
       _clipboardbutton.Show();

@@ -14,3 +14,4 @@ Debug/
 Release/
 *.user
 *.suo
+/src/app/TapfishCore/Math/Matrix44.cs~

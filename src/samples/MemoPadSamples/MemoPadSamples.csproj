@@ -80,6 +80,9 @@
     <Compile Include="MemoSummaryControlSamplePage.xaml.cs">
       <DependentUpon>MemoSummaryControlSamplePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MiniPhotoMemoControlSamplePage.xaml.cs">
+      <DependentUpon>MiniPhotoMemoControlSamplePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MiniTextMemoControlSamplePage.xaml.cs">
       <DependentUpon>MiniTextMemoControlSamplePage.xaml</DependentUpon>
     </Compile>
@@ -112,6 +115,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MemoSummaryControlSamplePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MiniPhotoMemoControlSamplePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -169,6 +176,7 @@
     <Content Include="Images\menu\dropbox\dropbox-menu-item-signout.png" />
     <Content Include="Images\menu\dropbox\dropbox-menu-item-sync-selected.png" />
     <Content Include="Images\menu\dropbox\dropbox-menu-item-sync.png" />
+    <Content Include="Images\sample\a.jpg" />
     <Content Include="Images\text-editor\separator.png" />
     <Content Include="Images\text-editor\text-editor-end.png" />
     <Content Include="Images\text-editor\text-editor-home.png" />

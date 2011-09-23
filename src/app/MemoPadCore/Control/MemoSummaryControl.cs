@@ -50,6 +50,7 @@ namespace MemoPadCore.Control
     DoubleAnimation _anirotate;
 
     MiniTextMemoControl _textmemo;
+    MiniPhotoMemoControl _photomemo;
 
     #endregion Fields
 
@@ -90,7 +91,7 @@ namespace MemoPadCore.Control
     /// </summary>
     void CreateTextMemoControls(Memo memo)
     {
-      memo.LoadSummary();
+      memo.OpenSummary();
 
       _textmemo = new MiniTextMemoControl();
       this.Children.Add(_textmemo);
@@ -145,6 +146,19 @@ namespace MemoPadCore.Control
       Memo = memo;
       if (memo.IsTextMemo)
         CreateTextMemoControls(memo);
+      else
+      {
+        memo.OpenThumb();
+
+        _photomemo = new MiniPhotoMemoControl();
+        this.Children.Add(_photomemo);
+
+        _photomemo.TrashClicked += new EventHandler(OnTrashButtonClicked);
+        _photomemo.CancelClicked += new EventHandler(OnCancelButtonClicked);
+        _photomemo.MoreCommandsClicked += new EventHandler(OnMoreCommandsClicked);
+
+        _photomemo.Open(memo);
+      }
     }
 
     void OnManipStarted(object sender, ManipulationStartedEventArgs e)
@@ -225,7 +239,7 @@ namespace MemoPadCore.Control
     void OnFlipCompleted_FrontToBack(object sender, EventArgs e)
     {
       _sbrotate.Completed -= new EventHandler(OnFlipCompleted_FrontToBack);
-      _textmemo.ShowBackSide();
+      ShowBackSide();
 
       _anirotate.To = -180;
 
@@ -241,6 +255,17 @@ namespace MemoPadCore.Control
                       Document = this.Memo
                     });
         });
+    }
+
+    /// <summary>
+    /// Show backside
+    /// </summary>
+    void ShowBackSide()
+    {
+      if (_textmemo != null)
+        _textmemo.ShowBackSide();
+      else if (_photomemo != null)
+        _photomemo.ShowBackSide();
     }
 
     /// <summary>
@@ -293,10 +318,21 @@ namespace MemoPadCore.Control
     /// <param name="e">Event parameter</param>
     void OnFlipCompleted_BackToFront(object sender, EventArgs e)
     {
-      _textmemo.ShowFrontSide();
+      ShowFrontSide();
       _anirotate.Completed -= new EventHandler(OnFlipCompleted_BackToFront);
       _anirotate.To = 0;
       _sbrotate.Begin();
+    }
+
+    /// <summary>
+    /// Show front side
+    /// </summary>
+    void ShowFrontSide()
+    {
+      if (_textmemo != null)
+        _textmemo.ShowFrontSide();
+      else if (_photomemo != null)
+        _photomemo.ShowFrontSide();
     }
 
     /// <summary>

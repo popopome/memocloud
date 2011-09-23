@@ -98,18 +98,26 @@ namespace MemoPadCore.Model
         Text = StorageIo.ReadTextFile(FullPath) ?? "";
       else if (IsPhotoMemo)
       {
-        var thumbpath = ThumbPathFromFullPath(FullPath);
-        Thumb = BitmapUtils.LoadBitmapFromIso(FullPath);
+
       }
     }
 
     /// <summary>
     /// Load summary only.
     /// </summary>
-    public void LoadSummary()
+    public void OpenSummary()
     {
       const int READ_LEN = 300;
       Summary = StorageIo.ReadTextFile(FullPath, READ_LEN);
+    }
+
+    /// <summary>
+    /// Open thumbnail image
+    /// </summary>
+    public void OpenThumb()
+    {
+      var thumbpath = ThumbPathFromFullPath(FullPath);
+      Thumb = BitmapUtils.LoadBitmapFromIso(FullPath);
     }
 
     /// <summary>
@@ -168,7 +176,7 @@ namespace MemoPadCore.Model
     /// </summary>
     /// <param name="fullpath">Full path to specific bitmap image</param>
     /// <returns></returns>
-    string ThumbPathFromFullPath(string fullpath)
+    public static string ThumbPathFromFullPath(string fullpath)
     {
       return fullpath + THUMB_EXTENSION;
     }

@@ -92,7 +92,13 @@ namespace TapfishCore.Resources
         stm.Write(raw, 0, raw.Length);
         stm.Seek(0, SeekOrigin.Begin);
 
-        BitmapImage img = new BitmapImage();
+        var img = new BitmapImage
+        {
+          CreateOptions =
+            BitmapCreateOptions.BackgroundCreation
+            | BitmapCreateOptions.DelayCreation
+        };
+
         img.SetSource(stm);
         return img;
       }

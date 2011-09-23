@@ -9,16 +9,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using MemoPad;
 using MemoPadCore.Model;
 using Microsoft.Phone.Controls;
 using TapfishCore.Resources;
 
 namespace MemoPadSamples
 {
-  public partial class MemoSummaryControlSamplePage : PhoneApplicationPage
+  public partial class MiniPhotoMemoControlSamplePage : PhoneApplicationPage
   {
-    public MemoSummaryControlSamplePage()
+    public MiniPhotoMemoControlSamplePage()
     {
       InitializeComponent();
 
@@ -29,17 +28,11 @@ namespace MemoPadSamples
       var thumbpath = Memo.ThumbPathFromFullPath(IMAGE_FILE_PATH);
       BitmapUtils.SaveBitmapToIso(thumbpath, bmp);
 
-      var photomemo = new Memo(IMAGE_FILE_PATH,
-                               MemoKind.Photo);
+      Memo memo = new Memo(
+        IMAGE_FILE_PATH,
+        MemoKind.Photo);
 
-      const string FULLPATH = "/HAHAHA.txt";
-      StorageIo.WriteTextFile(
-        FULLPATH,
-        "Here is what I have so far.  Each team leaders should review them and consult with Frank Kim for possible adjustment.");
-      var memo = new Memo(FULLPATH,
-                          MemoKind.Text);
-
-      _a.Open(photomemo);
+      _memo0.Open(memo);
     }
   }
 }

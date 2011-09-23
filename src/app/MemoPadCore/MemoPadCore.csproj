@@ -75,6 +75,8 @@
     </Compile>
     <Compile Include="Control\MemoSummaryControl.cs" />
     <Compile Include="Control\MemoListControl.cs" />
+    <Compile Include="Control\MiniMemoControlUtil.cs" />
+    <Compile Include="Control\MiniPhotoMemoControl.cs" />
     <Compile Include="Control\MiniTextMemoControl.cs" />
     <Compile Include="Control\SyncBox.xaml.cs">
       <DependentUpon>SyncBox.xaml</DependentUpon>
