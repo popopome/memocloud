@@ -23,8 +23,8 @@ namespace MemoPadCore.Common
     public const string DROPBOX_API_SECRET = "em18wmbvqytur02";
     public const string WORKSPACE_BASE_PATH = "\\workspaces";
     public const string DEFAULT_WORKSPACE_NAME = "memoit";
-    public const string TEXT_DOCUMENT_EXT = ".txt";
-    public const string PHOTO_DOCUMENT_EXT = ".image";
+    public const string TEXT_MEMO_EXT = ".txt";
+    public const string PHOTO_MEMO_EXT = ".image";
     public const string DELETE_MEMO_EXT = ".deleted";
 
     #endregion Constants

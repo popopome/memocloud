@@ -85,16 +85,16 @@ namespace MemoPadCore.Model
     {
       var lowerfn = fn.ToLower();
       return
-        lowerfn.EndsWith(AppSetting.TEXT_DOCUMENT_EXT)
-        || lowerfn.EndsWith(AppSetting.PHOTO_DOCUMENT_EXT);
+        lowerfn.EndsWith(AppSetting.TEXT_MEMO_EXT)
+        || lowerfn.EndsWith(AppSetting.PHOTO_MEMO_EXT);
     }
 
     public static bool IsMemoFile(string fn)
     {
       var lowerfn = fn.ToLower();
-      return lowerfn.EndsWith(AppSetting.TEXT_DOCUMENT_EXT)
+      return lowerfn.EndsWith(AppSetting.TEXT_MEMO_EXT)
         || lowerfn.EndsWith(AppSetting.DELETE_MEMO_EXT)
-        || lowerfn.EndsWith(AppSetting.PHOTO_DOCUMENT_EXT);
+        || lowerfn.EndsWith(AppSetting.PHOTO_MEMO_EXT);
     }
 
     public static bool IsDeleteShadowFile(string fn)

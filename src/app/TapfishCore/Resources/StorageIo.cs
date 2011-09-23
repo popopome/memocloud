@@ -137,6 +137,23 @@ namespace TapfishCore.Resources
       }
     }
 
+    public static void WriteBinaryFile(string path, Stream stm)
+    {
+      try
+      {
+        byte[] buf = new byte[stm.Length];
+        stm.Seek(0, SeekOrigin.Begin);
+        stm.Read(buf, 0, buf.Length);
+
+        WriteBinaryFile(path, buf);
+      }
+      catch (System.Exception e)
+      {
+        Debug.WriteLine("******************EXCEPTION: To write binary file:" + e);
+      }
+
+    }
+
     public static bool DirExists(string dir)
     {
       var stg = IsolatedStorageFile.GetUserStoreForApplication();

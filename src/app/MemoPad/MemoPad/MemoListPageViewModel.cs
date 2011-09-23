@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.IO.IsolatedStorage;
 using System.Net;
 using System.Windows;
@@ -56,7 +57,12 @@ namespace MemoPad
       foreach (var fn in Workspace.GetMemoFiles(WorkspaceFileAccessMode.Visible))
       {
         var fullpath = Workspace.GetFullPath(fn);
-        var doc = new Memo(fullpath, MemoKind.Text)
+        var kind =
+          Memo.IsPhotoMemoFile(fn)
+          ? MemoKind.Photo
+          : MemoKind.Text;
+
+        var doc = new Memo(fullpath, kind)
         {
           WorkspaceName = Workspace.Name
         };
@@ -89,9 +95,11 @@ namespace MemoPad
     /// </summary>
     /// <param name="photo">Bitmap object</param>
     /// <returns>Create memo</returns>
-    public Memo AddNewPhotoMemoToFront(BitmapImage photo)
+    public Memo AddNewPhotoMemoToFront(
+        BitmapImage bmp,
+        Stream stm)
     {
-      var memo = Workspace.NewPhotoMemo(photo);
+      var memo = Workspace.NewPhotoMemo(bmp, stm);
       memo.Save();
       MemoList.Add(memo);
       return memo;

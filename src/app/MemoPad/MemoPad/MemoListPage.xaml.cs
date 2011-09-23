@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Windows;
@@ -229,9 +230,10 @@ namespace MemoPad
     /// <summary>
     /// Create new photo memo
     /// </summary>
-    void NewPhotoMemo(BitmapImage photo)
+    void NewPhotoMemo(BitmapImage bmp,
+                      Stream stm)
     {
-      var memo = _vm.AddNewPhotoMemoToFront(photo);
+      var memo = _vm.AddNewPhotoMemoToFront(bmp, stm);
       _memolist.AddMemoToFront(memo);
     }
 
@@ -520,13 +522,20 @@ namespace MemoPad
     /// <param name="e">Event parameter</param>
     void OnPhotoSelected(object sender, PhotoResult e)
     {
+      if (e.Error != null)
+      {
+        // TODO: Show error message.
+        MessageBox.Show("Unable to open photo:" + e.Error);
+        return;
+      }
+
       var stm = e.ChosenPhoto;
       var bmp = new BitmapImage
       {
         CreateOptions = BitmapCreateOptions.None
       };
       bmp.SetSource(stm);
-      NewPhotoMemo(bmp);
+      NewPhotoMemo(bmp, stm);
     }
   }
 }

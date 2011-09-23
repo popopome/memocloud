@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Windows;
@@ -261,7 +262,7 @@ namespace MemoPadCore.Model
     /// <returns>Text document object</returns>
     public Memo NewTextDocument()
     {
-      var fullpath = SeekNewFileName(AppSetting.TEXT_DOCUMENT_EXT);
+      var fullpath = SeekNewFileName(AppSetting.TEXT_MEMO_EXT);
       var doc = new Memo(fullpath, MemoKind.Text)
       {
         WorkspaceName = Name
@@ -276,14 +277,16 @@ namespace MemoPadCore.Model
     /// </summary>
     /// <param name="photo">Bitmap object</param>
     /// <returns>Create new photo memo</returns>
-    public Memo NewPhotoMemo(BitmapImage photo)
+    public Memo NewPhotoMemo(
+              BitmapImage bmp,
+              Stream stm)
     {
-      var fullpath = SeekNewFileName(AppSetting.PHOTO_DOCUMENT_EXT);
+      var fullpath = SeekNewFileName(AppSetting.PHOTO_MEMO_EXT);
       var memo = new Memo(fullpath, MemoKind.Photo)
       {
         WorkspaceName = Name
       };
-      memo.NewPhotoMemo(photo);
+      memo.NewPhotoMemo(bmp, stm);
       return memo;
     }
   }
