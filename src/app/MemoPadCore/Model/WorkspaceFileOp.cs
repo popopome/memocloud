@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO.IsolatedStorage;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,10 +30,10 @@ namespace MemoPadCore.Model
     public static void NewFile(string path)
     {
       var shadowpath = GetDeleteShadowFilePath(path);
-      Delete(shadowpath);
+      StorageIo.Delete(shadowpath);
 
       StorageIo.WriteTextFile(path, "");
-      StorageIo.WriteLastModifiedTime(path);
+      FileTimeDb.WriteLastModifiedTime(path);
     }
 
     /// <summary>
@@ -40,8 +41,8 @@ namespace MemoPadCore.Model
     /// </summary>
     /// <param name="newpath">New path</param>
     /// <param name="oldpath">Old path</param>
-    public static void Rename(string newpath,
-                              string oldpath)
+    public static void Rename(string oldpath,
+                              string newpath)
     {
       if (Exists(oldpath) == false)
         return;
@@ -49,52 +50,76 @@ namespace MemoPadCore.Model
       if (newpath.ToLower() == oldpath.ToLower())
         return;
 
-      Copy(newpath, oldpath);
+      Copy(oldpath, newpath);
       DeleteVirtual(oldpath);
     }
 
-    public static void Copy(string dstpath,
-                            string srcpath)
+    public static void Copy(string srcpath,
+                            string dstpath)
     {
-      StorageIo.CopyFile(dstpath, srcpath);
-      StorageIo.WriteLastModifiedTime(dstpath);
+      StorageIo.CopyFile(srcpath, dstpath);
+      FileTimeDb.WriteLastModifiedTime(dstpath);
     }
 
+    /// <summary>
+    /// Delete a file virtually.
+    /// This is a critical step to sync well.
+    /// </summary>
+    /// <param name="path"></param>
     public static void DeleteVirtual(string path)
     {
-      Delete(path);
-      NewFile(GetDeleteShadowFilePath(path));
+      var shadowpath = GetDeleteShadowFilePath(path);
+      StorageIo.RenameFile(path, shadowpath);
+      FileTimeDb.WriteLastModifiedTime(shadowpath);
+      FileTimeDb.Delete(path);
     }
 
+    /// <summary>
+    /// Get shadow file path
+    /// </summary>
+    /// <param name="path">original path</param>
+    /// <returns>Delete marked path</returns>
     public static string GetDeleteShadowFilePath(string path)
     {
       return string.Concat(path, AppSetting.DELETE_MEMO_EXT);
     }
 
-    public static void Delete(string path)
-    {
-      StorageIo.Delete(path);
-    }
-
+    /// <summary>
+    /// Check existence
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
     public static bool Exists(string path)
     {
       return StorageIo.Exists(path);
     }
 
+    public static bool IsPhotoMemoFile(string path)
+    {
+      var lower = path.ToLower();
+      return
+        lower.EndsWith(AppSetting.JPEG_EXT)
+        || lower.EndsWith(AppSetting.PNG_EXT);
+    }
+
+    public static bool IsTextMemoFile(string path)
+    {
+      var lower = path.ToLower();
+      return lower.EndsWith(AppSetting.TEXT_MEMO_EXT);
+    }
+
     public static bool IsVisibleMemoFile(string fn)
     {
-      var lowerfn = fn.ToLower();
       return
-        lowerfn.EndsWith(AppSetting.TEXT_MEMO_EXT)
-        || lowerfn.EndsWith(AppSetting.PHOTO_MEMO_EXT);
+        IsTextMemoFile(fn)
+        || IsPhotoMemoFile(fn);
     }
 
     public static bool IsMemoFile(string fn)
     {
       var lowerfn = fn.ToLower();
-      return lowerfn.EndsWith(AppSetting.TEXT_MEMO_EXT)
-        || lowerfn.EndsWith(AppSetting.DELETE_MEMO_EXT)
-        || lowerfn.EndsWith(AppSetting.PHOTO_MEMO_EXT);
+      return IsVisibleMemoFile(lowerfn)
+        || IsDeleteShadowFile(fn);
     }
 
     public static bool IsDeleteShadowFile(string fn)
@@ -109,6 +134,27 @@ namespace MemoPadCore.Model
         return fn;
 
       return fn.Substring(0, fn.Length - AppSetting.DELETE_MEMO_EXT.Length);
+    }
+
+    public static bool IsValidMemoContent(string fn)
+    {
+      var tmp = fn.ToLower();
+      return tmp == AppSetting.TEXT_MEMO_EXT
+        || tmp == AppSetting.JPEG_EXT
+        || tmp == AppSetting.PNG_EXT;
+    }
+
+    public static bool HasLocalRemoteSameName(
+        string local,
+        string remote)
+    {
+      if (WorkspaceFileOp.IsDeleteShadowFile(local))
+      {
+        var fn = StripShadowDeleteMark(local);
+        return fn.ToLower() == remote.ToLower();
+      }
+
+      return local.ToLower() == remote.ToLower();
     }
   }
 }

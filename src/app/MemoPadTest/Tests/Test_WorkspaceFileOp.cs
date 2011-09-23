@@ -29,7 +29,7 @@ namespace MemoPadTest.Tests
       DeleteAllTestFiles();
 
       WorkspaceFileOp.NewFile(ORIGIN_FILE_NAME);
-      WorkspaceFileOp.Rename(NEW_FILE_NAME, ORIGIN_FILE_NAME);
+      WorkspaceFileOp.Rename(ORIGIN_FILE_NAME, NEW_FILE_NAME);
 
       Assert.AreEqual(false, StorageIo.Exists(ORIGIN_FILE_NAME));
       Assert.AreEqual(true, StorageIo.Exists(ORIGIN_FILE_NAME_DELETED));
@@ -53,6 +53,20 @@ namespace MemoPadTest.Tests
     {
       var s = WorkspaceFileOp.StripShadowDeleteMark("a.x.deleted");
       Assert.AreEqual("a.x", s);
+    }
+
+    [TestMethod]
+    [Tag("a")]
+    public void HasLocalRemoteSameName()
+    {
+      Assert.AreEqual(true, WorkspaceFileOp.HasLocalRemoteSameName("a.txt", "a.txt"));
+      Assert.AreEqual(true, WorkspaceFileOp.HasLocalRemoteSameName("a.txt.deleted", "a.txt"));
+
+      Assert.AreEqual(true, WorkspaceFileOp.HasLocalRemoteSameName("a.jpg.deleted", "a.jpg"));
+      Assert.AreEqual(true, WorkspaceFileOp.HasLocalRemoteSameName("a.jpg", "a.jpg"));
+
+      Assert.AreEqual(true, WorkspaceFileOp.HasLocalRemoteSameName("a.png.deleted", "a.png"));
+      Assert.AreEqual(true, WorkspaceFileOp.HasLocalRemoteSameName("a.png", "a.png"));
     }
 
     #region Helper Functions

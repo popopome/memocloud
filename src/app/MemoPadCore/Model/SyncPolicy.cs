@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using DropNet.Models;
+using MemoPadCore.Common;
 using TapfishCore.Platform;
 
 namespace MemoPadCore.Model
@@ -139,7 +140,7 @@ namespace MemoPadCore.Model
       var localonlyfiles =
         (from local in localfiles
          where
-          remotefiles.FirstOrDefault(x => x.Name == local.Name) == null
+          remotefiles.FirstOrDefault(x => WorkspaceFileOp.HasLocalRemoteSameName(local.Name, x.Name)) == null
          select local).ToList();
 
       var remoteonlyfiles =
@@ -147,8 +148,8 @@ namespace MemoPadCore.Model
          where
            remote.IsDir == false
            && remote.IsDeleted == false
-           && remote.Extension.ToLower() == ".txt"
-           && localfiles.FirstOrDefault(x => x.Name == remote.Name) == null
+           && WorkspaceFileOp.IsValidMemoContent(remote.Extension)
+           && localfiles.FirstOrDefault(x => WorkspaceFileOp.HasLocalRemoteSameName(x.Name, remote.Name)) == null
          select remote).ToList();
 
       var founds =

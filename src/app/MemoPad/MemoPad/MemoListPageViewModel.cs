@@ -58,7 +58,7 @@ namespace MemoPad
       {
         var fullpath = Workspace.GetFullPath(fn);
         var kind =
-          Memo.IsPhotoMemoFile(fn)
+          WorkspaceFileOp.IsPhotoMemoFile(fn)
           ? MemoKind.Photo
           : MemoKind.Text;
 
@@ -96,10 +96,9 @@ namespace MemoPad
     /// <param name="photo">Bitmap object</param>
     /// <returns>Create memo</returns>
     public Memo AddNewPhotoMemoToFront(
-        BitmapImage bmp,
-        Stream stm)
+        BitmapImage bmp)
     {
-      var memo = Workspace.NewPhotoMemo(bmp, stm);
+      var memo = Workspace.NewPhotoMemo(bmp);
       memo.Save();
       MemoList.Add(memo);
       return memo;

@@ -230,10 +230,9 @@ namespace MemoPad
     /// <summary>
     /// Create new photo memo
     /// </summary>
-    void NewPhotoMemo(BitmapImage bmp,
-                      Stream stm)
+    void NewPhotoMemo(BitmapImage bmp)
     {
-      var memo = _vm.AddNewPhotoMemoToFront(bmp, stm);
+      var memo = _vm.AddNewPhotoMemoToFront(bmp);
       _memolist.AddMemoToFront(memo);
     }
 
@@ -535,7 +534,7 @@ namespace MemoPad
         CreateOptions = BitmapCreateOptions.None
       };
       bmp.SetSource(stm);
-      NewPhotoMemo(bmp, stm);
+      NewPhotoMemo(bmp);
     }
   }
 }

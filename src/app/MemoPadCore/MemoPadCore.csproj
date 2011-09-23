@@ -82,6 +82,7 @@
       <DependentUpon>SyncBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\DropboxSync.cs" />
+    <Compile Include="Model\FileModifiedTimeDb.cs" />
     <Compile Include="Model\MemoKind.cs" />
     <Compile Include="Model\SyncPolicy.cs" />
     <Compile Include="Model\Memo.cs" />

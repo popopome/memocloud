@@ -62,7 +62,8 @@ namespace MemoPadCore.Control
 
       _image = new Image
       {
-        Stretch = Stretch.UniformToFill
+        Stretch = Stretch.UniformToFill,
+        CacheMode = new BitmapCache()
       };
 
       this.Children.Add(_image);

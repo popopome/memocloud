@@ -87,8 +87,7 @@ namespace MemoPadCore.Model
     /// New photo memo
     /// </summary>
     /// <param name="img"></param>
-    public void NewPhotoMemo(BitmapSource img,
-                             Stream stm)
+    public void NewPhotoMemo(BitmapSource img)
     {
       FullBitmap = img;
       Thumb =
@@ -97,13 +96,7 @@ namespace MemoPadCore.Model
             MAX_THUMB_WIDTH,
             MAX_THUMB_HEIGHT);
 
-      if (stm != null)
-        StorageIo.WriteBinaryFile(
-                    this.FullPath,
-                    stm);
-      else
-        BitmapUtils.SaveBitmapToIso(this.FullPath, FullBitmap);
-
+      BitmapUtils.SaveBitmapToIso(this.FullPath, FullBitmap);
       BitmapUtils.SaveBitmapToIso(ThumbPath, Thumb);
 
       Kind = MemoKind.Photo;
@@ -158,7 +151,7 @@ namespace MemoPadCore.Model
         BitmapUtils.SaveBitmapToIso(FullPath, FullBitmap);
       }
 
-      StorageIo.WriteLastModifiedTime(FullPath);
+      FileTimeDb.WriteLastModifiedTime(FullPath);
     }
 
     /// <summary>
@@ -187,7 +180,7 @@ namespace MemoPadCore.Model
           string.Concat(PathUtil.MakePath(basepath, Title),
                         AppSetting.TEXT_MEMO_EXT);
 
-      WorkspaceFileOp.Rename(newpath, oldpath);
+      WorkspaceFileOp.Rename(oldpath, newpath);
       FullPath = newpath;
     }
 
@@ -201,16 +194,6 @@ namespace MemoPadCore.Model
     public static string ThumbPathFromFullPath(string fullpath)
     {
       return fullpath + THUMB_EXTENSION;
-    }
-
-    public static bool IsPhotoMemoFile(string path)
-    {
-      return path.EndsWith(AppSetting.PHOTO_MEMO_EXT);
-    }
-
-    public static bool IsTextMemoFile(string path)
-    {
-      return path.EndsWith(AppSetting.TEXT_MEMO_EXT);
     }
 
     #endregion Utility functions

@@ -194,7 +194,7 @@ namespace MemoPadCore.Model
          {
            FullPath = fullpath,
            Name = fn,
-           ModifiedTime = StorageIo.ReadLastModifiedTime(fullpath)
+           ModifiedTime = FileTimeDb.ReadLastModifiedTime(fullpath)
          }).ToList();
 
       paths.Sort(new Comparison<FileMeta>(
@@ -278,15 +278,14 @@ namespace MemoPadCore.Model
     /// <param name="photo">Bitmap object</param>
     /// <returns>Create new photo memo</returns>
     public Memo NewPhotoMemo(
-              BitmapImage bmp,
-              Stream stm)
+              BitmapImage bmp)
     {
-      var fullpath = SeekNewFileName(AppSetting.PHOTO_MEMO_EXT);
+      var fullpath = SeekNewFileName(AppSetting.JPEG_EXT);
       var memo = new Memo(fullpath, MemoKind.Photo)
       {
         WorkspaceName = Name
       };
-      memo.NewPhotoMemo(bmp, stm);
+      memo.NewPhotoMemo(bmp);
       return memo;
     }
   }

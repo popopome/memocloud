@@ -35,13 +35,8 @@ namespace MemoPadTest.Tests
           ws.DropBoxSecret = secret;
 
           StorageIo.WriteTextFile("/memopad/a.txt", "THIS IS MY TEST");
-          StorageIo.WriteLastModifiedTime("/memopad/a.txt", DateTime.Now);
-
           StorageIo.WriteTextFile("/memopad/b.txt", "THIS IS MY TEST");
-          StorageIo.WriteLastModifiedTime("/memopad/b.txt", DateTime.Now);
-
           StorageIo.WriteTextFile("/memopad/c.txt", "THIS IS MY TEST");
-          StorageIo.WriteLastModifiedTime("/memopad/c.txt", DateTime.Now);
 
           DropboxSync sync = new DropboxSync(ws);
           sync.Finished += (x, xe) =>

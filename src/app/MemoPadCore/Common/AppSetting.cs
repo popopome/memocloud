@@ -24,8 +24,9 @@ namespace MemoPadCore.Common
     public const string WORKSPACE_BASE_PATH = "\\workspaces";
     public const string DEFAULT_WORKSPACE_NAME = "memoit";
     public const string TEXT_MEMO_EXT = ".txt";
-    public const string PHOTO_MEMO_EXT = ".image";
     public const string DELETE_MEMO_EXT = ".deleted";
+    public const string JPEG_EXT = ".jpg";
+    public const string PNG_EXT = ".png";
 
     #endregion Constants
 

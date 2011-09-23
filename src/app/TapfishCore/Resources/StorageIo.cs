@@ -202,19 +202,7 @@ namespace TapfishCore.Resources
                                  string newname)
     {
       var stg = IsolatedStorageFile.GetUserStoreForApplication();
-      CreateDir(newname);
-
-      // Copy all files to new folder
-      var srcfiles = Files(oldname, "*");
-      foreach (var src in srcfiles)
-      {
-        var dstfn = PathUtil.MakePath(newname, src);
-        var srcfn = PathUtil.MakePath(oldname, src);
-
-        CopyFile(dstfn, srcfn);
-      }
-
-      DeleteDir(oldname);
+      stg.MoveDirectory(oldname, newname);
     }
 
     /// <summary>
@@ -222,32 +210,20 @@ namespace TapfishCore.Resources
     /// </summary>
     /// <param name="dstfn">Destination function</param>
     /// <param name="srcfn">Source function</param>
-    public static void CopyFile(string dstfn, string srcfn)
+    public static void CopyFile(string srcfn, string dstfn)
     {
       var stg = IsolatedStorageFile.GetUserStoreForApplication();
+      stg.CopyFile(srcfn, dstfn);
 
-      using (var dststm = stg.CreateFile(dstfn))
-      {
-        using (var srcstm = stg.OpenFile(srcfn, FileMode.Open))
-        {
-          const int BUFFER_SIZE = 4096;
-          byte[] buf = new byte[BUFFER_SIZE];
+    }
 
-          long remaining = srcstm.Length;
-          while (remaining > 0)
-          {
-            int readbytes = System.Math.Min((int)remaining, buf.Length);
-            int nread = srcstm.Read(buf, 0, readbytes);
-            dststm.Write(buf, 0, nread);
+    public static void RenameFile(string srcfn, string dstfn)
+    {
+      var stg = IsolatedStorageFile.GetUserStoreForApplication();
+      if (stg.FileExists(dstfn))
+        stg.DeleteFile(dstfn);
 
-            remaining -= readbytes;
-          }
-
-          srcstm.Close();
-        }
-
-        dststm.Close();
-      }
+      stg.MoveFile(srcfn, dstfn);
     }
 
     /// <summary>
@@ -293,63 +269,6 @@ namespace TapfishCore.Resources
       {
         Debug.WriteLine("Failed to delete directory:{0}", path);
       }
-    }
-
-    const string LAST_MODIFIED_DB_PATH = "/lastmodified";
-
-    public static void WriteLastModifiedTime(string path)
-    {
-      WriteLastModifiedTime(path, DateTime.Now.ToUniversalTime());
-    }
-
-    public static void WriteLastModifiedTime(string path,
-        DateTime dt)
-    {
-      string fullpath = GetLastModifiedFilePath(path);
-      long value = dt.Ticks;
-      var stg = IsolatedStorageFile.GetUserStoreForApplication();
-
-      Stream stm = null;
-      if (StorageIo.Exists(fullpath))
-        stm = stg.OpenFile(fullpath, FileMode.Open);
-      else
-        stm = stg.CreateFile(fullpath);
-      using (stm)
-      {
-        using (var writer = new StreamWriter(stm))
-        {
-          writer.Write(value);
-          writer.Close();
-        }
-      }
-    }
-
-    public static DateTime ReadLastModifiedTime(string path)
-    {
-      var fullpath = GetLastModifiedFilePath(path);
-      if (false == StorageIo.Exists(fullpath))
-        return DateTime.Now;
-
-      var stg = IsolatedStorageFile.GetUserStoreForApplication();
-      using (var stm = stg.OpenFile(fullpath, FileMode.Open))
-      {
-        using (var reader = new StreamReader(stm))
-        {
-          var val = reader.ReadToEnd();
-          long tick = long.Parse(val);
-          return new DateTime(tick);
-        }
-      }
-    }
-
-    static string GetLastModifiedFilePath(string path)
-    {
-      EnsureDir(LAST_MODIFIED_DB_PATH);
-      var newpath = path.Replace("-", "--");
-      string p2 = newpath.Replace('\\', '/');
-      p2 = path.Replace('/', '-');
-      string fullpath = PathUtil.MakePath(LAST_MODIFIED_DB_PATH, p2);
-      return fullpath;
     }
 
     public static string[] Dirs(string path)

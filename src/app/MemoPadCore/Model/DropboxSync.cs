@@ -347,8 +347,8 @@ namespace MemoPadCore.Model
 
       foreach (var v in found)
       {
-        StorageIo.WriteLastModifiedTime(v.LocalFullPath,
-                                        v.RemoteModifiedDate);
+        FileTimeDb.WriteLastModifiedTime(v.LocalFullPath,
+                                         v.RemoteModifiedDate);
       }
     }
 
@@ -412,7 +412,7 @@ namespace MemoPadCore.Model
           {
             Name = WorkspaceFileOp.StripShadowDeleteMark(fn),
             Path = path,
-            ModifiedUtc = StorageIo.ReadLastModifiedTime(path),
+            ModifiedUtc = FileTimeDb.ReadLastModifiedTime(path),
             IsDeleted = WorkspaceFileOp.IsDeleteShadowFile(fn)
           }
           ).ToList();
@@ -470,8 +470,8 @@ namespace MemoPadCore.Model
           var localpath = _ws.GetFullPath(dn.Name);
 
           StorageIo.WriteBinaryFile(localpath, resp.RawBytes);
-          StorageIo.WriteLastModifiedTime(localpath,
-                                          dn.LastModifiedUtc);
+          FileTimeDb.WriteLastModifiedTime(localpath,
+                                           dn.LastModifiedUtc);
 
           FireSyncSteppedEvent("Downloading...");
 
