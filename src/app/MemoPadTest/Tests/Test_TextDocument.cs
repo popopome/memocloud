@@ -20,7 +20,7 @@ namespace MemoPadTest.Tests
     [TestMethod]
     public void ChangeTitle_And_CheckIt()
     {
-      var doc = new TextDocument("a.txt");
+      var doc = new Memo("a.txt", MemoKind.Text);
       doc.ChangeTitle("newtitle");
       doc.Save();
 

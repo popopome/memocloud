@@ -15,12 +15,12 @@ namespace MemoPadCore.Common.Messages
 {
     public class OpenDocumentMessage : NotificationMessage
     {
-        public TextDocument Doc { get; private set; }
+        public Memo Doc { get; private set; }
 
         /// <summary>
         /// CTOR
         /// </summary>
-        public OpenDocumentMessage(TextDocument doc)
+        public OpenDocumentMessage(Memo doc)
             : base("open-document-message")
         {
             this.Doc = doc;

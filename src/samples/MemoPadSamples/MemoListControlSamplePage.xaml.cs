@@ -26,7 +26,7 @@ namespace MemoPadSamples
       ws.Open("/workspaces/memoit");
       vm.OpenWorkspace(ws);
 
-      _memolist.Build(vm.Docs);
+      _memolist.Build(vm.MemoList);
     }
   }
 }

@@ -8,6 +8,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GalaSoft.MvvmLight.Messaging;
@@ -15,6 +16,7 @@ using MemoPadCore.Common.Messages;
 using MemoPadCore.Control;
 using MemoPadCore.Model;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Tasks;
 using TapfishCore.Platform;
 using TapfishCore.Resources;
 using TapfishCore.Ui;
@@ -32,11 +34,23 @@ namespace MemoPad
     const int MNU_ID_SYNC = 1;
     const int MNU_ID_DROPBOX_LOGOUT = 2;
 
+    const int MNU_ID_NEW_TEXT_MEMO = 0x00010001;
+    const int MNU_ID_NEW_CAMERA = 0x00010002;
+    const int MNU_ID_NEW_GALLERY = 0x00010003;
+
     const string BMP_ID_SYNC_MENU_BACK = "syncmenuback";
     const string BMP_ID_DROPBOX_SYNC = "sync";
     const string BMP_ID_DROPBOX_SYNC_SEL = "syncsel";
     const string BMP_ID_DROPBOX_SIGNOUT = "signout";
     const string BMP_ID_DROPBOX_SIGNOUT_SEL = "signoutsel";
+
+    const string BMP_ID_NEW_MENU_BACK = "newmenuback";
+    const string BMP_ID_NEW_TEXT_MEMO = "new-text-memo";
+    const string BMP_ID_NEW_TEXT_MEMO_SEL = "new-text-memo-sel";
+    const string BMP_ID_NEW_CAMERA = "new-camera-memo";
+    const string BMP_ID_NEW_CAMERA_SEL = "new-camera-memo-sel";
+    const string BMP_ID_NEW_GALLERY = "new-gallery-memo";
+    const string BMP_ID_NEW_GALLERY_SEL = "new-gallery-memo-sel";
 
     #endregion Constants
 
@@ -45,6 +59,7 @@ namespace MemoPad
     MemoListPageViewModel _vm;
 
     PopupMenu _syncmenu;
+    PopupMenu _newmenu;
 
     #endregion Fields
 
@@ -63,12 +78,12 @@ namespace MemoPad
       // I donot want to show empty page.
       // Here let's add empty memo
       //
-      if (_vm.Docs.Count == 0)
+      if (_vm.MemoList.Count == 0)
       {
-        _vm.AddNewDocumentToFront();
+        _vm.AddNewTextMemoToFront();
       }
 
-      _memolist.Build(_vm.Docs);
+      _memolist.Build(_vm.MemoList);
       _memolist.MemoClicked +=
         new EventHandler<MemoClickedEventArgs>(OnMemoClicked);
       _memolist.MemoDeleteClicked += new EventHandler<MemoClickedEventArgs>(OnMemoDeleteClicked);
@@ -83,12 +98,20 @@ namespace MemoPad
         BMP_ID_DROPBOX_SYNC, "Images/menu/dropbox/dropbox-menu-item-sync.png",
         BMP_ID_DROPBOX_SYNC_SEL, "Images/menu/dropbox/dropbox-menu-item-sync-selected.png",
         BMP_ID_DROPBOX_SIGNOUT, "Images/menu/dropbox/dropbox-menu-item-signout.png",
-        BMP_ID_DROPBOX_SIGNOUT_SEL, "Images/menu/dropbox/dropbox-menu-item-signout-selected.png"
+        BMP_ID_DROPBOX_SIGNOUT_SEL, "Images/menu/dropbox/dropbox-menu-item-signout-selected.png",
+        BMP_ID_NEW_MENU_BACK, "Images/memo-list/newpopup/new-command-back.png",
+        BMP_ID_NEW_TEXT_MEMO, "Images/memo-list/newpopup/new-command-text-memo.png",
+        BMP_ID_NEW_TEXT_MEMO_SEL, "Images/memo-list/newpopup/new-command-text-memo-selected.png",
+        BMP_ID_NEW_CAMERA, "Images/memo-list/newpopup/new-command-camera.png",
+        BMP_ID_NEW_CAMERA_SEL, "Images/memo-list/newpopup/new-command-camera-selected.png",
+        BMP_ID_NEW_GALLERY, "Images/memo-list/newpopup/new-command-gallery.png",
+        BMP_ID_NEW_GALLERY_SEL, "Images/memo-list/newpopup/new-command-gallery-selected.png",
       };
       for (int i = 0; i < bmpdata.Length; i += 2)
         BitmapPool.AddBitmap(bmpdata[i], bmpdata[i + 1]);
 
       InitializeSyncMenu();
+      InitializeNewMenu();
 
       _syncbox.DoneButtonClicked += new EventHandler(OnSyncBoxDoneClicked);
     }
@@ -116,6 +139,33 @@ namespace MemoPad
 
       this.LayoutRoot.Children.Add(_syncmenu);
       _syncmenu.Hide();
+    }
+
+    /// <summary>
+    /// Initialize new menu
+    /// </summary>
+    void InitializeNewMenu()
+    {
+      _newmenu = new PopupMenu
+      {
+        MenuBackground = BitmapPool.Bmp(BMP_ID_NEW_MENU_BACK)
+      };
+      _newmenu.ItemClicked += new EventHandler<PopupMenuEventArgs>(OnNewMenuItemClicked);
+      _newmenu.AddMenuItem(MNU_ID_NEW_TEXT_MEMO,
+                           12, 12,
+                           BMP_ID_NEW_TEXT_MEMO,
+                           BMP_ID_NEW_TEXT_MEMO_SEL);
+      _newmenu.AddMenuItem(MNU_ID_NEW_CAMERA,
+                           0, 0,
+                           BMP_ID_NEW_CAMERA,
+                           BMP_ID_NEW_CAMERA_SEL);
+      _newmenu.AddMenuItem(MNU_ID_NEW_GALLERY,
+                           0, 0,
+                           BMP_ID_NEW_GALLERY,
+                           BMP_ID_NEW_GALLERY_SEL);
+
+      this.LayoutRoot.Children.Add(_newmenu);
+      _newmenu.Hide();
     }
 
     /// <summary>
@@ -154,17 +204,35 @@ namespace MemoPad
     {
       if (UiUtils.IsTapped(e))
       {
-        NewMemo();
+        var trans = _newmemo.TransformToVisual(this.LayoutRoot);
+        var pt = trans.Transform(new Point
+        {
+          X = _newmemo.ActualWidth + 5,
+          Y = 0
+        });
+
+        _newmenu.ShowMenu(pt.X - _newmenu.PopupWidth,
+                          pt.Y - _newmenu.PopupHeight);
+        /*NewMemo();*/
       }
     }
 
     /// <summary>
     /// Create new memo
     /// </summary>
-    void NewMemo()
+    void NewTextMemo()
     {
-      var doc = _vm.AddNewDocumentToFront();
-      _memolist.AddNewMemoToFront(doc);
+      var memo = _vm.AddNewTextMemoToFront();
+      _memolist.AddMemoToFront(memo);
+    }
+
+    /// <summary>
+    /// Create new photo memo
+    /// </summary>
+    void NewPhotoMemo(BitmapImage photo)
+    {
+      var memo = _vm.AddNewPhotoMemoToFront(photo);
+      _memolist.AddMemoToFront(memo);
     }
 
     /// <summary>
@@ -216,11 +284,11 @@ namespace MemoPad
       if (null == doc)
         return;
 
-      _vm.DeleteDocument(doc);
+      _vm.DeleteMemo(doc);
 
-      if (_vm.Docs.Count == 0)
+      if (_vm.MemoList.Count == 0)
       {
-        NewMemo();
+        NewTextMemo();
       }
 
       GoToVisualState(VS_NORMAL);
@@ -329,7 +397,7 @@ namespace MemoPad
     void Refresh()
     {
       _vm.RefreshWorkspace();
-      _memolist.Build(_vm.Docs);
+      _memolist.Build(_vm.MemoList);
     }
 
     /// <summary>
@@ -414,12 +482,51 @@ namespace MemoPad
             object sender,
             MemoClickedEventArgs e)
     {
-      _vm.DeleteDocument(e.Document);
-      if (_vm.Docs.Count == 0)
+      _vm.DeleteMemo(e.Document);
+      if (_vm.MemoList.Count == 0)
       {
-        NewMemo();
+        NewTextMemo();
       }
       GoToVisualState(VS_NORMAL);
+    }
+
+    /// <summary>
+    /// New menu item is clicked
+    /// </summary>
+    /// <param name="sender">Event sender</param>
+    /// <param name="e">Event parameter</param>
+    void OnNewMenuItemClicked(
+            object sender,
+            PopupMenuEventArgs e)
+    {
+      switch (e.MenuId)
+      {
+        case MNU_ID_NEW_TEXT_MEMO:
+          NewTextMemo();
+          break;
+        case MNU_ID_NEW_GALLERY:
+          var task = new PhotoChooserTask();
+          task.Completed += new EventHandler<PhotoResult>(OnPhotoSelected);
+          task.ShowCamera = true;
+          task.Show();
+          break;
+      }
+    }
+
+    /// <summary>
+    /// Photo is selected
+    /// </summary>
+    /// <param name="sender">Event sender</param>
+    /// <param name="e">Event parameter</param>
+    void OnPhotoSelected(object sender, PhotoResult e)
+    {
+      var stm = e.ChosenPhoto;
+      var bmp = new BitmapImage
+      {
+        CreateOptions = BitmapCreateOptions.None
+      };
+      bmp.SetSource(stm);
+      NewPhotoMemo(bmp);
     }
   }
 }

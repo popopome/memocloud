@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using MemoPadCore.Common;
 using TapfishCore.Resources;
 
 namespace MemoPadCore.Model
@@ -20,8 +21,6 @@ namespace MemoPadCore.Model
 
   public static class WorkspaceFileOp
   {
-    const string TXT_EXTENSION = ".txt";
-    const string DELETED_MARK = ".deleted";
 
     /// <summary>
     /// Create new file
@@ -69,7 +68,7 @@ namespace MemoPadCore.Model
 
     public static string GetDeleteShadowFilePath(string path)
     {
-      return string.Concat(path, DELETED_MARK);
+      return string.Concat(path, AppSetting.DELETE_MEMO_EXT);
     }
 
     public static void Delete(string path)
@@ -85,20 +84,23 @@ namespace MemoPadCore.Model
     public static bool IsVisibleMemoFile(string fn)
     {
       var lowerfn = fn.ToLower();
-      return lowerfn.EndsWith(TXT_EXTENSION);
+      return
+        lowerfn.EndsWith(AppSetting.TEXT_DOCUMENT_EXT)
+        || lowerfn.EndsWith(AppSetting.PHOTO_DOCUMENT_EXT);
     }
 
     public static bool IsMemoFile(string fn)
     {
       var lowerfn = fn.ToLower();
-      return lowerfn.EndsWith(TXT_EXTENSION)
-        || lowerfn.EndsWith(DELETED_MARK);
+      return lowerfn.EndsWith(AppSetting.TEXT_DOCUMENT_EXT)
+        || lowerfn.EndsWith(AppSetting.DELETE_MEMO_EXT)
+        || lowerfn.EndsWith(AppSetting.PHOTO_DOCUMENT_EXT);
     }
 
     public static bool IsDeleteShadowFile(string fn)
     {
       var lowerfn = fn.ToLower();
-      return lowerfn.EndsWith(DELETED_MARK);
+      return lowerfn.EndsWith(AppSetting.DELETE_MEMO_EXT);
     }
 
     public static string StripShadowDeleteMark(string fn)
@@ -106,7 +108,7 @@ namespace MemoPadCore.Model
       if (false == IsDeleteShadowFile(fn))
         return fn;
 
-      return fn.Substring(0, fn.Length - DELETED_MARK.Length);
+      return fn.Substring(0, fn.Length - AppSetting.DELETE_MEMO_EXT.Length);
     }
   }
 }

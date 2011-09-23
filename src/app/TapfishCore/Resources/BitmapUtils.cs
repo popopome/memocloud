@@ -12,6 +12,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Xna.Framework.Media;
+using TapfishCore.Math;
 
 namespace TapfishCore.Resources
 {
@@ -143,6 +144,38 @@ namespace TapfishCore.Resources
 
       bmp.SetSource(stminfo.Stream);
       return bmp;
+    }
+
+    /// <summary>
+    /// Resize bitmap
+    /// </summary>
+    /// <param name="src">Source bitmap</param>
+    /// <param name="maxw">Maximum width</param>
+    /// <param name="maxh">Maximum height</param>
+    /// <returns></returns>
+    public static BitmapSource ResizeBitmap(
+                    BitmapSource src,
+                    int maxw,
+                    int maxh)
+    {
+      var trans = Matrix44.SetRectToRect(
+        new Rect(0, 0, src.PixelWidth, src.PixelHeight),
+        new Rect(0, 0, maxw, maxh),
+        Stretch.Uniform);
+
+      var lt = trans.Transform(new Point(0, 0));
+      var rb = trans.Transform(new Point(src.PixelWidth, src.PixelHeight));
+
+      var img = new Image
+      {
+        Stretch = Stretch.Uniform,
+        Source = src,
+        Width = rb.X - lt.X,
+        Height = rb.Y - lt.Y
+      };
+      var wbmp = new WriteableBitmap(img, null);
+      wbmp.Invalidate();
+      return wbmp;
     }
 
   }

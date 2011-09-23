@@ -17,7 +17,7 @@ namespace MemoPad
 {
   public class TextEditorViewModel
   {
-    public TextDocument Doc { get; private set; }
+    public Memo Doc { get; private set; }
 
     /// <summary>
     /// CTOR

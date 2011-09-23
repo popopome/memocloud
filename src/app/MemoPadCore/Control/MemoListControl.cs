@@ -119,7 +119,7 @@ namespace MemoPadCore.Control
     /// Build list control with given document data
     /// </summary>
     /// <param name="docs"></param>
-    public void Build(List<TextDocument> docs)
+    public void Build(List<Memo> docs)
     {
       RemoveAllChildren();
 
@@ -188,7 +188,7 @@ namespace MemoPadCore.Control
     /// Create summary control
     /// </summary>
     /// <returns>summary control</returns>
-    MemoSummaryControl CreateAndAddSummaryControl(TextDocument d)
+    MemoSummaryControl CreateAndAddSummaryControl(Memo memo)
     {
       var c = new MemoSummaryControl
       {
@@ -197,7 +197,7 @@ namespace MemoPadCore.Control
         RenderTransform = new TranslateTransform(),
         CacheMode = new BitmapCache()
       };
-      c.Open(d);
+      c.Open(memo);
       c.Click += new EventHandler<MemoClickedEventArgs>(OnMemoClicked);
       c.DeleteClicked += new EventHandler<MemoClickedEventArgs>(OnMemoDeleteClicked);
       c.FrontToBackFlipped += new EventHandler<MemoClickedEventArgs>(OnMemoFlipped);
@@ -220,7 +220,7 @@ namespace MemoPadCore.Control
         return;
 
       var c = _list[delindex];
-      var doc = c.Doc;
+      var doc = c.Memo;
       this.Children.Remove(c);
       _list.Remove(c);
 
@@ -415,7 +415,7 @@ namespace MemoPadCore.Control
     /// Add new memo to front
     /// </summary>
     /// <param name="doc"></param>
-    public void AddNewMemoToFront(TextDocument doc)
+    public void AddMemoToFront(Memo doc)
     {
       /*MoveMemosByRel(MemoSummaryControl.DESIRED_WIDTH);*/
       var c = CreateAndAddSummaryControl(doc);
@@ -442,14 +442,14 @@ namespace MemoPadCore.Control
     /// <summary>
     /// Delete most visible document
     /// </summary>
-    public TextDocument DeleteMostVisibleDocument()
+    public Memo DeleteMostVisibleDocument()
     {
       int delindex = MostVisibleIndex();
       if (-1 == delindex)
         return null;
 
       var c = _list[delindex];
-      var doc = c.Doc;
+      var doc = c.Memo;
 
       this.Children.Remove(c);
       var nextsiblings = _list.GetRange(delindex + 1, _list.Count - delindex - 1);

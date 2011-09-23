@@ -11,26 +11,27 @@ using System.Windows.Shapes;
 
 namespace TapfishCore.Math
 {
-    public class MathUtils
+  public class MathUtils
+  {
+    /// <summary>
+    /// Convert radian to degree
+    /// </summary>
+    /// <param name="radian"></param>
+    /// <returns></returns>
+    public static double RAD2DEG(double radian)
     {
-        /// <summary>
-        /// Convert radian to degree
-        /// </summary>
-        /// <param name="radian"></param>
-        /// <returns></returns>
-        public static double RAD2DEG(double radian)
-        {
-            return 180 * radian / System.Math.PI;
-        }
-
-        /// <summary>
-        /// Convert degree to radian
-        /// </summary>
-        /// <param name="degree"></param>
-        /// <returns></returns>
-        public static double DEG2RAD(double degree)
-        {
-            return System.Math.PI * degree / 180;
-        }
+      return 180 * radian / System.Math.PI;
     }
+
+    /// <summary>
+    /// Convert degree to radian
+    /// </summary>
+    /// <param name="degree"></param>
+    /// <returns></returns>
+    public static double DEG2RAD(double degree)
+    {
+      return System.Math.PI * degree / 180;
+    }
+
+  }
 }

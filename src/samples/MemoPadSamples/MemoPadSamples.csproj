@@ -80,6 +80,9 @@
     <Compile Include="MemoSummaryControlSamplePage.xaml.cs">
       <DependentUpon>MemoSummaryControlSamplePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MiniTextMemoControlSamplePage.xaml.cs">
+      <DependentUpon>MiniTextMemoControlSamplePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PopupMenuSamplePage.xaml.cs">
       <DependentUpon>PopupMenuSamplePage.xaml</DependentUpon>
     </Compile>
@@ -112,6 +115,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MiniTextMemoControlSamplePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PopupMenuSamplePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -140,17 +147,23 @@
     <Content Include="Images\dropbox\sigin-create-account.png" />
     <Content Include="Images\dropbox\signin-sync-button.png" />
     <Content Include="Images\dropbox\syncbox-back.png" />
+    <Content Include="Images\memo-list\delete-confirm-button.png" />
+    <Content Include="Images\memo-list\delete-memo-button.png" />
     <Content Include="Images\memo-list\memo-list-background.jpg" />
     <Content Include="Images\memo-list\memo-summary-arrow-selected.png" />
     <Content Include="Images\memo-list\memo-summary-arrow.png" />
     <Content Include="Images\memo-list\memo-summary-back.png" />
     <Content Include="Images\memo-list\memo-summary-clipboard-selected.png" />
     <Content Include="Images\memo-list\memo-summary-clipboard.png" />
+    <Content Include="Images\memo-list\memo-summary-email-selected.png" />
+    <Content Include="Images\memo-list\memo-summary-email.png" />
     <Content Include="Images\memo-list\memo-summary-flip-back.png" />
     <Content Include="Images\memo-list\memo-summary-trash-selected.png" />
     <Content Include="Images\memo-list\memo-summary-trash.png" />
     <Content Include="Images\memo-list\memo-summary-flip-front.png" />
     <Content Include="Images\memo-list\more-commands.png" />
+    <Content Include="Images\memo-list\new-memo-button.png" />
+    <Content Include="Images\memo-list\sync-button.png" />
     <Content Include="Images\menu\dropbox\dropbox-menu-back.png" />
     <Content Include="Images\menu\dropbox\dropbox-menu-item-signout-selected.png" />
     <Content Include="Images\menu\dropbox\dropbox-menu-item-signout.png" />

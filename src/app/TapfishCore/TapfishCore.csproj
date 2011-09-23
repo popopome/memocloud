@@ -76,6 +76,7 @@
     <Compile Include="Behaviors\ToogleBoolConverter.cs" />
     <Compile Include="Behaviors\VisualStateMonitor.cs" />
     <Compile Include="Math\MathUtils.cs" />
+    <Compile Include="Math\Matrix44.cs" />
     <Compile Include="Math\PointExtension.cs" />
     <Compile Include="Math\Vector3.cs" />
     <Compile Include="Net\JsonDictionarySerializer.cs" />

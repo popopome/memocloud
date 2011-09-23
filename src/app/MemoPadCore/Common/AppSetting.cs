@@ -15,6 +15,8 @@ namespace MemoPadCore.Common
 {
   public class AppSetting
   {
+    #region Constants
+
     const string SETTING_FN = "appsetting.app";
 
     public const string DROPBOX_API_KEY = "j38j44e7tnpmfhc";
@@ -22,6 +24,17 @@ namespace MemoPadCore.Common
     public const string WORKSPACE_BASE_PATH = "\\workspaces";
     public const string DEFAULT_WORKSPACE_NAME = "memoit";
     public const string TEXT_DOCUMENT_EXT = ".txt";
+    public const string PHOTO_DOCUMENT_EXT = ".image";
+    public const string DELETE_MEMO_EXT = ".deleted";
+
+    #endregion Constants
+
+    public static readonly FontFamily FONT_SEGOE_WP_SEMILIGHT = new FontFamily("Segoe WP SemiLight");
+    public static readonly FontFamily FONT_SEGOE_WP_LIGHT = new FontFamily("Segoe WP Light");
+
+    public static readonly SolidColorBrush COLOR_SUMMARY_TITLE = new SolidColorBrush(Color.FromArgb(255, 110, 110, 110));
+    public static readonly SolidColorBrush COLOR_SUMMARY_BODY =
+      new SolidColorBrush(Color.FromArgb(255, 136, 136, 136));
 
     public string LastWorkspaceName { get; set; }
 

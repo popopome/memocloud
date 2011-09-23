@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using MemoPad;
 using MemoPadCore.Model;
 using Microsoft.Phone.Controls;
+using TapfishCore.Resources;
 
 namespace MemoPadSamples
 {
@@ -21,16 +22,14 @@ namespace MemoPadSamples
     {
       InitializeComponent();
 
-      var ws = new Workspace();
-      ws.Open("/workspaces/memoit");
-      var vm = ViewModelLocator.MemoListPageVm;
-      vm.OpenWorkspace(ws);
+      const string FULLPATH = "/HAHAHA.txt";
+      StorageIo.WriteTextFile(
+        FULLPATH,
+        "Here is what I have so far.  Each team leaders should review them and consult with Frank Kim for possible adjustment.");
+      var memo = new Memo(FULLPATH,
+                          MemoKind.Text);
 
-      var doc = vm.Docs[1];
-      /*doc.ChangeTitle("Hello There");*/
-
-      _a.Open(doc);
-      /*_b.Open(vm.Docs[1]);*/
+      _a.Open(memo);
     }
   }
 }

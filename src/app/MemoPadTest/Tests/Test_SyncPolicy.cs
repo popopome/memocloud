@@ -16,7 +16,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MemoPadTest.Tests
 {
   [TestClass]
-  [Tag("a")]
+  /*[Tag("a")]*/
   public class Test_SyncPolicy : SilverlightTest
   {
 
@@ -46,7 +46,7 @@ namespace MemoPadTest.Tests
     }
 
     [TestMethod]
-    [Tag("a")]
+    /*[Tag("a")]*/
     public void UpDownList_DeleteByLocal()
     {
       var locallist = new List<LocalFileMeta>

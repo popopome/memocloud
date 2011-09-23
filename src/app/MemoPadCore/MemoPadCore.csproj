@@ -75,12 +75,14 @@
     </Compile>
     <Compile Include="Control\MemoSummaryControl.cs" />
     <Compile Include="Control\MemoListControl.cs" />
+    <Compile Include="Control\MiniTextMemoControl.cs" />
     <Compile Include="Control\SyncBox.xaml.cs">
       <DependentUpon>SyncBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\DropboxSync.cs" />
+    <Compile Include="Model\MemoKind.cs" />
     <Compile Include="Model\SyncPolicy.cs" />
-    <Compile Include="Model\TextDocument.cs" />
+    <Compile Include="Model\Memo.cs" />
     <Compile Include="Model\Workspace.cs" />
     <Compile Include="Model\WorkspaceFileOp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

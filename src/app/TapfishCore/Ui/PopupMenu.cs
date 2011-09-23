@@ -103,6 +103,22 @@ namespace TapfishCore.Ui
 
     #endregion MenuBackground Dependency property
 
+    public int PopupWidth
+    {
+      get
+      {
+        return MenuBackground.PixelWidth;
+      }
+    }
+
+    public int PopupHeight
+    {
+      get
+      {
+        return MenuBackground.PixelHeight;
+      }
+    }
+
     /// <summary>
     /// CTOR
     /// </summary>

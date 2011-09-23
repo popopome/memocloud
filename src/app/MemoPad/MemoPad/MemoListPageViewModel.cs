@@ -9,6 +9,7 @@ using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MemoPadCore.Common;
 using MemoPadCore.Model;
@@ -24,7 +25,7 @@ namespace MemoPad
   {
     const string BASE_PATH = "\\workspaces";
 
-    public List<TextDocument> Docs { get; private set; }
+    public List<Memo> MemoList { get; private set; }
     public Workspace Workspace { get; private set; }
 
     /// <summary>
@@ -42,25 +43,25 @@ namespace MemoPad
     public void OpenWorkspace(Workspace ws)
     {
       Workspace = ws;
-      BuildDocumentList();
+      BuildMemoList();
     }
 
     /// <summary>
     /// Build document list
     /// </summary>
-    void BuildDocumentList()
+    void BuildMemoList()
     {
-      Docs = new List<TextDocument>();
+      MemoList = new List<Memo>();
 
       foreach (var fn in Workspace.GetMemoFiles(WorkspaceFileAccessMode.Visible))
       {
         var fullpath = Workspace.GetFullPath(fn);
-        var doc = new TextDocument(fullpath)
+        var doc = new Memo(fullpath, MemoKind.Text)
         {
           WorkspaceName = Workspace.Name
         };
 
-        Docs.Add(doc);
+        MemoList.Add(doc);
       }
     }
 
@@ -69,28 +70,40 @@ namespace MemoPad
     /// </summary>
     public void RefreshWorkspace()
     {
-      BuildDocumentList();
+      BuildMemoList();
     }
 
     /// <summary>
     /// Add new document to front
     /// </summary>
-    public TextDocument AddNewDocumentToFront()
+    public Memo AddNewTextMemoToFront()
     {
       var doc = Workspace.NewTextDocument();
-
       doc.Save();
-      Docs.Add(doc);
+      MemoList.Add(doc);
       return doc;
+    }
+
+    /// <summary>
+    /// Add new photo to front side
+    /// </summary>
+    /// <param name="photo">Bitmap object</param>
+    /// <returns>Create memo</returns>
+    public Memo AddNewPhotoMemoToFront(BitmapImage photo)
+    {
+      var memo = Workspace.NewPhotoMemo(photo);
+      memo.Save();
+      MemoList.Add(memo);
+      return memo;
     }
 
     /// <summary>
     /// Delete given document
     /// </summary>
     /// <param name="doc">Text document</param>
-    public void DeleteDocument(TextDocument doc)
+    public void DeleteMemo(Memo doc)
     {
-      Docs.Remove(doc);
+      MemoList.Remove(doc);
       doc.Delete();
     }
 

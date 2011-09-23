@@ -7,6 +7,7 @@ using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MemoPadCore.Common;
 using TapfishCore.Platform;
@@ -17,32 +18,75 @@ namespace MemoPadCore.Model
   /// <summary>
   /// This class represents TEXT document object.
   /// </summary>
-  public class TextDocument
+  public class Memo
   {
+    const string THUMB_EXTENSION = ".thumb";
+    const int MAX_THUMB_WIDTH = 120;
+    const int MAX_THUMB_HEIGHT = 120;
+
     public string Title { get; private set; }
     public string Text { get; set; }
     public string WorkspaceName { get; set; }
     public string FullPath { get; private set; }
     public string Summary { get; set; }
     public bool IsRevised { get; set; }
+    public BitmapSource Thumb { get; private set; }
+    public BitmapSource FullBitmap { get; private set; }
+    public MemoKind Kind { get; private set; }
+    public bool IsTextMemo
+    {
+      get
+      {
+        return Kind == MemoKind.Text;
+      }
+    }
+
+    public bool IsPhotoMemo
+    {
+      get
+      {
+        return Kind == MemoKind.Photo;
+      }
+    }
 
     /// <summary>
     /// CTOR
     /// </summary>
     /// <param name="fullpath">Full path of text document</param>
-    public TextDocument(string fullpath)
+    public Memo(string fullpath,
+                MemoKind kind)
     {
       FullPath = PathUtil.InsertFirstBackslash(fullpath);
       Title = PathUtil.NameOnlyNoExt(fullpath);
       Text = "";
+      Kind = kind;
+
+      Thumb = null;
+      FullBitmap = null;
     }
 
     /// <summary>
     /// Create new text document
     /// </summary>
-    public void New()
+    public void NewTextMemo()
     {
       WorkspaceFileOp.NewFile(FullPath);
+      Kind = MemoKind.Text;
+    }
+
+    /// <summary>
+    /// New photo memo
+    /// </summary>
+    /// <param name="img"></param>
+    public void NewPhotoMemo(BitmapSource img)
+    {
+      FullBitmap = img;
+      Thumb =
+        BitmapUtils.ResizeBitmap(
+            img,
+            MAX_THUMB_WIDTH,
+            MAX_THUMB_HEIGHT);
+      Kind = MemoKind.Photo;
     }
 
     /// <summary>
@@ -50,7 +94,13 @@ namespace MemoPadCore.Model
     /// </summary>
     public void Open()
     {
-      Text = StorageIo.ReadTextFile(FullPath) ?? "";
+      if (IsTextMemo)
+        Text = StorageIo.ReadTextFile(FullPath) ?? "";
+      else if (IsPhotoMemo)
+      {
+        var thumbpath = ThumbPathFromFullPath(FullPath);
+        Thumb = BitmapUtils.LoadBitmapFromIso(FullPath);
+      }
     }
 
     /// <summary>
@@ -71,7 +121,15 @@ namespace MemoPadCore.Model
       if (StorageIo.DirExists(dir) == false)
         StorageIo.CreateDir(dir);
 
-      StorageIo.WriteTextFile(FullPath, Text);
+      if (IsTextMemo)
+        StorageIo.WriteTextFile(FullPath, Text);
+      else if (IsPhotoMemo)
+      {
+        BitmapUtils.SaveBitmapToIso(ThumbPathFromFullPath(FullPath),
+                                    Thumb);
+        BitmapUtils.SaveBitmapToIso(FullPath, FullBitmap);
+      }
+
       StorageIo.WriteLastModifiedTime(FullPath);
     }
 
@@ -103,6 +161,16 @@ namespace MemoPadCore.Model
 
       WorkspaceFileOp.Rename(newpath, oldpath);
       FullPath = newpath;
+    }
+
+    /// <summary>
+    /// Get thumbnail path from full-path
+    /// </summary>
+    /// <param name="fullpath">Full path to specific bitmap image</param>
+    /// <returns></returns>
+    string ThumbPathFromFullPath(string fullpath)
+    {
+      return fullpath + THUMB_EXTENSION;
     }
   }
 }

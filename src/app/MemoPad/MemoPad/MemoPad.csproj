@@ -142,6 +142,13 @@
     <Content Include="Images\memo-list\memo-summary-trash.png" />
     <Content Include="Images\memo-list\more-commands.png" />
     <Content Include="Images\memo-list\new-memo-button.png" />
+    <Content Include="Images\memo-list\newpopup\new-command-back.png" />
+    <Content Include="Images\memo-list\newpopup\new-command-camera-selected.png" />
+    <Content Include="Images\memo-list\newpopup\new-command-camera.png" />
+    <Content Include="Images\memo-list\newpopup\new-command-gallery-selected.png" />
+    <Content Include="Images\memo-list\newpopup\new-command-gallery.png" />
+    <Content Include="Images\memo-list\newpopup\new-command-text-memo-selected.png" />
+    <Content Include="Images\memo-list\newpopup\new-command-text-memo.png" />
     <Content Include="Images\memo-list\sync-button.png" />
     <Content Include="Images\menu\dropbox\dropbox-menu-back.png" />
     <Content Include="Images\menu\dropbox\dropbox-menu-item-signout-selected.png" />

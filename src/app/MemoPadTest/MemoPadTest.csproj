@@ -79,6 +79,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\Test_BitmapUtils.cs" />
     <Compile Include="Tests\Test_DropboxSync.cs" />
     <Compile Include="Tests\Test_PathUtil.cs" />
     <Compile Include="Tests\Test_SyncPolicy.cs" />

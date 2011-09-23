@@ -9,6 +9,7 @@ using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MemoPadCore.Common;
 using Newtonsoft.Json;
@@ -157,7 +158,7 @@ namespace MemoPadCore.Model
     /// <returns>Array of filenames</returns>
     public string[] GetMemoFiles(WorkspaceFileAccessMode access)
     {
-      var files = StorageIo.Files(_path, "*.txt");
+      var files = StorageIo.Files(_path, "*");
       var sortedfiles = SortByModifiedTime(files);
 
       if (access == WorkspaceFileAccessMode.All)
@@ -236,7 +237,7 @@ namespace MemoPadCore.Model
     /// <summary>
     /// Seek new file name from given workspace
     /// </summary>
-    string SeekNewFileName()
+    string SeekNewFileName(string ext)
     {
       const string NEW_FILE_NAME_PREFIX = "Untitled-";
 
@@ -245,7 +246,7 @@ namespace MemoPadCore.Model
 
       for (int i = 0; ; ++i)
       {
-        fn = string.Concat(NEW_FILE_NAME_PREFIX, i, AppSetting.TEXT_DOCUMENT_EXT);
+        fn = string.Concat(NEW_FILE_NAME_PREFIX, i, ext);
         fullpath = this.GetFullPath(fn);
         if (false == StorageIo.Exists(fullpath))
           break;
@@ -258,16 +259,32 @@ namespace MemoPadCore.Model
     /// Create new text document
     /// </summary>
     /// <returns>Text document object</returns>
-    public TextDocument NewTextDocument()
+    public Memo NewTextDocument()
     {
-      var fullpath = SeekNewFileName();
-      var doc = new TextDocument(fullpath)
+      var fullpath = SeekNewFileName(AppSetting.TEXT_DOCUMENT_EXT);
+      var doc = new Memo(fullpath, MemoKind.Text)
       {
         WorkspaceName = Name
       };
-      doc.New();
+      doc.NewTextMemo();
 
       return doc;
+    }
+
+    /// <summary>
+    /// Create new photo memo
+    /// </summary>
+    /// <param name="photo">Bitmap object</param>
+    /// <returns>Create new photo memo</returns>
+    public Memo NewPhotoMemo(BitmapImage photo)
+    {
+      var fullpath = SeekNewFileName(AppSetting.PHOTO_DOCUMENT_EXT);
+      var memo = new Memo(fullpath, MemoKind.Photo)
+      {
+        WorkspaceName = Name
+      };
+      memo.NewPhotoMemo(photo);
+      return memo;
     }
   }
 }
