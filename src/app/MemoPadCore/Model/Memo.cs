@@ -90,15 +90,8 @@ namespace MemoPadCore.Model
     public void NewPhotoMemo(BitmapSource img)
     {
       FullBitmap = img;
-      Thumb =
-        BitmapUtils.ResizeBitmap(
-            img,
-            MAX_THUMB_WIDTH,
-            MAX_THUMB_HEIGHT);
-
       BitmapUtils.SaveBitmapToIso(this.FullPath, FullBitmap);
-      BitmapUtils.SaveBitmapToIso(ThumbPath, Thumb);
-
+      CreateThumbFile(FullPath, img);
       Kind = MemoKind.Photo;
     }
 
@@ -130,7 +123,12 @@ namespace MemoPadCore.Model
     public void OpenThumb()
     {
       var thumbpath = ThumbPathFromFullPath(FullPath);
-      Thumb = BitmapUtils.LoadBitmapFromIso(FullPath);
+      Thumb = BitmapUtils.LoadBitmapFromIso(thumbpath);
+      if (null == Thumb)
+      {
+        FullBitmap = BitmapUtils.LoadBitmapFromIso(FullPath, BitmapCreateOptions.None);
+        Thumb = CreateThumbFile(FullPath, FullBitmap);
+      }
     }
 
     /// <summary>
@@ -194,6 +192,26 @@ namespace MemoPadCore.Model
     public static string ThumbPathFromFullPath(string fullpath)
     {
       return fullpath + THUMB_EXTENSION;
+    }
+
+    public static void CreateThumbBitmapFile(string fullpath)
+    {
+      var bmp = BitmapUtils.LoadBitmapFromIso(
+                    fullpath,
+                    BitmapCreateOptions.None);
+      CreateThumbFile(fullpath, bmp);
+    }
+
+    static BitmapSource CreateThumbFile(string fullpath,
+                                 BitmapSource bmp)
+    {
+      var thumb =
+        BitmapUtils.ResizeBitmap(
+            bmp,
+            MAX_THUMB_WIDTH,
+            MAX_THUMB_HEIGHT);
+      BitmapUtils.SaveBitmapToIso(ThumbPathFromFullPath(fullpath), thumb);
+      return thumb;
     }
 
     #endregion Utility functions

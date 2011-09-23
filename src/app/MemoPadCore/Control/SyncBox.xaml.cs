@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using MemoPadCore.Model;
 using TapfishCore.Ui;
 
 namespace MemoPadCore.Control
@@ -23,7 +24,7 @@ namespace MemoPadCore.Control
 
     #endregion Constants
 
-    public event EventHandler DoneButtonClicked;
+    public event EventHandler<SyncBoxEventArgs> DoneButtonClicked;
 
     #region Fields
 
@@ -32,6 +33,8 @@ namespace MemoPadCore.Control
 
     int _numuploadings;
     int _numdownloadings;
+
+    DropboxSyncResult _syncresult;
 
     #endregion Fields
 
@@ -44,7 +47,11 @@ namespace MemoPadCore.Control
       _donebutton.Click += (x, xe) =>
         {
           if (DoneButtonClicked != null)
-            DoneButtonClicked(this, null);
+            DoneButtonClicked(this,
+                new SyncBoxEventArgs
+                {
+                  SyncResult = _syncresult
+                });
         };
 
     }
@@ -159,11 +166,21 @@ namespace MemoPadCore.Control
     /// <summary>
     /// Sync is finished
     /// </summary>
-    public void SyncFinished()
+    public void SyncFinished(DropboxSyncResult syncresult)
     {
-      UpdateDescription("Finished");
+      _syncresult = syncresult;
+      var msg =
+        syncresult == DropboxSyncResult.Success
+        ? "Sync succeeded"
+        : "Nothing changed";
+      UpdateDescription(msg);
       _donebutton.Show();
     }
 
+  }
+
+  public class SyncBoxEventArgs : EventArgs
+  {
+    public DropboxSyncResult SyncResult { get; set; }
   }
 }

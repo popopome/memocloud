@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using DropNet.Models;
 using MemoPadCore.Common;
 using TapfishCore.Platform;
+using TapfishCore.Resources;
 
 namespace MemoPadCore.Model
 {
@@ -133,6 +134,33 @@ namespace MemoPadCore.Model
       public DropboxFileMeta RemoteFileMeta { get; set; }
     }
 
+    static void DeleteAllLocalOnlyDeleteFiles(List<LocalFileMeta> localfiles)
+    {
+      if (localfiles.Count == 0)
+        return;
+
+      localfiles.ForEach(local =>
+        {
+          if (local.IsDeleted)
+          {
+            StorageIo.Delete(local.Path);
+            StorageIo.Delete(WorkspaceFileOp.GetDeleteShadowFilePath(local.Path));
+          }
+        });
+    }
+
+    static List<LocalFileMeta> DropDeleteFilesInList(List<LocalFileMeta> localfiles)
+    {
+      for (int i = localfiles.Count - 1; i >= 0; --i)
+      {
+        var local = localfiles[i];
+        if (local.IsDeleted)
+          localfiles.RemoveAt(i);
+      }
+
+      return localfiles;
+    }
+
     public static SyncUpDnList MakeUpDnFileList(
                   List<LocalFileMeta> localfiles,
                   List<DropboxFileMeta> remotefiles)
@@ -142,6 +170,13 @@ namespace MemoPadCore.Model
          where
           remotefiles.FirstOrDefault(x => WorkspaceFileOp.HasLocalRemoteSameName(local.Name, x.Name)) == null
          select local).ToList();
+
+      //
+      // Let's remove any redundant files at here.
+      // This is not a good position to place this code.
+      //
+      DeleteAllLocalOnlyDeleteFiles(localonlyfiles);
+      localonlyfiles = DropDeleteFilesInList(localonlyfiles);
 
       var remoteonlyfiles =
         (from remote in remotefiles

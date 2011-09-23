@@ -81,7 +81,15 @@ namespace TapfishCore.Resources
       StorageIo.WriteBinaryFile(path, raw);
     }
 
-    public static BitmapSource LoadBitmapFromIso(string path)
+    public static BitmapImage LoadBitmapFromIso(string path)
+    {
+      return LoadBitmapFromIso(path,
+        BitmapCreateOptions.BackgroundCreation
+            | BitmapCreateOptions.DelayCreation);
+    }
+
+    public static BitmapImage LoadBitmapFromIso(string path,
+      BitmapCreateOptions options)
     {
       byte[] raw = StorageIo.ReadBinaryFile(path);
       if (null == raw)
@@ -94,9 +102,7 @@ namespace TapfishCore.Resources
 
         var img = new BitmapImage
         {
-          CreateOptions =
-            BitmapCreateOptions.BackgroundCreation
-            | BitmapCreateOptions.DelayCreation
+          CreateOptions = options
         };
 
         img.SetSource(stm);

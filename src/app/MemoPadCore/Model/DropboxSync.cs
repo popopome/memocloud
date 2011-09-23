@@ -242,6 +242,9 @@ namespace MemoPadCore.Model
             (resp) =>
             {
               Log("Remote deletion succeeded:{0}", remotepath);
+              StorageIo.Delete(path);
+              StorageIo.Delete(WorkspaceFileOp.GetDeleteShadowFilePath(path));
+
               ThreadUtil.Execute(UploadSingleFile);
             },
             (err) =>
@@ -250,6 +253,10 @@ namespace MemoPadCore.Model
                   remotepath,
                   ErrorMessage(err));
               Log("Remote deletion succeeded:{0}", remotepath);
+
+              StorageIo.Delete(path);
+              StorageIo.Delete(WorkspaceFileOp.GetDeleteShadowFilePath(path));
+
               ThreadUtil.Execute(UploadSingleFile);
             });
         return;
@@ -376,6 +383,16 @@ namespace MemoPadCore.Model
           _totaldownloadings = _synclist.DownloadingList.Count;
           _totaluploadings = _synclist.UploadingList.Count;
 
+          if (_totaldownloadings == 0
+            && _totaluploadings == 0)
+          {
+            FireSyncStartedEvent();
+            FireFinishedEvent(
+              DropboxSyncResult.NothingChanged,
+              "");
+            return;
+          }
+
           FireSyncStartedEvent();
 
           ThreadUtil.Execute(DownloadSingleFile);
@@ -473,6 +490,14 @@ namespace MemoPadCore.Model
           FileTimeDb.WriteLastModifiedTime(localpath,
                                            dn.LastModifiedUtc);
 
+          if (WorkspaceFileOp.IsPhotoMemoFile(localpath))
+          {
+            //
+            // Let's create thumbnail file.
+            //
+            Memo.CreateThumbBitmapFile(localpath);
+          }
+
           FireSyncSteppedEvent("Downloading...");
 
           ThreadUtil.Execute(DownloadSingleFile);
@@ -540,6 +565,7 @@ namespace MemoPadCore.Model
     UnableToReadFile,
     UnableToDeleteRemoteFile,
     UnknownError,
+    NothingChanged,
     Success
   }
 

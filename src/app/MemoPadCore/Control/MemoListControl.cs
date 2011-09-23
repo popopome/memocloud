@@ -131,7 +131,6 @@ namespace MemoPadCore.Control
         });
 
       ArrangeMemoControls();
-
       UpdateScrollRange();
 
       X = _beginx;
@@ -168,11 +167,7 @@ namespace MemoPadCore.Control
     /// </summary>
     void RemoveAllChildren()
     {
-      int cnt = this.Children.Count;
-      for (int i = cnt - 1; i >= 0; --i)
-      {
-        this.Children.RemoveAt(i);
-      }
+      this.Children.Clear();
     }
 
     /// <summary>

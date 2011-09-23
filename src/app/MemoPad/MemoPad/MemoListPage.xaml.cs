@@ -114,7 +114,7 @@ namespace MemoPad
       InitializeSyncMenu();
       InitializeNewMenu();
 
-      _syncbox.DoneButtonClicked += new EventHandler(OnSyncBoxDoneClicked);
+      _syncbox.DoneButtonClicked += new EventHandler<SyncBoxEventArgs>(OnSyncBoxDoneClicked);
     }
 
     #endregion CTOR
@@ -374,7 +374,8 @@ namespace MemoPad
     {
       ThreadUtil.UiCall(() =>
         {
-          if (e.Result != DropboxSyncResult.Success)
+          if (e.Result != DropboxSyncResult.Success
+            && e.Result != DropboxSyncResult.NothingChanged)
           {
             var errmsg =
               string.Format("{0}\nResult:{1}",
@@ -388,7 +389,7 @@ namespace MemoPad
             return;
           }
 
-          _syncbox.SyncFinished();
+          _syncbox.SyncFinished(e.Result);
         });
     }
 
@@ -468,9 +469,11 @@ namespace MemoPad
     /// </summary>
     /// <param name="sender">Event sender</param>
     /// <param name="e">Event parameter</param>
-    void OnSyncBoxDoneClicked(object sender, EventArgs e)
+    void OnSyncBoxDoneClicked(object sender, SyncBoxEventArgs e)
     {
-      Refresh();
+      if (e.SyncResult == DropboxSyncResult.Success)
+        Refresh();
+
       GoToVisualState(VS_NORMAL);
     }
 
@@ -506,10 +509,15 @@ namespace MemoPad
           NewTextMemo();
           break;
         case MNU_ID_NEW_GALLERY:
-          var task = new PhotoChooserTask();
-          task.Completed += new EventHandler<PhotoResult>(OnPhotoSelected);
-          task.ShowCamera = true;
-          task.Show();
+          var chooser = new PhotoChooserTask();
+          chooser.Completed += new EventHandler<PhotoResult>(OnPhotoSelected);
+          chooser.ShowCamera = true;
+          chooser.Show();
+          break;
+        case MNU_ID_NEW_CAMERA:
+          var cameratask = new CameraCaptureTask();
+          cameratask.Completed += new EventHandler<PhotoResult>(OnPhotoSelected);
+          cameratask.Show();
           break;
       }
     }

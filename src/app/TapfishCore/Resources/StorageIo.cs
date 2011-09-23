@@ -19,6 +19,7 @@ namespace TapfishCore.Resources
 {
   public class StorageIo
   {
+    const string LOGTAG = "[StorageIo]:";
 
     public static void NewFile(string path)
     {
@@ -71,11 +72,19 @@ namespace TapfishCore.Resources
 
       using (var stm = stg.OpenFile(path, FileMode.Open))
       {
+        if (stm.Length == 0)
+        {
+          Debug.WriteLine("{0}{1}", LOGTAG, "File is empty");
+          return "";
+        }
+
         using (var reader = new StreamReader(stm))
         {
-          var buf = new char[len];
-          int nread = reader.Read(buf, 0, buf.Length);
-          return new string(buf);
+          var text = reader.ReadToEnd();
+          if (text.Length < len)
+            return text;
+
+          return text.Substring(0, len);
         }
       }
     }
