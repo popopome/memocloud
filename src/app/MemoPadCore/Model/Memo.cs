@@ -91,7 +91,7 @@ namespace MemoPadCore.Model
     {
       FullBitmap = img;
       BitmapUtils.SaveBitmapToIso(this.FullPath, FullBitmap);
-      CreateThumbFile(FullPath, img);
+      Thumb = CreateThumbFile(FullPath, img);
       Kind = MemoKind.Photo;
     }
 
