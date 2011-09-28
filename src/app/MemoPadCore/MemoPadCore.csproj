@@ -48,6 +48,7 @@
       <HintPath>..\..\thirdparty\mvvm\GalaSoft.MvvmLight.WP7.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Phone" />
+    <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="Newtonsoft.Json.WindowsPhone, Version=4.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -78,6 +79,9 @@
     <Compile Include="Control\MiniMemoControlUtil.cs" />
     <Compile Include="Control\MiniPhotoMemoControl.cs" />
     <Compile Include="Control\MiniTextMemoControl.cs" />
+    <Compile Include="Control\PhotoViewerControl.xaml.cs">
+      <DependentUpon>PhotoViewerControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Control\SyncBox.xaml.cs">
       <DependentUpon>SyncBox.xaml</DependentUpon>
     </Compile>
@@ -103,6 +107,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Control\DropboxSignin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\PhotoViewerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

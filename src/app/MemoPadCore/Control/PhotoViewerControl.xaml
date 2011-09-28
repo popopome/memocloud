@@ -1,0 +1,43 @@
+﻿<UserControl
+    x:Class="MemoPadCore.Control.PhotoViewerControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="480" d:DesignWidth="480">
+    <UserControl.Resources>
+        <Storyboard x:Name="_sbCubicTimeLine"/>
+    </UserControl.Resources>
+
+    <Canvas
+        x:Name="LayoutRoot"
+        Background="Red">
+        <Image x:Name="_img" Stretch="None">
+            <toolkit:GestureService.GestureListener>
+                <toolkit:GestureListener
+                    PinchStarted="GestureListener_PinchStarted"
+                    PinchDelta="GestureListener_PinchDelta"
+                    PinchCompleted="GestureListener_PinchCompleted"
+                    DragStarted="GestureListener_DragStarted"
+                    DragDelta="GestureListener_DragDelta"
+                    DragCompleted="GestureListener_DragCompleted"
+                    DoubleTap="GestureListener_DoubleTap"
+                    />
+            </toolkit:GestureService.GestureListener>
+            <Image.RenderTransform>
+                <MatrixTransform
+                    x:Name="_trans"
+                    />
+            </Image.RenderTransform>
+        </Image>
+        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Background="#CC000000">
+            <TextBlock x:Name="_title" TextWrapping="Wrap" Text="TextBlock" FontFamily="Segoe WP SemiLight" Margin="5"/>
+        </Border>
+
+    </Canvas>
+</UserControl>

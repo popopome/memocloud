@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Net;
@@ -170,13 +171,18 @@ namespace TapfishCore.Resources
                     int maxw,
                     int maxh)
     {
-      var trans = Matrix44.SetRectToRect(
-        new Rect(0, 0, src.PixelWidth, src.PixelHeight),
-        new Rect(0, 0, maxw, maxh),
-        Stretch.Uniform);
+      Debug.Assert(src.PixelWidth > 0);
+      Debug.Assert(src.PixelHeight > 0);
 
-      var lt = trans.Transform(new Point(0, 0));
-      var rb = trans.Transform(new Point(src.PixelWidth, src.PixelHeight));
+      var m = Matrix33
+            .Create()
+            .SetRectToRect(
+              new Rect(0, 0, src.PixelWidth, src.PixelHeight),
+              new Rect(0, 0, maxw, maxh),
+              Stretch.Uniform);
+
+      var lt = m.Transform(0, 0);
+      var rb = m.Transform(src.PixelWidth, src.PixelHeight);
 
       var img = new Image
       {
