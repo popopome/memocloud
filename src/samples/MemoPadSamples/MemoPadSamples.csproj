@@ -184,6 +184,7 @@
     <Content Include="Images\menu\dropbox\dropbox-menu-item-signout.png" />
     <Content Include="Images\menu\dropbox\dropbox-menu-item-sync-selected.png" />
     <Content Include="Images\menu\dropbox\dropbox-menu-item-sync.png" />
+    <Content Include="Images\photoviewer\photo-rename-button.png" />
     <Content Include="Images\sample\a.jpg" />
     <Content Include="Images\text-editor\separator.png" />
     <Content Include="Images\text-editor\text-editor-end.png" />

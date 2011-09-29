@@ -15,9 +15,8 @@
     </UserControl.Resources>
 
     <Canvas
-        x:Name="LayoutRoot"
-        Background="Red">
-        <Image x:Name="_img" Stretch="None">
+        x:Name="LayoutRoot">
+        <Image x:Name="_img" Stretch="None" CacheMode="BitmapCache">
             <toolkit:GestureService.GestureListener>
                 <toolkit:GestureListener
                     PinchStarted="GestureListener_PinchStarted"
@@ -35,9 +34,6 @@
                     />
             </Image.RenderTransform>
         </Image>
-        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Background="#CC000000">
-            <TextBlock x:Name="_title" TextWrapping="Wrap" Text="TextBlock" FontFamily="Segoe WP SemiLight" Margin="5"/>
-        </Border>
 
     </Canvas>
 </UserControl>

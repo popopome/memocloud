@@ -20,6 +20,7 @@ namespace MemoPadCore.Control
   public partial class PhotoViewerControl : UserControl
   {
     const int FLICK_DURATION_IN_MILLIS = 700;
+    const int ZOOM_DURATION_IN_MILLIS = 300;
 
     #region Fields
 
@@ -110,26 +111,18 @@ namespace MemoPadCore.Control
 
     #endregion CTOR
 
-    void PhotoViewerControl_Loaded(object sender, RoutedEventArgs e)
-    {
-
-    }
-
     /// <summary>
     /// Build photo viewer
     /// </summary>
     /// <param name="title"></param>
     /// <param name="bmp"></param>
-    public void Build(
-                string title,
-                BitmapSource bmp)
+    public void Build(BitmapSource bmp)
     {
 
       Debug.Assert(bmp.PixelWidth > 0);
       Debug.Assert(bmp.PixelHeight > 0);
 
       _bmp = bmp;
-      _title.Text = title;
 
       if (this.ActualWidth != 0
         && this.ActualHeight != 0)
@@ -282,10 +275,18 @@ namespace MemoPadCore.Control
       var begin = _mat;
       var end = _mat;
       end.PostTranslate(offset.X, offset.Y);
-      BeginMatrixAnimation(begin, end);
+      BeginMatrixAnimation(begin, end, FLICK_DURATION_IN_MILLIS);
     }
 
-    void BeginMatrixAnimation(Matrix33 beginmat, Matrix33 endmat)
+    /// <summary>
+    /// Begin matrix animation
+    /// </summary>
+    /// <param name="beginmat">Source matrix</param>
+    /// <param name="endmat">Target matrix</param>
+    void BeginMatrixAnimation(
+                Matrix33 beginmat,
+                Matrix33 endmat,
+                int durationmillis)
     {
       _anibeginmat = beginmat;
       _aniendmat = endmat;
@@ -305,6 +306,9 @@ namespace MemoPadCore.Control
         _sbflick = new Storyboard();
         _sbflick.Children.Add(ani);
       }
+
+      var doubleani = _sbflick.Children[0] as DoubleAnimation;
+      doubleani.Duration = TimeSpan.FromMilliseconds(durationmillis);
 
       _sbflick.Begin();
     }
@@ -376,18 +380,11 @@ namespace MemoPadCore.Control
               .SetRectToRect(new Rect(0, 0, _bmp.PixelWidth, _bmp.PixelHeight),
                              new Rect(0, 0, 480, 800),
                              Stretch.UniformToFill);
-        /*var bbox = _mat.Transform(0, 0, _bmp.PixelWidth, _bmp.PixelHeight);
-        var cx = bbox.Width / 2;
-        var cy = bbox.Height / 2;
-        var m = _mat;
-        m.PostTranslate(-cx, -cy);
-        m.PostScale(1.5, 1.5);
-        m.PostTranslate(cx, cy);*/
-        BeginMatrixAnimation(_mat, m);
+        BeginMatrixAnimation(_mat, m, ZOOM_DURATION_IN_MILLIS);
       }
       else
       {
-        BeginMatrixAnimation(_mat, _fitmat);
+        BeginMatrixAnimation(_mat, _fitmat, ZOOM_DURATION_IN_MILLIS);
       }
 
     }

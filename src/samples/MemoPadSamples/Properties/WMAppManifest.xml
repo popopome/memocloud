@@ -19,8 +19,9 @@
       <!-- <DefaultTask  Name ="_default" NavigationPage="MemoListControlSamplePage.xaml"/> -->
       <!-- <DefaultTask  Name ="_default" NavigationPage="MemoSummaryControlSamplePage.xaml"/> -->
       <!-- <DefaultTask  Name ="_default" NavigationPage="PopupMenuSamplePage.xaml"/> -->
-      <DefaultTask Name="_default" NavigationPage="PhotoViewerControlSamplePage.xaml" />
-
+      <!-- <DefaultTask Name="_default" NavigationPage="PhotoViewerControlSamplePage.xaml" /> -->
+      <!-- <DefaultTask Name="_default" NavigationPage="PhotoViewerControlSamplePage.xaml" /> -->
+      <DefaultTask Name="_default" NavigationPage="MemoPad;component/PhotoViewerPage.xaml" />
     </Tasks>
     <Tokens>
       <PrimaryToken TokenID="MemoPadSamplesToken" TaskName="_default">

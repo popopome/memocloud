@@ -159,6 +159,16 @@ namespace TapfishCore.Resources
       return bmp;
     }
 
+    public static BitmapImage CreateBitmapBackground(string path)
+    {
+      var bmp = new BitmapImage
+      {
+        CreateOptions = BitmapCreateOptions.BackgroundCreation,
+        UriSource = new Uri(path, UriKind.Relative)
+      };
+      return bmp;
+    }
+
     /// <summary>
     /// Resize bitmap
     /// </summary>

@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using MemoPad;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using TapfishCore.Resources;
 
 namespace MemoPadSamples
 {
@@ -29,6 +30,9 @@ namespace MemoPadSamples
     /// </summary>
     public App()
     {
+      BitmapPool.AddBitmap(PhotoViewerPage.BMP_ID_RENAME_BUTTON,
+                           "Images/photoviewer/photo-rename-button.png");
+
       // Global handler for uncaught exceptions.
       UnhandledException += Application_UnhandledException;
 

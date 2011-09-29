@@ -82,6 +82,9 @@
     <Compile Include="Control\PhotoViewerControl.xaml.cs">
       <DependentUpon>PhotoViewerControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Control\RenameInputDialog.xaml.cs">
+      <DependentUpon>RenameInputDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Control\SyncBox.xaml.cs">
       <DependentUpon>SyncBox.xaml</DependentUpon>
     </Compile>
@@ -111,6 +114,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Control\PhotoViewerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\RenameInputDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
