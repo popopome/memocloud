@@ -10,6 +10,18 @@
     d:DesignHeight="800" d:DesignWidth="480">
 
     <Grid x:Name="LayoutRoot">
+    	<Rectangle Fill="#B2000000" Stroke="Black" GotFocus="OnGotFocus"/>
+
+    	<StackPanel VerticalAlignment="Top" Background="Black" Margin="0">
+    		<TextBlock TextWrapping="Wrap" Text="RENAME" FontSize="29.333" Margin="10,0,0,0"/>
+    		<TextBlock TextWrapping="Wrap" Text="Please enter your photo name" Margin="10,0,0,0"/>
+    		<TextBox x:Name="_newname" TextWrapping="Wrap" Text="TextBox" GotFocus="OnNewNameGotFocus" InputScope="FileName"/>
+    		<StackPanel Height="100" Orientation="Horizontal" HorizontalAlignment="Right">
+
+    			<Button x:Name="_okbutton" Content="OK" Margin="0,0,0,5" Click="OnOKClicked"/>
+    			<Button x:Name="_cancelbutton" Content="Cancel" d:LayoutOverrides="Height" Margin="0,0,0,5" Click="OnCancelClicked"/>
+    		</StackPanel>
+    	</StackPanel>
 
     </Grid>
 </UserControl>

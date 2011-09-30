@@ -176,10 +176,16 @@ namespace MemoPad
     /// <param name="e"></param>
     void OnMemoClicked(object sender, MemoClickedEventArgs e)
     {
-      Messenger.Default.Send<OpenDocumentMessage>(
-        new OpenDocumentMessage(e.Document));
+      Messenger.Default.Send<OpenMemoMessage>(
+        new OpenMemoMessage(e.Document));
 
-      Uri uri = new Uri("/TextEditorPage.xaml", UriKind.Relative);
+      Uri uri = null;
+
+      if (e.Document.IsTextMemo)
+        uri = new Uri("/TextEditorPage.xaml", UriKind.Relative);
+      else if (e.Document.IsPhotoMemo)
+        uri = new Uri("/PhotoViewerPage.xaml", UriKind.Relative);
+
       NavigationService.Navigate(uri);
     }
 

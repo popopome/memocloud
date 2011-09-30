@@ -70,7 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\AppSetting.cs" />
-    <Compile Include="Common\Messages\OpenDocumentMessage.cs" />
+    <Compile Include="Common\Messages\OpenMemoMessage.cs" />
     <Compile Include="Control\DropboxSignin.xaml.cs">
       <DependentUpon>DropboxSignin.xaml</DependentUpon>
     </Compile>

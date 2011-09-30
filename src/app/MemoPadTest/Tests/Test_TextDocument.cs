@@ -21,7 +21,7 @@ namespace MemoPadTest.Tests
     public void ChangeTitle_And_CheckIt()
     {
       var doc = new Memo("a.txt", MemoKind.Text);
-      doc.ChangeTitle("newtitle");
+      doc.RenameTo("newtitle");
       doc.Save();
 
       Assert.AreEqual(true, StorageIo.Exists("newtitle.txt"));

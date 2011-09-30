@@ -171,8 +171,8 @@ namespace MemoPad
       base.OnNavigatedTo(e);
 
       _vm = ViewModelLocator.TextEditorVm;
-      _title.Text = _vm.Doc.Title;
-      _text.Text = _vm.Doc.Text;
+      _title.Text = _vm.Memo.Title;
+      _text.Text = _vm.Memo.Text;
     }
 
     /// <summary>
@@ -185,7 +185,7 @@ namespace MemoPad
 
       _vm.UpdateAndSave(_title.Text.Trim(),
                         _text.Text);
-      _vm.Doc.IsRevised = true;
+      _vm.Memo.IsRevised = true;
     }
 
     /// <summary>
@@ -209,7 +209,7 @@ namespace MemoPad
     {
       var title = _title.Text.Trim();
       if (title.IsEmpty())
-        _title.Text = _vm.Doc.Title;
+        _title.Text = _vm.Memo.Title;
     }
 
     /// <summary>

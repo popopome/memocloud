@@ -104,7 +104,10 @@ namespace MemoPadCore.Model
         Text = StorageIo.ReadTextFile(FullPath) ?? "";
       else if (IsPhotoMemo)
       {
-
+        if (FullBitmap == null)
+        {
+          FullBitmap = BitmapUtils.LoadBitmapFromIso(FullPath, BitmapCreateOptions.None);
+        }
       }
     }
 
@@ -164,7 +167,7 @@ namespace MemoPadCore.Model
     /// Change title
     /// </summary>
     /// <param name="newtitle"></param>
-    public void ChangeTitle(string newtitle)
+    public void RenameTo(string newtitle)
     {
       if (newtitle == Title)
         return;
@@ -175,8 +178,9 @@ namespace MemoPadCore.Model
 
       var basepath = PathUtil.PathOnly(FullPath);
       var newpath =
-          string.Concat(PathUtil.MakePath(basepath, Title),
-                        AppSetting.TEXT_MEMO_EXT);
+          string.Concat(
+              PathUtil.MakePath(basepath, Title),
+              PathUtil.Extension(FullPath));
 
       WorkspaceFileOp.Rename(oldpath, newpath);
       FullPath = newpath;

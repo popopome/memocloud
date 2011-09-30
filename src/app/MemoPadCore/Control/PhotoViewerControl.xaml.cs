@@ -37,6 +37,8 @@ namespace MemoPadCore.Control
 
     Storyboard _sbflick;
 
+    GestureListener _gesturelistener;
+
     #endregion Fields
 
     #region AniTimeline DependencyProperty
@@ -90,6 +92,13 @@ namespace MemoPadCore.Control
     {
       InitializeComponent();
 
+      //
+      // GetGestureListener creates new gesture listener
+      // and attach it to _img.
+      // By design from Toolkit.
+      //
+      _gesturelistener = GestureService.GetGestureListener(_img);
+
       _subscription = Observable.FromEvent<SizeChangedEventHandler, SizeChangedEventArgs>(
         a =>
         {
@@ -118,9 +127,10 @@ namespace MemoPadCore.Control
     /// <param name="bmp"></param>
     public void Build(BitmapSource bmp)
     {
-
       Debug.Assert(bmp.PixelWidth > 0);
       Debug.Assert(bmp.PixelHeight > 0);
+
+      EnableTouch();
 
       _bmp = bmp;
 
@@ -386,7 +396,33 @@ namespace MemoPadCore.Control
       {
         BeginMatrixAnimation(_mat, _fitmat, ZOOM_DURATION_IN_MILLIS);
       }
+    }
 
+    public void EnableTouch()
+    {
+      DisableTouch();
+      _gesturelistener.PinchStarted += new EventHandler<PinchStartedGestureEventArgs>(GestureListener_PinchStarted);
+      _gesturelistener.PinchDelta += new EventHandler<PinchGestureEventArgs>(GestureListener_PinchDelta);
+      _gesturelistener.PinchCompleted += new EventHandler<PinchGestureEventArgs>(GestureListener_PinchCompleted);
+
+      _gesturelistener.DragStarted += new EventHandler<DragStartedGestureEventArgs>(GestureListener_DragStarted);
+      _gesturelistener.DragDelta += new EventHandler<DragDeltaGestureEventArgs>(GestureListener_DragDelta);
+      _gesturelistener.DragCompleted += new EventHandler<DragCompletedGestureEventArgs>(GestureListener_DragCompleted);
+
+      _gesturelistener.DoubleTap += new EventHandler<Microsoft.Phone.Controls.GestureEventArgs>(GestureListener_DoubleTap);
+    }
+
+    public void DisableTouch()
+    {
+      _gesturelistener.PinchStarted -= new EventHandler<PinchStartedGestureEventArgs>(GestureListener_PinchStarted);
+      _gesturelistener.PinchDelta -= new EventHandler<PinchGestureEventArgs>(GestureListener_PinchDelta);
+      _gesturelistener.PinchCompleted -= new EventHandler<PinchGestureEventArgs>(GestureListener_PinchCompleted);
+
+      _gesturelistener.DragStarted -= new EventHandler<DragStartedGestureEventArgs>(GestureListener_DragStarted);
+      _gesturelistener.DragDelta -= new EventHandler<DragDeltaGestureEventArgs>(GestureListener_DragDelta);
+      _gesturelistener.DragCompleted -= new EventHandler<DragCompletedGestureEventArgs>(GestureListener_DragCompleted);
+
+      _gesturelistener.DoubleTap -= new EventHandler<Microsoft.Phone.Controls.GestureEventArgs>(GestureListener_DoubleTap);
     }
   }
 }

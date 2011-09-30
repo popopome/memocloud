@@ -89,6 +89,7 @@
     <Compile Include="PhotoViewerPage.xaml.cs">
       <DependentUpon>PhotoViewerPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PhotoViewerPageViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextEditorPage.xaml.cs">
       <DependentUpon>TextEditorPage.xaml</DependentUpon>

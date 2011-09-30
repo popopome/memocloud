@@ -17,17 +17,6 @@
     <Canvas
         x:Name="LayoutRoot">
         <Image x:Name="_img" Stretch="None" CacheMode="BitmapCache">
-            <toolkit:GestureService.GestureListener>
-                <toolkit:GestureListener
-                    PinchStarted="GestureListener_PinchStarted"
-                    PinchDelta="GestureListener_PinchDelta"
-                    PinchCompleted="GestureListener_PinchCompleted"
-                    DragStarted="GestureListener_DragStarted"
-                    DragDelta="GestureListener_DragDelta"
-                    DragCompleted="GestureListener_DragCompleted"
-                    DoubleTap="GestureListener_DoubleTap"
-                    />
-            </toolkit:GestureService.GestureListener>
             <Image.RenderTransform>
                 <MatrixTransform
                     x:Name="_trans"

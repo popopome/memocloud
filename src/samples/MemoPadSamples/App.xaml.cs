@@ -10,7 +10,10 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GalaSoft.MvvmLight.Messaging;
 using MemoPad;
+using MemoPadCore.Common.Messages;
+using MemoPadCore.Model;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using TapfishCore.Resources;
@@ -63,6 +66,11 @@ namespace MemoPadSamples
       }
 
       ViewModelLocator.Initialize();
+
+      var memo = new Memo("photomemo-00.jpg", MemoKind.Photo);
+      memo.NewPhotoMemo(BitmapUtils.CreateBitmapImmediately("Images/sample/a.jpg"));
+
+      Messenger.Default.Send(new OpenMemoMessage(memo));
     }
 
     // Code to execute when the application is launching (eg, from Start)

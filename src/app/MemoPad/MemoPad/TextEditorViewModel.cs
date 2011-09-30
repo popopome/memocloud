@@ -17,25 +17,31 @@ namespace MemoPad
 {
   public class TextEditorViewModel
   {
-    public Memo Doc { get; private set; }
+    public Memo Memo { get; private set; }
 
     /// <summary>
     /// CTOR
     /// </summary>
     public TextEditorViewModel()
     {
-      Messenger.Default.Register<OpenDocumentMessage>(this,
-                                                      OnOpenDocument);
+      Messenger.Default.Register<OpenMemoMessage>(this,
+                                                      OnOpenMemoMessage);
     }
 
     /// <summary>
     /// Open document message
     /// </summary>
     /// <param name="msg">Message from others</param>
-    void OnOpenDocument(OpenDocumentMessage msg)
+    void OnOpenMemoMessage(OpenMemoMessage msg)
     {
-      Doc = msg.Doc;
-      Doc.Open();
+      //
+      // Only accept text memo
+      //
+      if (msg.Memo.IsTextMemo == false)
+        return;
+
+      Memo = msg.Memo;
+      Memo.Open();
     }
 
     /// <summary>
@@ -46,13 +52,13 @@ namespace MemoPad
     public void UpdateAndSave(string title, string text)
     {
       if (title.IsEmpty())
-        title = Doc.Title;
+        title = Memo.Title;
 
-      string oldtitle = Doc.Title;
-      string oldtext = Doc.Text;
+      string oldtitle = Memo.Title;
+      string oldtext = Memo.Text;
 
       bool ismodified = false;
-      if (oldtitle != Doc.Title)
+      if (oldtitle != Memo.Title)
         ismodified = true;
       else if (oldtext != text)
         ismodified = true;
@@ -60,12 +66,12 @@ namespace MemoPad
       if (ismodified == false)
         return;
 
-      Doc.Text = text;
-      if (Doc.Title != title)
-        Doc.Delete();
+      Memo.Text = text;
+      if (Memo.Title != title)
+        Memo.Delete();
 
-      Doc.ChangeTitle(title);
-      Doc.Save();
+      Memo.RenameTo(title);
+      Memo.Save();
     }
   }
 }

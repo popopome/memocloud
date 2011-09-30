@@ -13,17 +13,17 @@ using MemoPadCore.Model;
 
 namespace MemoPadCore.Common.Messages
 {
-    public class OpenDocumentMessage : NotificationMessage
-    {
-        public Memo Doc { get; private set; }
+  public class OpenMemoMessage : NotificationMessage
+  {
+    public Memo Memo { get; private set; }
 
-        /// <summary>
-        /// CTOR
-        /// </summary>
-        public OpenDocumentMessage(Memo doc)
-            : base("open-document-message")
-        {
-            this.Doc = doc;
-        }
+    /// <summary>
+    /// CTOR
+    /// </summary>
+    public OpenMemoMessage(Memo memo)
+      : base("open-document-message")
+    {
+      this.Memo = memo;
     }
+  }
 }

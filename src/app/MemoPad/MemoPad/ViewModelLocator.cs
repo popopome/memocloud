@@ -16,12 +16,14 @@ namespace MemoPad
     public static TextEditorViewModel TextEditorVm;
     public static MemoListPageViewModel MemoListPageVm;
     public static WorkspaceListPageViewModel WorkspaceListPageVm;
+    public static PhotoViewerPageViewModel PhotoViewerPageVm;
 
     static public void Initialize()
     {
       WorkspaceListPageVm = new WorkspaceListPageViewModel();
       TextEditorVm = new TextEditorViewModel();
       MemoListPageVm = new MemoListPageViewModel();
+      PhotoViewerPageVm = new PhotoViewerPageViewModel();
     }
 
   }
