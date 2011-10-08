@@ -137,6 +137,7 @@ namespace MemoPadCore.Control
         .Where(args => args.PropertyName == Memo.ThumbPropertyName)
         .Select(x => memo.Thumb)
         .Where(thumb => thumb != null)
+        .ObserveOnDispatcher()
         .Subscribe(thumb =>
         {
           _image.Source = thumb;

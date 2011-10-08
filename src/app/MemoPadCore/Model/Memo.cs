@@ -141,18 +141,19 @@ namespace MemoPadCore.Model
     public void OpenThumb()
     {
       var thumbpath = ThumbPathFromFullPath(FullPath);
-      BitmapUtils.LoadBitmapFromIsoAsync(
+
+      BitmapBackgroundLoader.LoadIsoBitmapAsync(
         thumbpath,
-        (bmp) =>
+        (result) =>
         {
-          if (null == bmp)
+          if (result.Succeeded == false)
           {
             FullBitmap = BitmapUtils.LoadBitmapFromIso(FullPath, BitmapCreateOptions.None);
             Thumb = CreateThumbFile(FullPath, FullBitmap);
             return;
           }
 
-          Thumb = bmp;
+          Thumb = result.Bmp;
         });
 
       /*Thumb = BitmapUtils.LoadBitmapFromIso(thumbpath);

@@ -25,11 +25,13 @@ namespace TapfishCore.Resources
 
   public class BitmapBackgroundLoader
   {
-    static object _locker;
+    const int SLEEP_TIME = 50;
+    const int MAX_SIMULTANEOUS_LOADING_COUNT = 1;
+
     static Subject<BitmapRequest> _requestob;
     static Subject<BitmapRequest> _streamob;
     static Subject<BitmapRequest> _requestdoneob;
-    static bool _exitflag;
+    static int _numprocessing;
 
     public struct LoadingResult
     {
@@ -106,19 +108,36 @@ namespace TapfishCore.Resources
 
     static BitmapBackgroundLoader()
     {
+      _numprocessing = 0;
+
       _requestob = new Subject<BitmapRequest>();
       _requestob
             .ObserveOn(Scheduler.ThreadPool)
+            .Do(x =>
+              {
+                while (_numprocessing >= MAX_SIMULTANEOUS_LOADING_COUNT)
+                {
+                  Thread.Sleep(SLEEP_TIME);
+                }
+              })
+            .Do(x => ++_numprocessing)
+            .Do(x => Thread.Sleep(SLEEP_TIME))
+            .Do(x => Debug.WriteLine("_requestob: Received request - {0}", x.IsoPath))
             .Subscribe(GenerateStreamAndPush);
 
       _streamob = new Subject<BitmapRequest>();
       _streamob
+        .Do(x => Thread.Sleep(SLEEP_TIME))
+        .Do(x => Debug.WriteLine("_streamob: Received request - {0}", x.IsoPath))
         .ObserveOnDispatcher()
         .Subscribe(GenerateBackgroundBitmapLoadingAndPush);
 
       _requestdoneob = new Subject<BitmapRequest>();
       _requestdoneob
         .ObserveOn(Scheduler.ThreadPool)
+        .Do(x => Thread.Sleep(SLEEP_TIME))
+        .Do(x => Debug.WriteLine("_requestdoneob: Received request - {0}", x.IsoPath))
+        .Do(x => --_numprocessing)
         .Subscribe(NotifyJobDone);
     }
 
@@ -136,6 +155,22 @@ namespace TapfishCore.Resources
         Id = Guid.NewGuid().ToString(),
         Handle = new BooleanDisposable(),
         ResourcePath = path,
+        Callback = callback
+      };
+
+      _requestob.OnNext(req);
+      return req.Handle;
+    }
+
+    public static IDisposable LoadIsoBitmapAsync(
+              string path,
+      Action<LoadingResult> callback)
+    {
+      var req = new BitmapRequest
+      {
+        Id = Guid.NewGuid().ToString(),
+        Handle = new BooleanDisposable(),
+        IsoPath = path,
         Callback = callback
       };
 
@@ -232,9 +267,11 @@ namespace TapfishCore.Resources
 
       req.BmpLoadingSubscription =
         Observable.Amb(opensucceeded, openfailed)
+                  .Do(x => Debug.WriteLine("bitmap loaded: Received request - {0}", req.IsoPath))
                   .Subscribe
                     (args =>
                       {
+                        --_numprocessing;
                         if (req.Handle.IsDisposed)
                         {
                           req.CleanUp();
@@ -260,6 +297,7 @@ namespace TapfishCore.Resources
                       }
                     );
 
+      ++_numprocessing;
       req.Bmp = bmp;
       bmp.SetSource(req.Stream);
     }
