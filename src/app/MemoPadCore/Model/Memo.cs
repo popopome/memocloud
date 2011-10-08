@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using GalaSoft.MvvmLight;
 using MemoPadCore.Common;
 using TapfishCore.Platform;
 using TapfishCore.Resources;
@@ -19,11 +20,12 @@ namespace MemoPadCore.Model
   /// <summary>
   /// This class represents TEXT document object.
   /// </summary>
-  public class Memo
+  public class Memo : ViewModelBase
   {
     const string THUMB_EXTENSION = ".thumb";
     const int MAX_THUMB_WIDTH = 120;
     const int MAX_THUMB_HEIGHT = 120;
+    public const string ThumbPropertyName = "Thumb";
 
     public string Title { get; private set; }
     public string Text { get; set; }
@@ -31,7 +33,20 @@ namespace MemoPadCore.Model
     public string FullPath { get; private set; }
     public string Summary { get; set; }
     public bool IsRevised { get; set; }
-    public BitmapSource Thumb { get; private set; }
+
+    public BitmapSource _thumb;
+    public BitmapSource Thumb
+    {
+      get
+      {
+        return _thumb;
+      }
+      private set
+      {
+        _thumb = value;
+        base.RaisePropertyChanged(ThumbPropertyName);
+      }
+    }
     public BitmapSource FullBitmap { get; private set; }
     public MemoKind Kind { get; private set; }
     public bool IsTextMemo
@@ -126,12 +141,26 @@ namespace MemoPadCore.Model
     public void OpenThumb()
     {
       var thumbpath = ThumbPathFromFullPath(FullPath);
-      Thumb = BitmapUtils.LoadBitmapFromIso(thumbpath);
+      BitmapUtils.LoadBitmapFromIsoAsync(
+        thumbpath,
+        (bmp) =>
+        {
+          if (null == bmp)
+          {
+            FullBitmap = BitmapUtils.LoadBitmapFromIso(FullPath, BitmapCreateOptions.None);
+            Thumb = CreateThumbFile(FullPath, FullBitmap);
+            return;
+          }
+
+          Thumb = bmp;
+        });
+
+      /*Thumb = BitmapUtils.LoadBitmapFromIso(thumbpath);
       if (null == Thumb)
       {
         FullBitmap = BitmapUtils.LoadBitmapFromIso(FullPath, BitmapCreateOptions.None);
         Thumb = CreateThumbFile(FullPath, FullBitmap);
-      }
+      }*/
     }
 
     /// <summary>

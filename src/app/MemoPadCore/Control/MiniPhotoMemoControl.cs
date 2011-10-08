@@ -1,6 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Net;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -119,7 +122,26 @@ namespace MemoPadCore.Control
         return;
 
       memo.Open();
-      _image.Source = memo.Thumb;
+
+      if (memo.Thumb != null)
+      {
+        _image.Source = memo.Thumb;
+      }
+      else
+      {
+        Observable
+        .FromEvent<PropertyChangedEventHandler, PropertyChangedEventArgs>(
+            a => new PropertyChangedEventHandler((x, xe) => a(xe)),
+            h => memo.PropertyChanged += h,
+            h => memo.PropertyChanged -= h)
+        .Where(args => args.PropertyName == Memo.ThumbPropertyName)
+        .Select(x => memo.Thumb)
+        .Where(thumb => thumb != null)
+        .Subscribe(thumb =>
+        {
+          _image.Source = thumb;
+        });
+      }
     }
 
     /// <summary>

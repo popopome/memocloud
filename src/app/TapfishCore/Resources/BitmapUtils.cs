@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.IsolatedStorage;
@@ -14,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Xna.Framework.Media;
 using TapfishCore.Math;
+using TapfishCore.Platform;
 
 namespace TapfishCore.Resources
 {
@@ -82,6 +84,54 @@ namespace TapfishCore.Resources
       StorageIo.WriteBinaryFile(path, raw);
     }
 
+    static Dictionary<int, BitmapImage> _asyncbmpholder
+      = new Dictionary<int, BitmapImage>();
+
+    public static void LoadBitmapFromIsoAsync(
+              string path,
+              Action<BitmapImage> callback)
+    {
+      ThreadUtil.Execute(() =>
+        {
+          byte[] raw = StorageIo.ReadBinaryFile(path);
+          if (null == raw)
+          {
+            callback(null);
+            return;
+          }
+
+          var stm = new MemoryStream();
+          stm.Write(raw, 0, raw.Length);
+          stm.Seek(0, SeekOrigin.Begin);
+
+          ThreadUtil.UiCall(() =>
+            {
+              var img = new BitmapImage
+              {
+                CreateOptions = BitmapCreateOptions.BackgroundCreation
+              };
+
+              img.ImageOpened += (x, xe) =>
+              {
+                callback(img);
+                _asyncbmpholder.Remove(img.GetHashCode());
+              };
+              img.ImageFailed += (x, xe) =>
+                {
+                  callback(null);
+                  _asyncbmpholder.Remove(img.GetHashCode());
+                };
+
+              lock (_asyncbmpholder)
+              {
+                _asyncbmpholder.Add(img.GetHashCode(), img);
+              }
+
+              img.SetSource(stm);
+            });
+        });
+    }
+
     public static BitmapImage LoadBitmapFromIso(string path)
     {
       return LoadBitmapFromIso(path,
@@ -109,6 +159,26 @@ namespace TapfishCore.Resources
         img.SetSource(stm);
         return img;
       }
+    }
+
+    public static BitmapImage LoadBitmapFromResource(string path,
+      BitmapCreateOptions options)
+    {
+      var stminfo = Application.GetResourceStream(new Uri(path, UriKind.Relative));
+      if (null == stminfo
+        || null == stminfo.Stream)
+        return null;
+
+      using (var stm = stminfo.Stream)
+      {
+        var bmp = new BitmapImage
+        {
+          CreateOptions = options
+        };
+        bmp.SetSource(stm);
+        return bmp;
+      }
+
     }
 
     public static BitmapSource RotateBitmap(BitmapSource bmp, double angle)
