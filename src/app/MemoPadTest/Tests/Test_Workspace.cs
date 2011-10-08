@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using MemoPadCore.Model;
+using Microsoft.Silverlight.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TapfishCore.Platform;
 using TapfishCore.Resources;
@@ -43,6 +44,16 @@ namespace MemoPadTest.Tests
 
       StorageIo.DeleteDir(TEST_PATH2);
       Assert.AreEqual(false, StorageIo.DirExists(TEST_PATH2));
+    }
+
+    [TestMethod]
+    [Tag("x")]
+    public void Create()
+    {
+      var ws = Workspace.Create("aaa");
+      Assert.AreEqual(Workspace.WORKSPACE_BASEPATH_BS + "aaa", ws.GetPath());
+      ws.Delete();
+      Assert.AreEqual(false, Workspace.Exists("aaa"));
     }
 
     [TestMethod]

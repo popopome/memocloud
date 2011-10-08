@@ -25,15 +25,26 @@ namespace MemoPadCore.Model
   public class Workspace
   {
     const string LOGTAG = "[Workspace]:";
-    const string WORKSPACE_BASEPATH = "\\workspaces";
+    public const string WORKSPACE_BASEPATH = "\\workspaces";
+    public const string WORKSPACE_BASEPATH_BS = WORKSPACE_BASEPATH + "\\";
     const string CONFIG_FILE_NAME = "cfg";
+    const string THUMB_FILE_NAME = "thumb.jpg";
 
     public string Name { get; set; }
     public string DropBoxToken { get; set; }
     public string DropBoxSecret { get; set; }
     public string DropBoxPath { get; set; }
 
+    public DateTime LastUpdated { get; set; }
     public string SyncHashCode { get; set; }
+    public BitmapImage Thumb { get; private set; }
+    public string ThumbPath
+    {
+      get
+      {
+        return PathUtil.MakePath(_path, THUMB_FILE_NAME);
+      }
+    }
 
     public bool HasLastSyncHashCode
     {
@@ -51,6 +62,29 @@ namespace MemoPadCore.Model
     }
 
     string _path;
+
+    /// <summary>
+    /// Create workspace
+    /// </summary>
+    /// <param name="name">Workspace name</param>
+    /// <returns>Workspace object</returns>
+    public static Workspace Create(string name)
+    {
+      var ws = new Workspace();
+      ws.Open(WORKSPACE_BASEPATH_BS + name);
+      return ws;
+    }
+
+    /// <summary>
+    /// Check given workspace exists
+    /// </summary>
+    /// <param name="name">Name of workspace</param>
+    /// <returns>True if exists, otherwise False</returns>
+    public static bool Exists(string name)
+    {
+      var path = WORKSPACE_BASEPATH_BS + name;
+      return StorageIo.DirExists(path);
+    }
 
     /// <summary>
     /// Open workspace
@@ -287,6 +321,32 @@ namespace MemoPadCore.Model
       };
       memo.NewPhotoMemo(bmp);
       return memo;
+    }
+
+    /// <summary>
+    /// Load thumb
+    /// </summary>
+    /// <param name="callback">Callback</param>
+    /// <returns>Handle for the loading action. If Dispose() is called,
+    /// loading will be canceled.</returns>
+    public IDisposable LoadThumb(Action callback)
+    {
+      return BitmapBackgroundLoader.LoadIsoBitmapAsync(
+        ThumbPath,
+        (result) =>
+        {
+          if (result.Succeeded)
+            callback();
+        });
+    }
+
+    /// <summary>
+    /// Delete workspace
+    /// </summary>
+    /// <param name="name">Workspace name</param>
+    public void Delete()
+    {
+      StorageIo.DeleteDir(GetPath());
     }
   }
 }

@@ -88,6 +88,9 @@
     <Compile Include="Control\SyncBox.xaml.cs">
       <DependentUpon>SyncBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Control\WorkspaceThumbControl.xaml.cs">
+      <DependentUpon>WorkspaceThumbControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\DropboxSync.cs" />
     <Compile Include="Model\FileModifiedTimeDb.cs" />
     <Compile Include="Model\MemoKind.cs" />
@@ -122,6 +125,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Control\SyncBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\WorkspaceThumbControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

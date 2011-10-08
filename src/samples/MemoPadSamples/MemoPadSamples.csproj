@@ -100,6 +100,9 @@
     <Compile Include="TapfishCoreTestPage.xaml.cs">
       <DependentUpon>TapfishCoreTestPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WorkspaceThumbControlSamplePage.xaml.cs">
+      <DependentUpon>WorkspaceThumbControlSamplePage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -143,6 +146,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TapfishCoreTestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WorkspaceThumbControlSamplePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

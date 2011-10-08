@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="MemoPadCore.Control.WorkspaceThumbControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="600" d:DesignWidth="400">
+
+    <Grid x:Name="LayoutRoot">
+    	<StackPanel>
+
+    		<Image x:Name="_img" Height="400"/>
+    		<TextBlock x:Name="_name" TextWrapping="Wrap" Text="WorkspaceName" HorizontalAlignment="Center" Margin="0,5,0,0" FontSize="26.667" FontFamily="Segoe WP Semibold"/>
+    		<TextBlock x:Name="_lastupdated" TextWrapping="Wrap" Text="Last updated: " HorizontalAlignment="Center" FontSize="16" FontFamily="Segoe WP Light"/>
+    	</StackPanel>
+
+    </Grid>
+</UserControl>
