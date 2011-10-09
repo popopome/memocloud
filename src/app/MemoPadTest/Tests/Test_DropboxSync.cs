@@ -30,13 +30,13 @@ namespace MemoPadTest.Tests
         (token, secret) =>
         {
           Workspace ws = new Workspace();
-          ws.Open("/memopad");
+          ws.Open("memopad");
           ws.DropBoxToken = token;
           ws.DropBoxSecret = secret;
 
-          StorageIo.WriteTextFile("/memopad/a.txt", "THIS IS MY TEST");
-          StorageIo.WriteTextFile("/memopad/b.txt", "THIS IS MY TEST");
-          StorageIo.WriteTextFile("/memopad/c.txt", "THIS IS MY TEST");
+          StorageIo.WriteTextFile(Workspace.WORKSPACE_BASEPATH + "/memopad/a.txt", "THIS IS MY TEST");
+          StorageIo.WriteTextFile(Workspace.WORKSPACE_BASEPATH + "/memopad/b.txt", "THIS IS MY TEST");
+          StorageIo.WriteTextFile(Workspace.WORKSPACE_BASEPATH + "/memopad/c.txt", "THIS IS MY TEST");
 
           DropboxSync sync = new DropboxSync(ws);
           sync.Finished += (x, xe) =>

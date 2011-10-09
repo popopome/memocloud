@@ -45,10 +45,8 @@ namespace MemoPad
                  .ToList();
       foreach (var p in paths)
       {
-        var fullpath = PathUtil.MakePath(AppSetting.WORKSPACE_BASE_PATH,
-                                         p);
         var ws = new Workspace();
-        ws.Open(fullpath);
+        ws.Open(p);
         Workspaces.Add(ws);
       }
 
@@ -62,9 +60,7 @@ namespace MemoPad
     void CreateDefaultWorkspace()
     {
       var ws = new Workspace();
-      ws.Open(
-        PathUtil.MakePath(AppSetting.WORKSPACE_BASE_PATH,
-                          AppSetting.DEFAULT_WORKSPACE_NAME));
+      ws.Open(AppSetting.DEFAULT_WORKSPACE_NAME);
       ws.SaveConfigData();
       Workspaces.Add(ws);
     }

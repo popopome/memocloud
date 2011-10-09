@@ -23,7 +23,7 @@ namespace MemoPadSamples
 
       var vm = ViewModelLocator.MemoListPageVm;
       var ws = new Workspace();
-      ws.Open("/workspaces/memoit");
+      ws.Open("memoit");
       vm.OpenWorkspace(ws);
 
       _memolist.Build(vm.MemoList);

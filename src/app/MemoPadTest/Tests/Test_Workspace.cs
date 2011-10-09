@@ -22,28 +22,15 @@ namespace MemoPadTest.Tests
     [TestMethod]
     public void Workspace_InitialCreation()
     {
-      const string TEST_PATH = "//workspaces//abcdefg";
+      const string TEST_NAME = "abcdefg";
       Workspace w = new Workspace();
-      w.Open(TEST_PATH);
+      w.Open(TEST_NAME);
 
       Assert.AreEqual("abcdefg", w.Name);
       Assert.AreEqual("/abcdefg", w.DropBoxPath);
-      Assert.AreEqual(true, StorageIo.DirExists(TEST_PATH));
-
-      StorageIo.DeleteDir(TEST_PATH);
-      Assert.AreEqual(false, StorageIo.DirExists(TEST_PATH));
-
-      const string TEST_PATH2 = "//workspaces\\abcdefg";
-
-      var w2 = new Workspace();
-      w2.Open(TEST_PATH2);
-
-      Assert.AreEqual("abcdefg", w2.Name);
-      Assert.AreEqual("/abcdefg", w2.DropBoxPath);
-      Assert.AreEqual(true, StorageIo.DirExists(TEST_PATH2));
-
-      StorageIo.DeleteDir(TEST_PATH2);
-      Assert.AreEqual(false, StorageIo.DirExists(TEST_PATH2));
+      Assert.AreEqual(true, Workspace.Exists(TEST_NAME));
+      w.Delete();
+      Assert.AreEqual(false, Workspace.Exists(TEST_NAME));
     }
 
     [TestMethod]
@@ -81,7 +68,7 @@ namespace MemoPadTest.Tests
                           string newname)
     {
       var w = new Workspace();
-      w.Open(localpath);
+      w.Open(PathUtil.NameOnly(localpath));
 
       w.ChangeDropboxPath(dropboxpath);
       Assert.AreEqual(dropboxpath, w.DropBoxPath);

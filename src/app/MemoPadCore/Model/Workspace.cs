@@ -71,7 +71,7 @@ namespace MemoPadCore.Model
     public static Workspace Create(string name)
     {
       var ws = new Workspace();
-      ws.Open(WORKSPACE_BASEPATH_BS + name);
+      ws.Open(name);
       return ws;
     }
 
@@ -90,10 +90,10 @@ namespace MemoPadCore.Model
     /// Open workspace
     /// </summary>
     /// <param name="name">Workspace name</param>
-    public void Open(string path)
+    public void Open(string name)
     {
       SyncHashCode = "";
-      _path = path;
+      _path = WORKSPACE_BASEPATH_BS + name;
       StorageIo.EnsureDir(_path);
 
       //
