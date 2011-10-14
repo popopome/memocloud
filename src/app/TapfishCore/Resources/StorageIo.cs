@@ -110,6 +110,27 @@ namespace TapfishCore.Resources
     }
 
     /// <summary>
+    /// Read binary from resource
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
+    public static byte[] ReadBinaryFromResource(string path)
+    {
+      var stminfo = Application.GetResourceStream(new Uri(path, UriKind.Relative));
+      if (null == stminfo)
+        return null;
+
+      var stm = stminfo.Stream;
+      if (null == stm)
+        return null;
+
+      byte[] buffer = new byte[stm.Length];
+      stm.Read(buffer, 0, buffer.Length);
+      return buffer;
+
+    }
+
+    /// <summary>
     /// Read binary file
     /// </summary>
     /// <param name="path"></param>

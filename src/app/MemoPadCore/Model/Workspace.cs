@@ -336,7 +336,10 @@ namespace MemoPadCore.Model
         (result) =>
         {
           if (result.Succeeded)
-            callback();
+          {
+            Thumb = result.Bmp;
+            ThreadUtil.UiCall(callback);
+          }
         });
     }
 

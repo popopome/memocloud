@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using MemoPadCore.Model;
 using Microsoft.Phone.Controls;
+using TapfishCore.Resources;
 
 namespace MemoPadSamples
 {
@@ -20,8 +21,11 @@ namespace MemoPadSamples
     {
       InitializeComponent();
 
-      var ws = new Workspace();
+      var ws = Workspace.Create("test-myworkspace");
+      byte[] buf = StorageIo.ReadBinaryFromResource("Images/sample/a.jpg");
+      StorageIo.WriteBinaryFile(ws.ThumbPath, buf);
 
+      _wsthumb.OpenWorkspace(ws);
     }
   }
 }

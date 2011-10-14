@@ -12,7 +12,7 @@
     <Grid x:Name="LayoutRoot">
     	<StackPanel>
 
-    		<Image x:Name="_img" Height="400"/>
+    		<Image x:Name="_img" Height="400" Width="400"/>
     		<TextBlock x:Name="_name" TextWrapping="Wrap" Text="WorkspaceName" HorizontalAlignment="Center" Margin="0,5,0,0" FontSize="26.667" FontFamily="Segoe WP Semibold"/>
     		<TextBlock x:Name="_lastupdated" TextWrapping="Wrap" Text="Last updated: " HorizontalAlignment="Center" FontSize="16" FontFamily="Segoe WP Light"/>
     	</StackPanel>

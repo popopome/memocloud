@@ -37,5 +37,18 @@ namespace MemoPadTest.Tests
           EnqueueTestComplete();
         });
     }
+
+    [TestMethod]
+    [Asynchronous]
+    [Tag("bmpbkgnd")]
+    public void LoadNonExistFile()
+    {
+      BitmapBackgroundLoader.LoadIsoBitmapAsync("no-exist-file.jpg",
+        result =>
+        {
+          Assert.AreEqual(false, result.Succeeded);
+          EnqueueTestComplete();
+        });
+    }
   }
 }

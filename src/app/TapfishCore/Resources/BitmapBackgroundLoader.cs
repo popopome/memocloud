@@ -227,6 +227,16 @@ namespace TapfishCore.Resources
       if (string.IsNullOrEmpty(req.IsoPath) == false)
       {
         byte[] buf = StorageIo.ReadBinaryFile(req.IsoPath);
+        if (null == buf)
+        {
+          Debug.WriteLine("Unable to read a file:{0}", req.IsoPath);
+          req.Stream = null;
+          req.Succeeded = false;
+          req.ErrorMessage = "Unable to read file";
+
+          _requestdoneob.OnNext(req);
+          return;
+        }
         req.Stream = new MemoryStream(buf);
         _streamob.OnNext(req);
         return;
